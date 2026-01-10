@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TripleThink - Narrative Construction System</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/design-system.css">
+  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/screens.css">
+  <link rel="stylesheet" href="styles/visualizations.css">
+
+  <!-- External libraries -->
+  <script src="lib/d3.min.js" defer></script>
+  <script src="lib/vis.min.js" defer></script>
+
+  <!-- Application scripts -->
+  <script src="js/utils/validators.js" defer></script>
+  <script src="js/utils/formatters.js" defer></script>
+  <script src="js/utils/toast.js" defer></script>
+  <script src="js/utils/shortcuts.js" defer></script>
+  <script src="js/api-client.js" defer></script>
+  <script src="js/state.js" defer></script>
+  <script src="js/router.js" defer></script>
+  <script src="js/components/entity-list.js" defer></script>
+  <script src="js/components/entity-editor.js" defer></script>
+  <script src="js/components/metadata-modal.js" defer></script>
+  <script src="js/components/timeline-view.js" defer></script>
+  <script src="js/components/knowledge-editor.js" defer></script>
+  <script src="js/components/fiction-manager.js" defer></script>
+  <script src="js/components/validation-panel.js" defer></script>
+  <script src="js/screens/dashboard.js" defer></script>
+  <script src="js/screens/entities.js" defer></script>
+  <script src="js/screens/timeline.js" defer></script>
+  <script src="js/screens/narrative.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Main App Container -->
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>TripleThink</h1>
+        <p class="text-gray" style="font-size: var(--font-size-xs); margin: 0;">Narrative Construction</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#dashboard" class="nav-item active" data-route="dashboard">
+          <span class="nav-item-icon">📊</span>
+          Dashboard
+        </a>
+        <a href="#timeline" class="nav-item" data-route="timeline">
+          <span class="nav-item-icon">⏱️</span>
+          Timeline
+        </a>
+        <a href="#entities" class="nav-item" data-route="entities">
+          <span class="nav-item-icon">📦</span>
+          Entities
+        </a>
+        <a href="#characters" class="nav-item" data-route="characters">
+          <span class="nav-item-icon">👤</span>
+          Characters
+        </a>
+        <a href="#fictions" class="nav-item" data-route="fictions">
+          <span class="nav-item-icon">🎭</span>
+          Fictions
+        </a>
+        <a href="#narrative" class="nav-item" data-route="narrative">
+          <span class="nav-item-icon">📖</span>
+          Narrative Structure
+        </a>
+        <a href="#validation" class="nav-item" data-route="validation">
+          <span class="nav-item-icon">✓</span>
+          Validation
+        </a>
+      </nav>
+
+      <div style="padding: var(--space-4); border-top: 1px solid var(--color-gray-200);">
+        <button class="btn btn-secondary" style="width: 100%;" id="export-btn">
+          Export Project
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="content-header">
+        <div>
+          <h1 id="screen-title">Dashboard</h1>
+          <p class="text-gray" id="screen-subtitle">Project Overview</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <button class="btn btn-secondary btn-sm" id="search-btn">
+            <span>Search</span>
+            <kbd>/</kbd>
+          </button>
+          <button class="btn btn-primary" id="new-entity-btn">
+            + New Entity
+          </button>
+        </div>
+      </header>
+
+      <div class="content-body" id="screen-container">
+        <!-- Dynamic content loaded here -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Entity Editor Modal -->
+  <div class="modal-overlay hidden" id="entity-modal">
+    <div class="modal-content" style="max-width: 900px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="entity-modal-title">New Entity</h2>
+        <button class="modal-close" id="entity-modal-close">&times;</button>
+      </div>
+      <div id="entity-modal-body">
+        <!-- Entity form loaded dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Metadata Editor Modal -->
+  <div class="modal-overlay hidden" id="metadata-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Metadata Editor</h2>
+        <button class="modal-close" id="metadata-modal-close">&times;</button>
+      </div>
+      <div id="metadata-modal-body">
+        <!-- Metadata form loaded dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Knowledge Editor Modal -->
+  <div class="modal-overlay hidden" id="knowledge-modal">
+    <div class="modal-content" style="max-width: 1000px;">
+      <div class="modal-header">
+        <h2 class="modal-title">Knowledge State Editor</h2>
+        <button class="modal-close" id="knowledge-modal-close">&times;</button>
+      </div>
+      <div id="knowledge-modal-body">
+        <!-- Knowledge editor loaded dynamically -->
+      </div>
+    </div>
+  </div>
+</body>
+</html>
