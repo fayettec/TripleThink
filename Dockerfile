@@ -11,8 +11,24 @@ RUN apt-get update && apt-get install -y \
 # Install Claude Code globally
 RUN npm install -g @anthropic-ai/claude-code
 
+# NEW: Install Google Gemini CLI globally
+RUN npm install -g @google/gemini-cli
+
 # Set the working directory inside the container
 WORKDIR /app
 
-# (Optional) Set a default command to keep the container running or drop into shell
-CMD ["/bin/bash"]
+# Install API dependencies
+COPY api/package*.json api/
+RUN cd api && npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose ports for API and GUI
+EXPOSE 3000 8080
+
+# Make the start script executable
+RUN chmod +x ./start.sh
+
+# Start the API and GUI servers
+CMD ["./start.sh"]
