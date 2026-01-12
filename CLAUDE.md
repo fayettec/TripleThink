@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-This is the **design and planning repository** for TripleThink, an event-sourced narrative construction system for managing multi-book fiction series. TripleThink is the evolution of Cawa (Claude Author Writing Assistant).
+This is the **implementation repository** for TripleThink, an event-sourced narrative construction system for managing multi-book fiction series. TripleThink is the evolution of Cawa (Claude Author Writing Assistant).
 
-**Current Status**: This repository contains architectural specifications and build prompts. The actual TripleThink application has not been implemented yet.
+**Current Status**: TripleThink has been implemented with a Node.js/Express API and HTML/JavaScript GUI. The application is functional and ready to run.
 
 ## Repository Contents
 
@@ -24,6 +24,159 @@ Docker environment setup for running Claude Code with Node.js 20, providing:
 - Git and basic CLI tools
 - Claude Code CLI installed globally
 - Working directory at `/app`
+
+## Development Environment
+
+### Current Setup (Windows 11)
+
+**Host System:**
+- Windows 11 running Docker Desktop with WSL2 backend
+- Project location: `C:\Users\facra\OneDrive\Documents\AI Agent\claude\TripleThink`
+- Docker container name: `triple-think`
+
+**Docker Configuration:**
+```cmd
+docker run -it ^
+  -v "C:\Users\facra\OneDrive\Documents\AI Agent\claude\TripleThink:/app" ^
+  -v "%USERPROFILE%\.claude:/root/.claude" ^
+  -p 3000:3000 ^
+  -p 8080:8080 ^
+  triple-think
+```
+
+**Port Mappings:**
+- `3000` → API server (Express/Node.js)
+- `8080` → GUI server (static HTML)
+
+**Volume Mounts:**
+- Project files: Windows directory ↔ `/app` in container
+- Claude config: `%USERPROFILE%\.claude` ↔ `/root/.claude`
+
+### Technology Stack (Implemented)
+
+**Backend (API):**
+- Node.js 18+ with Express 4.x
+- better-sqlite3 for database
+- CORS and Helmet for security
+- Database: `api/triplethink.db` (SQLite)
+
+**Frontend (GUI):**
+- Plain HTML/CSS/JavaScript (no framework)
+- Served via `serve` package on port 8080
+- Location: `/app/gui/`
+
+**Project Structure:**
+```
+/app/
+├── api/                      # Backend API
+│   ├── server.js            # Express server (port 3000)
+│   ├── routes/              # API route handlers
+│   ├── middleware/          # Auth, cache, rate-limit
+│   ├── ai-query-layer.js    # AI integration
+│   ├── error-handling.js    # Error middleware
+│   ├── triplethink.db       # SQLite database
+│   ├── package.json         # API dependencies
+│   └── restart.sh           # API restart script
+├── gui/                      # Frontend GUI
+│   ├── index.html           # Main entry point
+│   ├── js/                  # JavaScript modules
+│   │   ├── screens/         # Screen components
+│   │   ├── components/      # UI components
+│   │   └── utils/           # Utility functions
+│   ├── styles/              # CSS stylesheets
+│   └── lib/                 # Third-party libraries
+├── db/                       # Database layer
+│   └── api-functions.js     # Database API
+├── BuildPrompts/            # Original build specs
+├── start.sh                 # Start both servers (Docker)
+├── run-docker.sh           # Launch Docker container
+└── package.json            # Root dependencies
+```
+
+## Running TripleThink
+
+### Option 1: Inside Docker (Current Setup)
+
+**Start the application:**
+```bash
+# Inside Docker container at /app
+./start.sh
+```
+
+This will:
+1. Start API server on port 3000 (background)
+2. Start GUI server on port 8080 (foreground)
+
+**Access the application:**
+- GUI: http://localhost:8080
+- API: http://localhost:3000
+- API Docs: http://localhost:3000/api-docs
+
+**Manual start (if start.sh fails):**
+```bash
+# Start API
+cd /app/api
+npm start &
+
+# Start GUI (in separate terminal or foreground)
+cd /app
+npx serve -s gui -l 8080
+```
+
+### Option 2: Outside Docker (Windows Native)
+
+**Prerequisites:**
+1. Install Node.js 18+ from https://nodejs.org/
+2. Open PowerShell or Command Prompt
+3. Navigate to project directory
+
+**First-time setup:**
+```cmd
+cd "C:\Users\facra\OneDrive\Documents\AI Agent\claude\TripleThink"
+
+:: Install root dependencies
+npm install
+
+:: Install API dependencies
+cd api
+npm install
+cd ..
+```
+
+**Start the application:**
+```cmd
+:: Start API server (Terminal 1)
+cd api
+node server.js
+
+:: Start GUI server (Terminal 2 - open new window)
+npx serve -s gui -l 8080
+```
+
+**Access the application:**
+- GUI: http://localhost:8080
+- API: http://localhost:3000
+
+**Troubleshooting Windows:**
+- If `npm` not found: Add Node.js to PATH and restart terminal
+- If port in use: `netstat -ano | findstr :3000` to find process, then `taskkill /PID <pid> /F`
+- If SQLite errors: Make sure `better-sqlite3` builds correctly (`npm rebuild better-sqlite3`)
+
+### Stopping the Application
+
+**Inside Docker:**
+```bash
+# Stop GUI (Ctrl+C in terminal running serve)
+# Stop API
+pkill -f "node server.js"
+```
+
+**On Windows:**
+```cmd
+:: Stop servers with Ctrl+C in each terminal
+:: Or force kill:
+taskkill /F /IM node.exe
+```
 
 ## TripleThink Architecture Overview
 
@@ -93,10 +246,29 @@ LAYER 3: Narrative Presentation (What Reader Sees When)
 
 ### Docker Environment
 
-Build and run the Docker container:
+Build the Docker image:
 ```bash
-docker build -t triplethink-dev .
-docker run -it -v $(pwd):/app triplethink-dev
+docker build -t triple-think .
+```
+
+Run the container (Windows CMD):
+```cmd
+docker run -it ^
+  -v "C:\Users\facra\OneDrive\Documents\AI Agent\claude\TripleThink:/app" ^
+  -v "%USERPROFILE%\.claude:/root/.claude" ^
+  -p 3000:3000 ^
+  -p 8080:8080 ^
+  triple-think
+```
+
+Run the container (Linux/Mac):
+```bash
+docker run -it \
+  -v "$(pwd):/app" \
+  -v ~/.claude:/root/.claude \
+  -p 3000:3000 \
+  -p 8080:8080 \
+  triple-think
 ```
 
 ### Git Operations
@@ -109,38 +281,51 @@ git commit -m "Description"
 git push
 ```
 
-## Working with BuildPrompts
+## Implementation Status
 
-The four prompts are designed to be executed sequentially:
+### Technology Decisions (Finalized)
 
-1. **PROMPT_01** → Generate complete JSON schema with separated metadata
-2. **PROMPT_02** → Design database schema (evaluate SQLite vs PostgreSQL)
-3. **PROMPT_03** → Design REST API and AI query interface
-4. **PROMPT_04** → Design GUI (evaluate React vs Svelte vs plain HTML)
+✅ **Database:** SQLite (better-sqlite3)
+- Portable, single-file database
+- Perfect for desktop/local use
+- Full SQL support with good performance
 
-When implementing, follow the sequence and ensure each stage is complete before proceeding.
+✅ **API:** Node.js with Express 4.x
+- RESTful API design
+- Comprehensive error handling
+- Middleware for auth, caching, rate-limiting
 
-## Implementation Guidance
+✅ **GUI:** Plain HTML/CSS/JavaScript
+- No framework dependencies
+- Fast and lightweight
+- Served via `serve` package
 
-### When Building the System
+### Key Features (Implemented)
 
-**Technology Decisions Needed:**
-- Database: SQLite (portable) vs PostgreSQL (powerful)
-- API: Node.js/Express vs Python/FastAPI vs Go
-- GUI: Plain HTML vs React vs Svelte vs Electron
-
-**Key Features to Implement:**
+✅ **Core Functionality:**
 - Epistemic query engine (who knows what when)
 - Time-travel queries (entity state at timestamp T)
 - Fiction audience constraint validation
 - Metadata loading optimization
 - Token-efficient AI query interface
+- Project management (multi-book support)
+- Character tracking with knowledge states
+- Event timeline with causal links
+- Search and filtering
+- Export/import functionality
 
 **Performance Targets:**
 - Support 10-book series (2,000+ events, 150+ characters)
 - Get entity by ID: < 10ms
 - Epistemic queries: < 100ms
 - Complex joins: < 200ms
+
+**Current Implementation:**
+- Fully functional REST API with comprehensive endpoints
+- Web-based GUI with multiple screens (Projects, Timeline, Narrative, Epistemic)
+- SQLite database with optimized schema
+- Authentication and rate-limiting middleware
+- AI integration layer for natural language queries
 
 ### Token Efficiency
 
@@ -160,19 +345,6 @@ When implementing, follow the sequence and ensure each stage is complete before 
 → Returns lean event list
 ```
 
-## Future Directory Structure
-
-When implementation begins, expected structure:
-```
-/schema/          - JSON schema definitions
-/db/              - Database schema and migrations
-/api/             - API implementation
-/gui/             - Frontend application
-/docs/            - Documentation
-/tests/           - Test suites
-/examples/        - Example projects
-```
-
 ## Documentation Standards
 
 ### Problem/Solution Tracking
@@ -187,11 +359,31 @@ Track work in `/dev/work/yyyymmdd-HHmm-title.md` files:
 - Example: `/dev/work/20260109-1430-database-schema-design.md`
 - Include: task overview, decisions made, blockers, outcomes
 
-## Critical Reminders
+## Critical Reminders for Claude
 
-- **This is a design repository** - Implementation does not exist yet
-- **Follow sequential prompts** - Each builds on previous stage
-- **Maintain architectural principles** - Event-sourcing, separated metadata, epistemic precision
-- **Token efficiency matters** - Optimize for AI query patterns
-- **Fiction scope is critical** - Never expand target audiences without explicit design
-- **Epistemic consistency** - Always track who knows/believes what at each timestamp
+### Environment Context
+- **Running in Docker on Windows 11** - You are inside a Linux container, but user is on Windows
+- **Volume mounts** - Files you modify persist to Windows filesystem at `C:\Users\facra\OneDrive\Documents\AI Agent\claude\TripleThink`
+- **Ports** - API on 3000, GUI on 8080 (mapped to host)
+- **Database location** - `/app/api/triplethink.db` (SQLite, persists to Windows)
+
+### Architecture Principles
+- **Event-sourcing** - Never edit events, only add new ones
+- **Separated metadata** - Load on-demand for token efficiency
+- **Epistemic precision** - Always track who knows/believes what at each timestamp
+- **ID-based references** - No data duplication, reference by ID
+- **Fiction isolation** - Never expand target audiences without explicit design
+
+### Common Tasks
+- **Start app in Docker**: `./start.sh` or manually start API and GUI servers
+- **Start app on Windows**: Run API (`node server.js`) and GUI (`npx serve -s gui -l 8080`) in separate terminals
+- **Check if running**: Visit http://localhost:8080 for GUI, http://localhost:3000 for API
+- **Database queries**: Use SQLite at `/app/api/triplethink.db`
+- **Logs**: API logs to console, check terminal running `node server.js`
+
+### When Helping User
+- User hasn't seen app running yet - priority is getting it to launch successfully
+- Check for missing dependencies before running
+- If errors occur, check both API and GUI server logs
+- Windows users need Node.js installed for native execution
+- Docker users just need `./start.sh` to work
