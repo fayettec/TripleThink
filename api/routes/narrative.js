@@ -537,6 +537,114 @@ router.get('/character/:charId/scenes', standardRateLimit(), asyncHandler(async 
   });
 }));
 
+
+/**
+ * PUT /api/narrative/structure/:id
+ * Update a narrative structure item (book, act, chapter)
+ */
+router.put('/structure/:id', standardRateLimit(), asyncHandler(async (req, res) => {
+  const db = req.app.get('db');
+  const { id } = req.params;
+  const { title, sequence } = req.body;
+
+  validateRequired(req.body, ['title', 'sequence']);
+
+  const existing = db.db.prepare('SELECT id FROM narrative_structure WHERE id = ?').get(id);
+  if (!existing) {
+    throw new NotFoundError('Narrative structure', id);
+  }
+
+  const stmt = db.db.prepare(
+    'UPDATE narrative_structure SET title = ?, sequence = ? WHERE id = ?'
+  );
+  stmt.run(title, sequence, id);
+
+  const updatedItem = db.db.prepare('SELECT * FROM narrative_structure WHERE id = ?').get(id);
+  res.json({ data: updatedItem });
+}));
+
+/**
+ * DELETE /api/narrative/structure/:id
+ * Delete a narrative structure item
+ */
+router.delete('/structure/:id', standardRateLimit(), asyncHandler(async (req, res) => {
+  const db = req.app.get('db');
+  const { id } = req.params;
+
+  const existing = db.db.prepare('SELECT id, structure_type FROM narrative_structure WHERE id = ?').get(id);
+  if (!existing) {
+    throw new NotFoundError('Narrative structure', id);
+  }
+
+  // Prevent deleting items that have children
+  const childrenCheck = db.db.prepare('SELECT COUNT(*) as count FROM narrative_structure WHERE parent_id = ?').get(id);
+  if (childrenCheck.count > 0) {
+    throw new ValidationError(`Cannot delete ${existing.structure_type} "${id}" because it has child elements.`);
+  }
+  
+  if (existing.structure_type === 'chapter') {
+    const sceneCheck = db.db.prepare('SELECT COUNT(*) as count FROM scenes WHERE chapter_id = ?').get(id);
+    if (sceneCheck.count > 0) {
+        throw new ValidationError(`Cannot delete chapter "${id}" because it has scenes.`);
+    }
+  }
+
+
+  const stmt = db.db.prepare('DELETE FROM narrative_structure WHERE id = ?');
+  stmt.run(id);
+
+  res.json({ success: true, message: `Narrative structure "${id}" deleted` });
+}));
+
+/**
+ * PUT /api/narrative/scene/:sceneId
+ * Update a scene
+ */
+router.put('/scene/:sceneId', standardRateLimit(), asyncHandler(async (req, res) => {
+    const db = req.app.get('db');
+    const { sceneId } = req.params;
+    const { title, sequence, pov_character_id, temporal_start, temporal_end } = req.body;
+
+    validateRequired(req.body, ['title', 'sequence', 'pov_character_id', 'temporal_start', 'temporal_end']);
+
+    const existing = db.db.prepare('SELECT id FROM scenes WHERE id = ?').get(sceneId);
+    if (!existing) {
+        throw new NotFoundError('Scene', sceneId);
+    }
+
+    const stmt = db.db.prepare(
+        'UPDATE scenes SET title = ?, sequence = ?, pov_character_id = ?, temporal_start = ?, temporal_end = ? WHERE id = ?'
+    );
+    stmt.run(title, sequence, pov_character_id, temporal_start, temporal_end, sceneId);
+
+    const updatedScene = db.getSceneData(sceneId, true);
+    res.json({ data: updatedScene });
+}));
+
+/**
+ * DELETE /api/narrative/scene/:sceneId
+ * Delete a scene
+ */
+router.delete('/scene/:sceneId', standardRateLimit(), asyncHandler(async (req, res) => {
+    const db = req.app.get('db');
+    const { sceneId } = req.params;
+
+    const existing = db.db.prepare('SELECT id FROM scenes WHERE id = ?').get(sceneId);
+    if (!existing) {
+        throw new NotFoundError('Scene', sceneId);
+    }
+    
+    // Also delete scene_events entries
+    const deleteSceneEventsStmt = db.db.prepare('DELETE FROM scene_events WHERE scene_id = ?');
+    deleteSceneEventsStmt.run(sceneId);
+
+    const stmt = db.db.prepare('DELETE FROM scenes WHERE id = ?');
+    stmt.run(sceneId);
+
+    res.json({ success: true, message: `Scene "${sceneId}" deleted` });
+}));
+
+
 // ============================================================
 // EXPORTS
 // ============================================================

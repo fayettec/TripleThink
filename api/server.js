@@ -23,6 +23,8 @@ const { getCacheStats, clearAllCaches } = require('./middleware/cache');
 const { getRateLimitStats, clearAllLimiters } = require('./middleware/rate-limit');
 
 // Routes
+const projectsRouter = require('./routes/projects');
+const fictionsRouter = require('./routes/fictions');
 const entitiesRouter = require('./routes/entities');
 const metadataRouter = require('./routes/metadata');
 const epistemicRouter = require('./routes/epistemic');
@@ -63,7 +65,15 @@ function createServer(config = {}) {
 
   // Security headers
   app.use(helmet({
-    contentSecurityPolicy: false // Disable for API
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+        imgSrc: ["'self'", "data:", "https:"],
+        connectSrc: ["'self'"]
+      }
+    }
   }));
 
   // CORS
@@ -96,6 +106,19 @@ function createServer(config = {}) {
   app.use(authMiddleware);
 
   // ==========================================
+  // STATIC FILE SERVING (GUI)
+  // ==========================================
+
+  // Serve GUI static files
+  const guiPath = path.join(__dirname, '..', 'gui');
+  app.use(express.static(guiPath));
+
+  // Redirect root to GUI
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(guiPath, 'index.html'));
+  });
+
+  // ==========================================
   // DATABASE CONNECTION
   // ==========================================
 
@@ -123,6 +146,29 @@ function createServer(config = {}) {
   });
 
   app.get('/api/status', (req, res) => {
+    // Get entity counts
+    let stats = { events: 0, characters: 0, fictions: 0, locations: 0, objects: 0, systems: 0 };
+    if (db) {
+      try {
+        const countStmt = db.db.prepare(`
+          SELECT entity_type, COUNT(*) as count
+          FROM entities
+          GROUP BY entity_type
+        `);
+        const counts = countStmt.all();
+        counts.forEach(row => {
+          stats[row.entity_type + 's'] = row.count;
+        });
+
+        // Get fiction count from fictions table
+        const fictionStmt = db.db.prepare('SELECT COUNT(*) as count FROM fictions');
+        const fictionCount = fictionStmt.get();
+        stats.fictions = fictionCount.count;
+      } catch (err) {
+        console.error('Error getting stats:', err);
+      }
+    }
+
     res.json({
       version: '1.0.0',
       name: 'TripleThink API',
@@ -132,6 +178,7 @@ function createServer(config = {}) {
         connected: !!db,
         path: options.dbPath
       },
+      stats: stats,
       cache: getCacheStats(),
       rate_limits: getRateLimitStats()
     });
@@ -152,6 +199,12 @@ function createServer(config = {}) {
   // ==========================================
   // API ROUTES
   // ==========================================
+
+  // Project (Series) CRUD
+  app.use('/api/projects', projectsRouter);
+
+  // Fictions CRUD
+  app.use('/api/fictions', fictionsRouter);
 
   // Entity CRUD
   app.use('/api/entities', entitiesRouter);
@@ -231,7 +284,7 @@ function startServer(config = {}) {
   const app = createServer(config);
   const port = config.port || DEFAULT_CONFIG.port;
 
-  const server = app.listen(port, () => {
+  const server = app.listen(port, '0.0.0.0', () => {
     console.log('');
     console.log('='.repeat(50));
     console.log('  TripleThink API Server');
@@ -241,7 +294,10 @@ function startServer(config = {}) {
     console.log(`  Auth:     ${isAuthEnabled() ? 'Enabled' : 'Disabled'}`);
     console.log('='.repeat(50));
     console.log('');
-    console.log('Endpoints:');
+    console.log('GUI:');
+    console.log(`  \x1b[32m\x1b[1m→ Open in browser: http://localhost:${port}/\x1b[0m`);
+    console.log('');
+    console.log('API Endpoints:');
     console.log(`  Health:    http://localhost:${port}/api/health`);
     console.log(`  Status:    http://localhost:${port}/api/status`);
     console.log(`  Docs:      http://localhost:${port}/api/docs`);
