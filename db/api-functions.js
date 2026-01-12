@@ -170,6 +170,54 @@ class TripleThinkDB {
   }
 
   // ============================================================
+  // ID GENERATION
+  // ============================================================
+
+  /**
+   * Generate next sequential ID for entity type
+   * @param {string} type - Entity type: 'project', 'character', 'event', etc.
+   * @returns {string} Generated ID like 'project-001', 'char-001'
+   */
+  generateEntityId(type) {
+    const prefixes = {
+      'project': 'project',
+      'character': 'char',
+      'event': 'evt',
+      'location': 'loc',
+      'object': 'obj',
+      'fiction': 'fiction',
+      'book': 'book',
+      'act': 'act',
+      'chapter': 'ch',
+      'scene': 'scene'
+    };
+
+    const prefix = prefixes[type] || type;
+
+    // Atomic transaction to get and increment counter
+    const transaction = this.db.transaction(() => {
+      // Get current value
+      let row = this.db.prepare('SELECT current_value FROM id_counters WHERE entity_type = ?').get(type);
+
+      // Initialize if missing (backward compatibility)
+      if (!row) {
+        this.db.prepare('INSERT INTO id_counters (entity_type, current_value) VALUES (?, 0)').run(type);
+        row = { current_value: 0 };
+      }
+
+      const nextValue = row.current_value + 1;
+
+      // Increment counter
+      this.db.prepare('UPDATE id_counters SET current_value = ? WHERE entity_type = ?').run(nextValue, type);
+
+      // Return formatted ID
+      return `${prefix}-${String(nextValue).padStart(3, '0')}`;
+    });
+
+    return transaction();
+  }
+
+  // ============================================================
   // EVENT OPERATIONS
   // ============================================================
 

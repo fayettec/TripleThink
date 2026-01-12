@@ -11,7 +11,8 @@ const FictionManager = {
     const container = document.getElementById(containerId);
 
     try {
-      const fictions = await api.listEntities({ type: 'fiction' });
+      const response = await api.listFictions();
+      const fictions = response.data || [];
 
       if (fictions.length === 0) {
         container.innerHTML = `
@@ -38,7 +39,6 @@ const FictionManager = {
             <table class="table">
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Name</th>
                   <th>Target Audience</th>
                   <th>Status</th>
@@ -48,7 +48,6 @@ const FictionManager = {
               <tbody>
                 ${fictions.map(fiction => `
                   <tr>
-                    <td><code>${fiction.id}</code></td>
                     <td>${fiction.name}</td>
                     <td>
                       <span class="badge badge-primary">

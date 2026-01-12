@@ -55,8 +55,25 @@ class State {
 // Global state
 const state = new State({
   currentRoute: 'dashboard',
+  currentProjectId: null,        // NEW: Track selected project
   selectedEntity: null,
   entities: [],
+  projects: [],                  // NEW: Cache project list
   loading: false,
   project: null,
 });
+
+// Persist project selection to localStorage
+state.subscribe('currentProjectId', (newId, oldId) => {
+  if (newId) {
+    localStorage.setItem('triplethink_current_project', newId);
+  } else {
+    localStorage.removeItem('triplethink_current_project');
+  }
+});
+
+// Restore project selection on load
+const savedProjectId = localStorage.getItem('triplethink_current_project');
+if (savedProjectId) {
+  state.set('currentProjectId', savedProjectId);
+}

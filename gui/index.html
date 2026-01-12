@@ -64,13 +64,15 @@
       </div>
 
       <nav class="sidebar-nav">
-        <a href="#dashboard" class="nav-item active" data-route="dashboard">
+        <!-- NEW: Home link -->
+        <a href="#landing" class="nav-item" data-route="landing">
+          <span class="nav-item-icon">🏠</span>
+          Home
+        </a>
+
+        <a href="#dashboard" class="nav-item" data-route="dashboard">
           <span class="nav-item-icon">📊</span>
           Dashboard
-        </a>
-        <a href="#projects" class="nav-item" data-route="projects">
-          <span class="nav-item-icon">📁</span>
-          Projects
         </a>
         <a href="#timeline" class="nav-item" data-route="timeline">
           <span class="nav-item-icon">⏱️</span>
@@ -78,7 +80,7 @@
         </a>
         <a href="#entities" class="nav-item" data-route="entities">
           <span class="nav-item-icon">📦</span>
-          Entities
+          Plot Assets
         </a>
         <a href="#characters" class="nav-item" data-route="characters">
           <span class="nav-item-icon">👤</span>
@@ -113,6 +115,8 @@
     <main class="main-content">
       <header class="content-header">
         <div>
+          <!-- Project name display (hidden by default) -->
+          <div id="project-name-display" class="text-gray" style="font-size: var(--font-size-xs); margin-bottom: var(--space-1); display: none;"></div>
           <h1 id="screen-title">Dashboard</h1>
           <p class="text-gray" id="screen-subtitle">Project Overview</p>
         </div>

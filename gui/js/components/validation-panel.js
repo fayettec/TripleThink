@@ -34,7 +34,7 @@ const ValidationPanel = {
     resultsDiv.innerHTML = '<p class="text-gray">Running validation...</p>';
 
     try {
-      const results = await api.request('/validation/check');
+      const results = await api.request('/validate/timeline');
 
       if (results.errors && results.errors.length > 0) {
         resultsDiv.innerHTML = `

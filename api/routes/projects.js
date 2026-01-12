@@ -53,10 +53,17 @@ router.get('/:id', standardRateLimit(), asyncHandler(async (req, res) => {
  */
 router.post('/', standardRateLimit(), asyncHandler(async (req, res) => {
   const db = req.app.get('db');
-  const { id, name, author, description } = req.body;
+  let { id, name, author, description } = req.body;
 
-  validateRequired(req.body, ['id', 'name']);
+  // Only name is required now - ID is optional
+  validateRequired(req.body, ['name']);
 
+  // AUTO-GENERATE ID if not provided
+  if (!id) {
+    id = db.generateEntityId('project');
+  }
+
+  // Check for duplicate ID
   const existing = db.db.prepare('SELECT id FROM projects WHERE id = ?').get(id);
   if (existing) {
     throw new ValidationError(`Project with ID "${id}" already exists`, { existing_id: id });

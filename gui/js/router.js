@@ -21,7 +21,7 @@ class Router {
   }
 
   handleRouteChange() {
-    const hash = window.location.hash.slice(1) || 'dashboard';
+    const hash = window.location.hash.slice(1) || 'landing'; // Changed from 'dashboard'
     const route = hash.split('/')[0];
 
     if (this.routes.has(route)) {
@@ -40,7 +40,7 @@ class Router {
       this.routes.get(route)();
     } else {
       console.warn(`Route not found: ${route}`);
-      this.navigate('dashboard');
+      this.navigate('landing'); // Changed from 'dashboard'
     }
   }
 }

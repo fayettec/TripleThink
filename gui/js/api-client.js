@@ -3,7 +3,16 @@
  * Handles all HTTP requests with error handling
  */
 
-const API_BASE = '/api';
+// Determine API base URL based on how GUI is being served
+const API_BASE = (function() {
+  const currentPort = window.location.port;
+  // If on port 8080 (GUI server), point to API on port 3000
+  if (currentPort === '8080') {
+    return 'http://localhost:3000/api';
+  }
+  // If served from same Express server (port 3000), use relative path
+  return '/api';
+})();
 
 class APIClient {
   constructor(baseURL = API_BASE) {
@@ -50,14 +59,16 @@ class APIClient {
   async createEntity(type, data) {
     return this.request('/entities', {
       method: 'POST',
-      body: JSON.stringify({ type, ...data }),
+      body: JSON.stringify({ type, data }),  // Wrap data properly
     });
   }
 
-  async updateEntity(id, data) {
+  async updateEntity(id, updates) {
+    // If updates already has 'data' key, use as-is, otherwise wrap it
+    const body = updates.data ? updates : { data: updates };
     return this.request(`/entities/${id}`, {
       method: 'PUT',
-      body: JSON.stringify(data),
+      body: JSON.stringify(body),
     });
   }
 
@@ -65,6 +76,10 @@ class APIClient {
     return this.request(`/entities/${id}`, {
       method: 'DELETE',
     });
+  }
+
+  async listFictions() {
+    return this.request('/fictions');
   }
 
   // Metadata operations
@@ -108,6 +123,35 @@ class APIClient {
     return this.request(
       `/temporal/entity/${entityId}/states?from=${startDate}&to=${endDate}`
     );
+  }
+
+  // Project operations
+  async listProjects() {
+    return this.request('/projects');
+  }
+
+  async createProject(data) {
+    return this.request('/projects', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  async getProject(id) {
+    return this.request(`/projects/${id}`);
+  }
+
+  async updateProject(id, data) {
+    return this.request(`/projects/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+
+  async deleteProject(id) {
+    return this.request(`/projects/${id}`, {
+      method: 'DELETE'
+    });
   }
 
   // Export/Import

@@ -92,3 +92,14 @@ function downloadJSON(data, filename) {
   a.click();
   URL.revokeObjectURL(url);
 }
+
+// Update project name display whenever project changes
+state.subscribe('project', (project) => {
+  const display = document.getElementById('project-name-display');
+  if (display && project) {
+    display.textContent = `Project: ${project.name}`;
+    display.style.display = 'block';
+  } else if (display) {
+    display.style.display = 'none';
+  }
+});

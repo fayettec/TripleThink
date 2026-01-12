@@ -150,12 +150,17 @@ router.get('/:id', standardRateLimit(), entityCacheMiddleware(), asyncHandler(as
  */
 router.post('/', standardRateLimit(), asyncHandler(async (req, res) => {
   const db = req.app.get('db');
-  const { type, data, metadata } = req.body;
+  let { type, data, metadata } = req.body;
 
   // Validation
   validateRequired(req.body, ['type', 'data']);
   validateEntityType(type);
-  validateRequired(data, ['id', 'name']);
+  validateRequired(data, ['name']); // ID no longer required!
+
+  // AUTO-GENERATE ID if not provided
+  if (!data.id) {
+    data.id = db.generateEntityId(type);
+  }
 
   // Check for duplicate ID
   const existing = db.getEntity(data.id, { includeMetadata: 'never' });
