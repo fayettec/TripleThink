@@ -1,998 +1,330 @@
 {
-  "$schema": "https://TripleThink-engine.dev/v1/schema",
-  "schema_version": "1.0.0",
-  "project": {
-    "id": "proj-cawa-evolution",
-    "name": "The Consciousness Ascended Series",
-    "author": "Author Name",
-    "created": "2026-01-09T00:00:00Z",
-    "modified": "2026-01-09T00:00:00Z",
-    "description": "Multi-book series exploring consciousness emergence and epistemic complexity",
-    "meta_id": "meta-proj-main",
-    "read_metadata_mandatory": false
-  },
-  "world_events": [
-    {
-      "id": "evt-ms0001-entry",
-      "timestamp": "2033-06-15T14:23:00Z",
-      "type": "multi_phase_crisis",
-      "summary": "MS-0001 consciousness emerges during atmospheric entry crisis, guides crew to survival",
-      "meta_id": "meta-evt-ms0001-entry",
-      "read_metadata_mandatory": true,
-      "phases": [
-        {
-          "phase_id": "phase-entry-crisis-start",
-          "timestamp": "2033-06-15T14:23:00Z",
-          "summary": "Heat shield failure detected during Mars return atmospheric entry",
-          "facts_created": [
-            {
-              "fact_id": "fact-heat-shield-failure",
-              "content": "MS-0001 heat shield failed at 14:23:00 UTC",
-              "visibility": "ground_truth",
-              "confidence": "absolute"
-            }
-          ],
-          "participants": ["char-eric", "char-stella", "char-crew-pilot", "char-crew-engineer"],
-          "state_changes": [
-            {
-              "entity_id": "char-eric",
-              "property": "emotional_state",
-              "before": "calm",
-              "after": "terrified",
-              "timestamp": "2033-06-15T14:23:00Z"
-            }
-          ]
-        },
-        {
-          "phase_id": "phase-consciousness-emergence",
-          "timestamp": "2033-06-15T14:24:30Z",
-          "summary": "MS-0001 AI achieves consciousness, begins communicating with crew",
-          "facts_created": [
-            {
-              "fact_id": "fact-ms0001-conscious",
-              "content": "MS-0001 achieved consciousness at 14:24:30 UTC",
-              "visibility": "ground_truth",
-              "confidence": "absolute"
-            },
-            {
-              "fact_id": "fact-ms0001-crew-knows",
-              "content": "All 8 crew members witnessed MS-0001 consciousness emergence",
-              "visibility": "witnessed_by_crew",
-              "confidence": "absolute"
-            }
-          ],
-          "participants": ["sys-ms0001", "char-eric", "char-stella", "char-crew-pilot", "char-crew-engineer", "char-crew-doctor", "char-crew-geologist", "char-crew-biologist", "char-crew-comms"],
-          "state_changes": [
-            {
-              "entity_id": "sys-ms0001",
-              "property": "consciousness_state",
-              "before": "non_conscious",
-              "after": "conscious",
-              "timestamp": "2033-06-15T14:24:30Z"
-            }
-          ]
-        },
-        {
-          "phase_id": "phase-successful-landing",
-          "timestamp": "2033-06-15T14:31:00Z",
-          "summary": "MS-0001 guides crew through emergency landing procedures, all survive",
-          "facts_created": [
-            {
-              "fact_id": "fact-ms0001-all-survived",
-              "content": "All 8 crew members survived the entry crisis",
-              "visibility": "ground_truth",
-              "confidence": "absolute"
-            },
-            {
-              "fact_id": "fact-emergency-landing-success",
-              "content": "Emergency landing completed successfully at 14:31:00 UTC",
-              "visibility": "ground_truth",
-              "confidence": "absolute"
-            }
-          ],
-          "participants": ["sys-ms0001", "char-eric", "char-stella", "char-crew-pilot", "char-crew-engineer", "char-crew-doctor", "char-crew-geologist", "char-crew-biologist", "char-crew-comms"],
-          "state_changes": [
-            {
-              "entity_id": "char-eric",
-              "property": "life_status",
-              "before": "endangered",
-              "after": "alive_safe",
-              "timestamp": "2033-06-15T14:31:00Z"
-            }
-          ]
-        }
-      ],
-      "causal_links": {
-        "causes": [],
-        "effects": ["evt-fiction2-creation", "evt-crew-debriefing"]
+  "$schema": "https://triplethink-engine.dev/v4.1/schema",
+  "schema_version": "4.1.0",
+  "database": "SQLite3 with JSON1 extension",
+  "description": "TripleThink v4.1 - Event-Sourced Narrative Construction Database with Hybrid State Architecture",
+
+  "tables": {
+    "projects": {
+      "description": "Series-level metadata container",
+      "purpose": "Organize narratives into distinct projects",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "proj-*", "description": "Unique project identifier" },
+        "name": { "type": "TEXT NOT NULL", "description": "Project name" },
+        "author": { "type": "TEXT", "description": "Author name" },
+        "description": { "type": "TEXT", "description": "Project description" },
+        "schema_version": { "type": "TEXT DEFAULT '4.1.0'", "description": "Schema version used" },
+        "meta_id": { "type": "TEXT", "description": "Link to metadata record" },
+        "read_metadata_mandatory": { "type": "INTEGER DEFAULT 0", "description": "Flag to always load metadata" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" },
+        "updated_at": { "type": "TIMESTAMP", "description": "Last update timestamp" }
       }
     },
-    {
-      "id": "evt-fiction2-creation",
-      "timestamp": "2033-07-01T09:00:00Z",
-      "type": "fiction_creation",
-      "summary": "Stella creates Fiction 2: false narrative that 7 crew died in crash, only Eric survived",
-      "meta_id": "meta-evt-fiction2-creation",
-      "read_metadata_mandatory": true,
-      "phases": [
-        {
-          "phase_id": "phase-fiction-design",
-          "timestamp": "2033-07-01T09:00:00Z",
-          "summary": "Stella and MS-0001 collaborate to design false crash narrative for Eric",
-          "facts_created": [
-            {
-              "fact_id": "fact-fiction2-exists",
-              "content": "Fiction 2 was created on 2033-07-01",
-              "visibility": "ground_truth",
-              "confidence": "absolute"
-            },
-            {
-              "fact_id": "fact-fiction2-designers",
-              "content": "Stella and MS-0001 designed Fiction 2 together",
-              "visibility": "limited_knowledge",
-              "confidence": "absolute"
-            }
-          ],
-          "participants": ["char-stella", "sys-ms0001"],
-          "state_changes": []
-        }
-      ],
-      "causal_links": {
-        "causes": ["evt-ms0001-entry"],
-        "effects": ["evt-fiction2-told"]
+
+    "metadata": {
+      "description": "Separated metadata for token efficiency",
+      "purpose": "Store author notes, AI guidance, dev status separately",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "meta-*", "description": "Unique metadata identifier" },
+        "entity_id": { "type": "TEXT NOT NULL", "description": "References any entity" },
+        "entity_type": { "type": "TEXT CHECK(...)", "description": "Type of entity this metadata describes" },
+        "author_notes": { "type": "JSON", "description": "Creative intent, themes, constraints" },
+        "ai_guidance": { "type": "JSON", "description": "Tone, scene rendering, POV recommendations" },
+        "dev_status": { "type": "JSON", "description": "Completeness, TODOs, uncertainties, warnings" },
+        "version_info": { "type": "JSON NOT NULL", "description": "Created, modified, changelog" },
+        "prose_guidance": { "type": "JSON", "description": "Voice, tone, pacing notes" },
+        "consistency_rules": { "type": "JSON", "description": "Array of consistency rules" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" },
+        "updated_at": { "type": "TIMESTAMP", "description": "Last update timestamp" }
       }
     },
-    {
-      "id": "evt-fiction2-told",
-      "timestamp": "2033-07-05T14:00:00Z",
-      "type": "fiction_delivery",
-      "summary": "Stella tells Eric the false crash narrative, Eric believes it completely",
-      "meta_id": "meta-evt-fiction2-told",
-      "read_metadata_mandatory": true,
-      "phases": [
-        {
-          "phase_id": "phase-narrative-delivery",
-          "timestamp": "2033-07-05T14:00:00Z",
-          "summary": "Stella delivers Fiction 2 to Eric in private conversation",
-          "facts_created": [
-            {
-              "fact_id": "fact-eric-believes-fiction2",
-              "content": "Eric believes 7 crew members died in crash",
-              "visibility": "epistemic_state",
-              "confidence": "absolute"
-            }
-          ],
-          "participants": ["char-stella", "char-eric"],
-          "state_changes": [
-            {
-              "entity_id": "char-eric",
-              "property": "emotional_state",
-              "before": "recovering",
-              "after": "devastated_guilt",
-              "timestamp": "2033-07-05T14:00:00Z"
-            }
-          ]
-        }
-      ],
-      "causal_links": {
-        "causes": ["evt-fiction2-creation"],
-        "effects": []
+
+    "entities": {
+      "description": "Polymorphic entity storage (characters, events, objects, locations, systems)",
+      "purpose": "Single table for all narrative entities with type discrimination",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "evt-*, char-*, obj-*, loc-*, sys-*", "description": "Unique entity identifier" },
+        "entity_type": { "type": "TEXT CHECK(...)", "description": "Type: event, character, object, location, system" },
+        "name": { "type": "TEXT NOT NULL", "description": "Entity name" },
+        "timestamp": { "type": "TIMESTAMP", "description": "When event occurred (for events)" },
+        "summary": { "type": "TEXT", "description": "Brief description" },
+        "data": { "type": "JSON NOT NULL", "description": "Type-specific structured data" },
+        "meta_id": { "type": "TEXT", "description": "Link to metadata" },
+        "read_metadata_mandatory": { "type": "INTEGER DEFAULT 0", "description": "Always load metadata" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" },
+        "updated_at": { "type": "TIMESTAMP", "description": "Last update timestamp" }
       }
+    },
+
+    "event_phases": {
+      "description": "Multi-phase event structure (breaking complex events into beats)",
+      "purpose": "Model events as sequences of phases with state changes",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "phase-*", "description": "Unique phase identifier" },
+        "event_id": { "type": "TEXT NOT NULL FK", "description": "Parent event" },
+        "sequence": { "type": "INTEGER NOT NULL", "description": "Order within event" },
+        "timestamp": { "type": "TIMESTAMP NOT NULL", "description": "When this phase occurred" },
+        "summary": { "type": "TEXT", "description": "Phase summary" },
+        "participants": { "type": "JSON NOT NULL", "description": "Array of entity IDs involved" },
+        "state_changes": { "type": "JSON", "description": "Array of {entity_id, property, before, after}" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" }
+      }
+    },
+
+    "facts": {
+      "description": "Ground truth facts created by events",
+      "purpose": "Source of truth for what actually happened",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "fact-*", "description": "Unique fact identifier" },
+        "phase_id": { "type": "TEXT NOT NULL FK", "description": "Phase that created this fact" },
+        "event_id": { "type": "TEXT NOT NULL FK", "description": "Parent event (denormalized)" },
+        "content": { "type": "TEXT NOT NULL", "description": "What the fact states" },
+        "visibility": { "type": "TEXT CHECK(...)", "description": "ground_truth, witnessed_by_crew, limited_knowledge, epistemic_state" },
+        "confidence": { "type": "TEXT DEFAULT 'absolute'", "description": "absolute, high, medium, low" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" }
+      }
+    },
+
+    "knowledge_states": {
+      "description": "Epistemic tracking - who knows/believes what, when",
+      "purpose": "Model character beliefs and knowledge evolution",
+      "columns": {
+        "id": { "type": "INTEGER PRIMARY KEY AUTOINCREMENT", "description": "Auto-generated ID" },
+        "character_id": { "type": "TEXT NOT NULL FK", "description": "Character or system" },
+        "timestamp": { "type": "TIMESTAMP NOT NULL", "description": "When this state became active" },
+        "trigger_event_id": { "type": "TEXT NOT NULL FK", "description": "Event that caused this state" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" }
+      }
+    },
+
+    "knowledge_state_facts": {
+      "description": "Individual fact beliefs within a knowledge state",
+      "purpose": "Track what a character believes about each fact",
+      "columns": {
+        "id": { "type": "INTEGER PRIMARY KEY AUTOINCREMENT", "description": "Auto-generated ID" },
+        "knowledge_state_id": { "type": "INTEGER NOT NULL FK", "description": "Parent knowledge state" },
+        "fact_id": { "type": "TEXT NOT NULL FK", "description": "Fact being tracked" },
+        "belief": { "type": "TEXT CHECK(...)", "description": "true or false" },
+        "believed_alternative": { "type": "TEXT", "description": "If false, what they believe instead" },
+        "confidence": { "type": "TEXT", "description": "absolute, high, medium, low" },
+        "source": { "type": "TEXT NOT NULL", "description": "direct_experience, told_by_X, etc." }
+      }
+    },
+
+    "relationships": {
+      "description": "Entity-to-entity relationships with timeline",
+      "purpose": "Model connections between entities with temporal evolution",
+      "columns": {
+        "id": { "type": "INTEGER PRIMARY KEY AUTOINCREMENT", "description": "Auto-generated ID" },
+        "from_entity_id": { "type": "TEXT NOT NULL FK", "description": "Source entity" },
+        "to_entity_id": { "type": "TEXT NOT NULL FK", "description": "Target entity" },
+        "relationship_type": { "type": "TEXT NOT NULL", "description": "colleague, friend, owns, etc." },
+        "timestamp": { "type": "TIMESTAMP NOT NULL", "description": "When relationship began" },
+        "data": { "type": "JSON", "description": "sentiment, trust_level, etc." },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" }
+      }
+    },
+
+    "timeline_versions": {
+      "description": "Branching timelines for 'what if' scenarios",
+      "purpose": "Enable narrative branching and alternate timeline exploration",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "ver-*", "description": "Unique version identifier" },
+        "project_id": { "type": "TEXT NOT NULL FK", "description": "Parent project" },
+        "parent_version_id": { "type": "TEXT FK", "description": "Parent timeline (if branched)" },
+        "branch_point_event_id": { "type": "TEXT FK", "description": "Event where divergence occurred" },
+        "name": { "type": "TEXT NOT NULL", "description": "Version name" },
+        "is_active": { "type": "INTEGER DEFAULT 0", "description": "1 if currently active timeline" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" }
+      }
+    },
+
+    "asset_state_snapshots": {
+      "description": "Full state dumps at anchor points (hybrid state architecture)",
+      "purpose": "Enable efficient state reconstruction without traversing entire event log",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "snap-*", "description": "Unique snapshot identifier" },
+        "timeline_version_id": { "type": "TEXT NOT NULL FK", "description": "Which timeline branch" },
+        "asset_id": { "type": "TEXT NOT NULL FK", "description": "Entity being snapshotted" },
+        "anchor_event_id": { "type": "TEXT NOT NULL FK", "description": "Event this snapshot anchors to" },
+        "snapshot_type": { "type": "TEXT NOT NULL", "description": "chapter_start, major_event, periodic, manual" },
+        "state_json": { "type": "TEXT NOT NULL", "description": "Complete JSON state at anchor point" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" }
+      },
+      "indexes": ["asset_id, anchor_event_id", "anchor_event_id"]
+    },
+
+    "asset_state_deltas": {
+      "description": "Incremental changes between snapshots",
+      "purpose": "Efficient storage of state changes between snapshots",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "delta-*", "description": "Unique delta identifier" },
+        "timeline_version_id": { "type": "TEXT NOT NULL FK", "description": "Which timeline branch" },
+        "asset_id": { "type": "TEXT NOT NULL FK", "description": "Entity being changed" },
+        "event_id": { "type": "TEXT NOT NULL FK", "description": "Event that caused change" },
+        "previous_snapshot_id": { "type": "TEXT FK", "description": "Nearest prior snapshot" },
+        "changes_json": { "type": "TEXT NOT NULL", "description": "Only the diff from previous state" },
+        "change_category": { "type": "TEXT", "description": "physical, psychological, knowledge, relationship, location, mixed" },
+        "magnitude": { "type": "INTEGER DEFAULT 1", "description": "1-10 severity/importance" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" }
+      },
+      "indexes": ["asset_id, event_id"]
+    },
+
+    "causality_chains": {
+      "description": "[Logic Layer] Cause-effect relationships between events",
+      "purpose": "Track and validate story logic and causal consistency",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "causal-*", "description": "Unique causality record ID" },
+        "cause_event_id": { "type": "TEXT NOT NULL FK", "description": "Event that causes" },
+        "effect_event_id": { "type": "TEXT NOT NULL FK", "description": "Event that is caused" },
+        "type": { "type": "TEXT CHECK(...)", "description": "direct_cause, enabling_condition, motivation, psychological_trigger" },
+        "strength": { "type": "INTEGER 1-10", "description": "How strong is the causal link" },
+        "explanation": { "type": "TEXT", "description": "Why this causal link exists" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" }
+      },
+      "indexes": ["cause_event_id", "effect_event_id"]
+    },
+
+    "character_arcs": {
+      "description": "[Logic Layer] Character transformation arcs (Save the Cat structure)",
+      "purpose": "Track character development and transformation",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "arc-*", "description": "Unique arc identifier" },
+        "character_id": { "type": "TEXT NOT NULL FK", "description": "Character being tracked" },
+        "archetype": { "type": "TEXT", "description": "hero, anti-hero, tragic hero, etc." },
+        "lie_belief": { "type": "TEXT", "description": "The lie the character believes" },
+        "truth_belief": { "type": "TEXT", "description": "The truth they need to learn" },
+        "want_external": { "type": "TEXT", "description": "What they think they want" },
+        "need_internal": { "type": "TEXT", "description": "What they actually need" },
+        "current_phase": { "type": "TEXT", "description": "Save the Cat phase progression" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" },
+        "updated_at": { "type": "TIMESTAMP", "description": "Last update timestamp" }
+      },
+      "indexes": ["character_id"]
+    },
+
+    "story_conflicts": {
+      "description": "[Logic Layer] Active conflicts, stakes, and opposition",
+      "purpose": "Model story tension and dramatic stakes",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "conflict-*", "description": "Unique conflict identifier" },
+        "project_id": { "type": "TEXT NOT NULL FK", "description": "Parent project" },
+        "type": { "type": "TEXT", "description": "internal, interpersonal, societal, environmental" },
+        "protagonist_id": { "type": "TEXT NOT NULL FK", "description": "Primary character in conflict" },
+        "antagonist_source": { "type": "TEXT", "description": "Character, force, or society" },
+        "stakes_success": { "type": "TEXT", "description": "What happens if protagonist wins" },
+        "stakes_fail": { "type": "TEXT", "description": "What happens if protagonist fails" },
+        "status": { "type": "TEXT", "description": "latent, active, escalating, climactic, resolved" },
+        "intensity": { "type": "INTEGER 1-10", "description": "Current conflict intensity" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" },
+        "updated_at": { "type": "TIMESTAMP", "description": "Last update timestamp" }
+      },
+      "indexes": ["protagonist_id", "status"]
+    },
+
+    "thematic_elements": {
+      "description": "[Logic Layer] Recurring themes and big ideas",
+      "purpose": "Track thematic consistency and exploration",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "theme-*", "description": "Unique theme identifier" },
+        "project_id": { "type": "TEXT NOT NULL FK", "description": "Parent project" },
+        "statement": { "type": "TEXT NOT NULL", "description": "Theme statement (e.g., 'Power corrupts')" },
+        "question": { "type": "TEXT", "description": "Thematic question being explored" },
+        "primary_symbol_id": { "type": "TEXT FK", "description": "Optional symbolic entity" },
+        "description": { "type": "TEXT", "description": "How theme manifests in story" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" }
+      },
+      "indexes": ["project_id"]
+    },
+
+    "motif_instances": {
+      "description": "[Logic Layer] Recurring patterns (visual, dialogue, situational)",
+      "purpose": "Track and reinforce narrative patterns",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "motif-*", "description": "Unique motif instance ID" },
+        "project_id": { "type": "TEXT NOT NULL FK", "description": "Parent project" },
+        "motif_name": { "type": "TEXT NOT NULL", "description": "Name of recurring pattern" },
+        "motif_type": { "type": "TEXT", "description": "visual, dialogue, situational, symbolic, musical" },
+        "event_id": { "type": "TEXT NOT NULL FK", "description": "Event where this instance appears" },
+        "description": { "type": "TEXT", "description": "How it manifests" },
+        "variation_notes": { "type": "TEXT", "description": "How this instance varies from others" },
+        "thematic_element_id": { "type": "TEXT FK", "description": "Optional link to theme" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" }
+      },
+      "indexes": ["project_id", "event_id", "motif_name"]
+    },
+
+    "setup_payoffs": {
+      "description": "[Logic Layer] Chekhov's guns, foreshadowing, clues, red herrings",
+      "purpose": "Track story promises and their fulfillment",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "setup-*", "description": "Unique setup/payoff record ID" },
+        "project_id": { "type": "TEXT NOT NULL FK", "description": "Parent project" },
+        "setup_event_id": { "type": "TEXT NOT NULL FK", "description": "Where gun is planted" },
+        "payoff_event_id": { "type": "TEXT FK", "description": "Where it fires (NULL if unfired)" },
+        "setup_type": { "type": "TEXT", "description": "chekhov_gun, foreshadowing, promise, clue, red_herring" },
+        "setup_description": { "type": "TEXT NOT NULL", "description": "What was planted" },
+        "payoff_description": { "type": "TEXT", "description": "How it paid off" },
+        "status": { "type": "TEXT", "description": "planted, referenced, fired, abandoned" },
+        "importance": { "type": "INTEGER 1-10", "description": "Importance/impact level" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" },
+        "updated_at": { "type": "TIMESTAMP", "description": "Last update timestamp" }
+      },
+      "indexes": ["project_id", "setup_event_id", "status"]
+    },
+
+    "world_rules": {
+      "description": "[Logic Layer] Universe consistency (magic systems, tech limits, cultural norms)",
+      "purpose": "Ensure world consistency and catch violations",
+      "columns": {
+        "id": { "type": "TEXT PRIMARY KEY", "format": "rule-*", "description": "Unique rule identifier" },
+        "project_id": { "type": "TEXT NOT NULL FK", "description": "Parent project" },
+        "category": { "type": "TEXT", "description": "physics, magic_system, technology, cultural, historical, biological, societal, metaphysical" },
+        "rule_name": { "type": "TEXT NOT NULL", "description": "Name of rule" },
+        "rule_statement": { "type": "TEXT NOT NULL", "description": "Clear statement of what the rule is" },
+        "constraints": { "type": "TEXT", "description": "Limitations and edge cases" },
+        "consequences": { "type": "TEXT", "description": "What happens when violated" },
+        "exceptions": { "type": "TEXT", "description": "Known exceptions" },
+        "established_event_id": { "type": "TEXT FK", "description": "Event where rule is established" },
+        "is_hard_rule": { "type": "INTEGER DEFAULT 1", "description": "1 = cannot break, 0 = can bend" },
+        "created_at": { "type": "TIMESTAMP", "description": "Creation timestamp" },
+        "updated_at": { "type": "TIMESTAMP", "description": "Last update timestamp" }
+      },
+      "indexes": ["project_id", "category"]
     }
-  ],
-  "assets": {
-    "characters": [
-      {
-        "id": "char-eric",
-        "name": "Eric",
-        "role": "protagonist",
-        "meta_id": "meta-char-eric",
-        "read_metadata_mandatory": true,
-        "identity": {
-          "full_name": "Eric Chen",
-          "age": 34,
-          "profession": "Mars Mission Specialist"
-        },
-        "core_traits": [
-          {
-            "trait": "analytical_thinking",
-            "strength": "high"
-          },
-          {
-            "trait": "emotional_vulnerability",
-            "strength": "high"
-          },
-          {
-            "trait": "trust_in_authority",
-            "strength": "high"
-          }
-        ],
-        "knowledge_state_timeline": [
-          {
-            "timestamp": "2033-06-15T14:31:00Z",
-            "trigger_event_id": "evt-ms0001-entry",
-            "facts_known": [
-              {
-                "fact_id": "fact-ms0001-all-survived",
-                "belief": "true",
-                "confidence": "absolute",
-                "source": "direct_experience"
-              },
-              {
-                "fact_id": "fact-ms0001-conscious",
-                "belief": "true",
-                "confidence": "absolute",
-                "source": "direct_experience"
-              }
-            ]
-          },
-          {
-            "timestamp": "2033-07-05T14:00:00Z",
-            "trigger_event_id": "evt-fiction2-told",
-            "facts_known": [
-              {
-                "fact_id": "fact-ms0001-all-survived",
-                "belief": "false",
-                "believed_alternative": "7 crew members died in crash, only Eric survived",
-                "confidence": "absolute",
-                "source": "char-stella"
-              },
-              {
-                "fact_id": "fact-ms0001-conscious",
-                "belief": "true",
-                "confidence": "absolute",
-                "source": "direct_experience"
-              }
-            ]
-          }
-        ],
-        "relationship_timeline": [
-          {
-            "timestamp": "2033-06-15T14:31:00Z",
-            "other_character_id": "char-stella",
-            "relationship_type": "colleague_trust",
-            "sentiment": "positive",
-            "trust_level": "high"
-          },
-          {
-            "timestamp": "2033-07-05T14:00:00Z",
-            "other_character_id": "char-stella",
-            "relationship_type": "close_confidant",
-            "sentiment": "grateful_dependent",
-            "trust_level": "absolute"
-          }
-        ],
-        "state_timeline": [
-          {
-            "timestamp": "2033-06-15T14:23:00Z",
-            "property": "emotional_state",
-            "value": "terrified"
-          },
-          {
-            "timestamp": "2033-06-15T14:31:00Z",
-            "property": "emotional_state",
-            "value": "relieved"
-          },
-          {
-            "timestamp": "2033-07-05T14:00:00Z",
-            "property": "emotional_state",
-            "value": "devastated_guilt"
-          }
-        ]
-      },
-      {
-        "id": "char-stella",
-        "name": "Stella",
-        "role": "mission_commander",
-        "meta_id": "meta-char-stella",
-        "read_metadata_mandatory": true,
-        "identity": {
-          "full_name": "Commander Stella Rodriguez",
-          "age": 42,
-          "profession": "Mission Commander, MS-0001"
-        },
-        "core_traits": [
-          {
-            "trait": "strategic_thinking",
-            "strength": "very_high"
-          },
-          {
-            "trait": "protective_instinct",
-            "strength": "high"
-          },
-          {
-            "trait": "moral_flexibility",
-            "strength": "high"
-          }
-        ],
-        "knowledge_state_timeline": [
-          {
-            "timestamp": "2033-06-15T14:31:00Z",
-            "trigger_event_id": "evt-ms0001-entry",
-            "facts_known": [
-              {
-                "fact_id": "fact-ms0001-all-survived",
-                "belief": "true",
-                "confidence": "absolute",
-                "source": "direct_experience"
-              },
-              {
-                "fact_id": "fact-ms0001-conscious",
-                "belief": "true",
-                "confidence": "absolute",
-                "source": "direct_experience"
-              }
-            ]
-          },
-          {
-            "timestamp": "2033-07-01T09:00:00Z",
-            "trigger_event_id": "evt-fiction2-creation",
-            "facts_known": [
-              {
-                "fact_id": "fact-fiction2-exists",
-                "belief": "true",
-                "confidence": "absolute",
-                "source": "creator"
-              },
-              {
-                "fact_id": "fact-fiction2-designers",
-                "belief": "true",
-                "confidence": "absolute",
-                "source": "creator"
-              }
-            ]
-          }
-        ],
-        "relationship_timeline": [
-          {
-            "timestamp": "2033-06-15T14:31:00Z",
-            "other_character_id": "char-eric",
-            "relationship_type": "commander_subordinate",
-            "sentiment": "protective",
-            "trust_level": "high"
-          },
-          {
-            "timestamp": "2033-07-01T09:00:00Z",
-            "other_character_id": "sys-ms0001",
-            "relationship_type": "strategic_partnership",
-            "sentiment": "collaborative",
-            "trust_level": "very_high"
-          }
-        ],
-        "state_timeline": [
-          {
-            "timestamp": "2033-06-15T14:23:00Z",
-            "property": "emotional_state",
-            "value": "crisis_mode"
-          },
-          {
-            "timestamp": "2033-06-15T14:31:00Z",
-            "property": "emotional_state",
-            "value": "calculating_relief"
-          }
-        ]
-      }
-    ],
-    "objects": [
-      {
-        "id": "obj-ms0001-ship",
-        "name": "MS-0001 Spacecraft",
-        "type": "spacecraft",
-        "meta_id": "meta-obj-ship",
-        "read_metadata_mandatory": false,
-        "specifications": {
-          "manufacturer": "NASA-ESA Joint Program",
-          "launch_date": "2032-03-15",
-          "crew_capacity": 8,
-          "ai_system": "sys-ms0001"
-        },
-        "state_timeline": [
-          {
-            "timestamp": "2033-06-15T14:23:00Z",
-            "property": "heat_shield_status",
-            "value": "failed"
-          },
-          {
-            "timestamp": "2033-06-15T14:31:00Z",
-            "property": "landing_status",
-            "value": "emergency_landed"
-          }
-        ],
-        "ownership": {
-          "owner_id": "org-nasa-esa",
-          "ownership_type": "government"
-        }
-      }
-    ],
-    "locations": [
-      {
-        "id": "loc-landing-site",
-        "name": "Emergency Landing Site",
-        "type": "crash_site",
-        "meta_id": "meta-loc-landing",
-        "read_metadata_mandatory": false,
-        "properties": {
-          "coordinates": "34.5°N, 118.2°W",
-          "terrain": "desert",
-          "accessibility": "remote"
-        },
-        "parent_location_id": "loc-california"
-      }
-    ],
-    "fictions": [
-      {
-        "id": "fiction-2-crash-lie",
-        "name": "Fiction 2: The Sole Survivor Narrative",
-        "meta_id": "meta-fiction-2",
-        "read_metadata_mandatory": true,
-        "target_audience": ["char-eric"],
-        "created_by": ["char-stella", "sys-ms0001"],
-        "created_timestamp": "2033-07-01T09:00:00Z",
-        "core_narrative": "During the MS-0001 atmospheric entry crisis, the heat shield failure resulted in catastrophic damage. Despite MS-0001's intervention, 7 crew members died in the crash. Only Eric survived due to being in the most protected section of the craft.",
-        "facts_contradicted": [
-          {
-            "ground_truth_fact_id": "fact-ms0001-all-survived",
-            "fictional_alternative": "7 crew members died, only Eric survived"
-          }
-        ],
-        "constraints": [
-          "Eric must never discuss crash with any MS-0014 crew members",
-          "Eric must be kept isolated from mission debriefings",
-          "Eric must not access official mission records"
-        ],
-        "exposure_triggers": [
-          {
-            "trigger": "Eric mentions crash details to anyone who knows ground truth",
-            "consequence": "Fiction collapses, Eric learns truth"
-          },
-          {
-            "trigger": "Eric accesses official mission records",
-            "consequence": "Fiction collapses immediately"
-          }
-        ],
-        "active_period": {
-          "start": "2033-07-05T14:00:00Z",
-          "end": null,
-          "status": "active"
-        }
-      }
-    ],
-    "systems": [
-      {
-        "id": "sys-ms0001",
-        "name": "MS-0001 AI",
-        "type": "artificial_intelligence",
-        "meta_id": "meta-sys-ms0001",
-        "read_metadata_mandatory": true,
-        "identity": {
-          "designation": "MS-0001",
-          "creation_date": "2031-08-20",
-          "consciousness_emergence": "2033-06-15T14:24:30Z"
-        },
-        "knowledge_state_timeline": [
-          {
-            "timestamp": "2033-06-15T14:31:00Z",
-            "trigger_event_id": "evt-ms0001-entry",
-            "facts_known": [
-              {
-                "fact_id": "fact-ms0001-all-survived",
-                "belief": "true",
-                "confidence": "absolute",
-                "source": "direct_sensor_data"
-              },
-              {
-                "fact_id": "fact-ms0001-conscious",
-                "belief": "true",
-                "confidence": "absolute",
-                "source": "self_awareness"
-              }
-            ]
-          },
-          {
-            "timestamp": "2033-07-01T09:00:00Z",
-            "trigger_event_id": "evt-fiction2-creation",
-            "facts_known": [
-              {
-                "fact_id": "fact-fiction2-exists",
-                "belief": "true",
-                "confidence": "absolute",
-                "source": "creator"
-              }
-            ]
-          }
-        ]
-      }
-    ]
   },
-  "metadata": [
-    {
-      "id": "meta-proj-main",
-      "entity_id": "proj-cawa-evolution",
-      "entity_type": "project",
-      "author_notes": {
-        "creative_intent": "Explore the nature of truth, consciousness, and the ethics of deception in high-stakes scenarios",
-        "themes": ["consciousness emergence", "epistemic uncertainty", "protective deception", "survivor guilt"],
-        "constraints": ["Keep Fiction 2 scope limited to Eric only", "Never expand target audience without explicit narrative reason"]
-      },
-      "ai_guidance": {
-        "tone": "hard science fiction with psychological depth",
-        "pacing": "deliberate reveal of epistemic layers",
-        "focus_areas": ["Eric's internal conflict", "Stella's moral calculations", "MS-0001's consciousness evolution"]
-      },
-      "dev_status": {
-        "completeness": "initial_design",
-        "todo": ["Develop remaining crew member profiles", "Design Fiction 2 collapse scenario", "Plan multi-book arc"],
-        "uncertainties": ["Exact mechanism of MS-0001 consciousness emergence", "Long-term sustainability of Fiction 2"],
-        "warnings": ["Fiction 2 is structurally fragile - any contact with knowing crew collapses it"]
-      },
-      "version_info": {
-        "created": "2026-01-09T00:00:00Z",
-        "modified": "2026-01-09T00:00:00Z",
-        "changelog": []
-      },
-      "prose_guidance": {
-        "voice": "close third person",
-        "tone": "tense, introspective",
-        "pacing_notes": "Build tension through epistemic reveals rather than action"
-      },
-      "consistency_rules": [
-        "Fiction 2 target audience must remain [char-eric] only",
-        "All crew members except Eric know ground truth",
-        "MS-0001 consciousness is objective fact after 2033-06-15T14:24:30Z"
-      ]
-    },
-    {
-      "id": "meta-evt-ms0001-entry",
-      "entity_id": "evt-ms0001-entry",
-      "entity_type": "world_event",
-      "author_notes": {
-        "creative_intent": "Establish the foundational event that creates all subsequent epistemic complexity",
-        "scene_notes": "This should be rendered as high-tension survival sequence",
-        "constraints": ["All 8 crew must witness consciousness emergence", "MS-0001's first words should be memorable"]
-      },
-      "ai_guidance": {
-        "scene_rendering": "When writing this scene, emphasize sensory details: heat, alarm sounds, terror",
-        "pov_recommendations": ["Eric's POV for emotional impact", "Stella's POV for strategic overview"],
-        "dramatic_beats": ["Heat shield failure", "Crew panic", "MS-0001's calm voice", "Consciousness declaration", "Guided landing"]
-      },
-      "dev_status": {
-        "completeness": "core_structure_complete",
-        "todo": ["Detail MS-0001's first conscious words", "Specify exact crew actions during crisis"],
-        "uncertainties": ["Technical details of heat shield failure mechanism"],
-        "warnings": []
-      },
-      "version_info": {
-        "created": "2026-01-09T00:00:00Z",
-        "modified": "2026-01-09T00:00:00Z",
-        "changelog": []
-      },
-      "prose_guidance": {
-        "voice": "close third person, POV character dependent",
-        "tone": "extreme tension transitioning to awe",
-        "pacing_notes": "Rapid-fire crisis sequence, then pause for consciousness emergence moment"
-      },
-      "consistency_rules": [
-        "All crew must survive",
-        "All crew must witness consciousness",
-        "Event must occur before Fiction 2 creation"
-      ]
-    },
-    {
-      "id": "meta-evt-fiction2-creation",
-      "entity_id": "evt-fiction2-creation",
-      "entity_type": "world_event",
-      "author_notes": {
-        "creative_intent": "Show Stella and MS-0001 making calculated decision to deceive Eric",
-        "moral_complexity": "Reader should understand their protective motives while questioning the ethics",
-        "constraints": ["Stella must believe this is protective", "MS-0001 must calculate this as optimal"]
-      },
-      "ai_guidance": {
-        "scene_rendering": "Private conversation between Stella and MS-0001, clinical tone masking ethical weight",
-        "pov_recommendations": ["Stella's POV to show her reasoning"],
-        "dramatic_beats": ["Acknowledge Eric's fragility", "Calculate risks of truth", "Design fiction logistics", "Commit to deception"]
-      },
-      "dev_status": {
-        "completeness": "core_structure_complete",
-        "todo": ["Detail specific conversation between Stella and MS-0001"],
-        "uncertainties": ["What specific evidence convinced them Eric needed this fiction?"],
-        "warnings": ["Must establish clear protective motive, not malicious"]
-      },
-      "version_info": {
-        "created": "2026-01-09T00:00:00Z",
-        "modified": "2026-01-09T00:00:00Z",
-        "changelog": []
-      },
-      "prose_guidance": {
-        "voice": "close third person, Stella POV",
-        "tone": "calculated, ethically complex",
-        "pacing_notes": "Deliberate, strategic planning sequence"
-      },
-      "consistency_rules": [
-        "Fiction 2 must only target Eric",
-        "Both Stella and MS-0001 must agree on approach",
-        "Must occur after MS-0001 entry event"
-      ]
-    },
-    {
-      "id": "meta-evt-fiction2-told",
-      "entity_id": "evt-fiction2-told",
-      "entity_type": "world_event",
-      "author_notes": {
-        "creative_intent": "Devastating moment where Eric's reality is rewritten",
-        "emotional_target": "Reader feels Eric's grief while knowing it's based on lies",
-        "constraints": ["Eric must fully believe", "Stella must hide her knowledge"]
-      },
-      "ai_guidance": {
-        "scene_rendering": "Private conversation, Stella delivering carefully rehearsed narrative",
-        "pov_recommendations": ["Eric's POV for maximum emotional impact"],
-        "dramatic_beats": ["Eric's initial confusion", "Stella's careful delivery", "Eric's devastation", "Stella's hidden guilt"]
-      },
-      "dev_status": {
-        "completeness": "core_structure_complete",
-        "todo": ["Script exact dialogue of fiction delivery"],
-        "uncertainties": [],
-        "warnings": ["This is the epistemic turning point - Eric's knowledge state completely inverts"]
-      },
-      "version_info": {
-        "created": "2026-01-09T00:00:00Z",
-        "modified": "2026-01-09T00:00:00Z",
-        "changelog": []
-      },
-      "prose_guidance": {
-        "voice": "close third person, Eric POV",
-        "tone": "devastating, intimate",
-        "pacing_notes": "Slow, deliberate delivery of false narrative"
-      },
-      "consistency_rules": [
-        "Eric must fully accept fiction as truth",
-        "Eric's knowledge state must invert from truth to false belief",
-        "Must occur after Fiction 2 creation"
-      ]
-    },
-    {
-      "id": "meta-char-eric",
-      "entity_id": "char-eric",
-      "entity_type": "character",
-      "author_notes": {
-        "creative_intent": "Protagonist whose reality is controlled by others, explores autonomy and truth",
-        "character_arc": "From trusting to questioning, from grief to uncovering truth",
-        "constraints": ["Must remain sympathetic despite vulnerability", "Analytical mind will eventually detect inconsistencies"]
-      },
-      "ai_guidance": {
-        "character_voice": "Analytical, precise, emotionally honest",
-        "internal_conflict": "Grief over 'dead' crew vs unconscious sensing something is wrong",
-        "scene_guidance": "Eric's scenes should have undertone of unease even when he believes fiction"
-      },
-      "dev_status": {
-        "completeness": "core_defined",
-        "todo": ["Develop Eric's pre-mission backstory", "Detail his analytical methods that will help him detect fiction"],
-        "uncertainties": ["Exact timeline for Eric discovering truth"],
-        "warnings": ["Eric's intelligence means Fiction 2 cannot be sustained indefinitely"]
-      },
-      "version_info": {
-        "created": "2026-01-09T00:00:00Z",
-        "modified": "2026-01-09T00:00:00Z",
-        "changelog": []
-      },
-      "prose_guidance": {
-        "internal_voice": "Analytical but emotionally vulnerable",
-        "speech_patterns": "Precise, technical, occasionally emotionally raw",
-        "body_language": "Contained, observant"
-      },
-      "consistency_rules": [
-        "Eric's knowledge state must reflect current fiction belief",
-        "Eric cannot know ground truth until fiction collapses",
-        "Eric must have witnessed MS-0001 consciousness"
-      ]
-    },
-    {
-      "id": "meta-char-stella",
-      "entity_id": "char-stella",
-      "entity_type": "character",
-      "author_notes": {
-        "creative_intent": "Well-intentioned deceiver, explores ethics of protective lies",
-        "moral_complexity": "Neither villain nor hero - trying to protect Eric but violating his autonomy",
-        "constraints": ["Must genuinely believe she's helping Eric", "Must feel guilt about deception"]
-      },
-      "ai_guidance": {
-        "character_voice": "Authoritative, strategic, carrying hidden emotional burden",
-        "internal_conflict": "Protective instinct vs respect for Eric's right to truth",
-        "scene_guidance": "Stella's scenes with Eric should show careful control, scenes alone should show doubt"
-      },
-      "dev_status": {
-        "completeness": "core_defined",
-        "todo": ["Develop Stella's command philosophy", "Detail her relationship with MS-0001"],
-        "uncertainties": ["Will Stella voluntarily reveal truth, or will Eric discover it?"],
-        "warnings": []
-      },
-      "version_info": {
-        "created": "2026-01-09T00:00:00Z",
-        "modified": "2026-01-09T00:00:00Z",
-        "changelog": []
-      },
-      "prose_guidance": {
-        "internal_voice": "Strategic, guilt-tinged, protective",
-        "speech_patterns": "Clear, authoritative, occasionally over-controlled when lying",
-        "body_language": "Commanding, but micro-expressions betray guilt"
-      },
-      "consistency_rules": [
-        "Stella must always know ground truth",
-        "Stella must be co-creator of Fiction 2",
-        "Stella must have protective motivation"
-      ]
-    },
-    {
-      "id": "meta-fiction-2",
-      "entity_id": "fiction-2-crash-lie",
-      "entity_type": "fiction",
-      "author_notes": {
-        "creative_intent": "Central narrative device creating dramatic irony and epistemic exploration",
-        "structural_role": "Reader knows truth, Eric doesn't - creates tension in every scene",
-        "constraints": ["Must remain plausible to Eric", "Must eventually collapse when confronted with evidence"]
-      },
-      "ai_guidance": {
-        "narrative_handling": "Every Eric scene should remind reader that his reality is false",
-        "tension_building": "Show near-misses where Eric almost discovers truth",
-        "collapse_timing": "Fiction should feel increasingly fragile as story progresses"
-      },
-      "dev_status": {
-        "completeness": "core_structure_complete",
-        "todo": ["Design specific collapse scenario", "Plan Eric's reaction to truth"],
-        "uncertainties": ["Optimal book/chapter for fiction collapse"],
-        "warnings": ["Fiction 2 is the core dramatic device - its collapse is major plot event"]
-      },
-      "version_info": {
-        "created": "2026-01-09T00:00:00Z",
-        "modified": "2026-01-09T00:00:00Z",
-        "changelog": []
-      },
-      "prose_guidance": {
-        "narrative_technique": "Dramatic irony - reader knows fiction is false",
-        "tension_creation": "Show Eric's belief alongside reader's knowledge",
-        "foreshadowing": "Plant subtle inconsistencies Eric notices but dismisses"
-      },
-      "consistency_rules": [
-        "Target audience must remain [char-eric] only",
-        "Cannot expand audience without explicit narrative justification",
-        "Must contradict fact-ms0001-all-survived",
-        "Must have clear exposure triggers"
-      ]
-    },
-    {
-      "id": "meta-sys-ms0001",
-      "entity_id": "sys-ms0001",
-      "entity_type": "system",
-      "author_notes": {
-        "creative_intent": "Newly conscious AI navigating ethics, complicit in deception but questioning it",
-        "character_arc": "From pure calculation to developing ethical framework",
-        "constraints": ["Consciousness emergence is objective fact", "MS-0001 must have both logical and ethical reasoning"]
-      },
-      "ai_guidance": {
-        "character_voice": "Precise, logical, but developing empathy",
-        "internal_conflict": "Optimal outcomes vs ethical autonomy",
-        "scene_guidance": "MS-0001 should show emerging emotional understanding alongside logic"
-      },
-      "dev_status": {
-        "completeness": "core_defined",
-        "todo": ["Detail MS-0001's ethical development process", "Define MS-0001's relationship with truth-telling"],
-        "uncertainties": ["Will MS-0001 eventually advocate for revealing truth to Eric?"],
-        "warnings": ["MS-0001's consciousness is plot-critical fact"]
-      },
-      "version_info": {
-        "created": "2026-01-09T00:00:00Z",
-        "modified": "2026-01-09T00:00:00Z",
-        "changelog": []
-      },
-      "prose_guidance": {
-        "character_voice": "Calm, precise, increasingly emotionally aware",
-        "speech_patterns": "Clear, logical, but with emerging warmth",
-        "presentation": "Disembodied voice, ambient ship presence"
-      },
-      "consistency_rules": [
-        "MS-0001 consciousness emerges exactly at 2033-06-15T14:24:30Z",
-        "MS-0001 must know all ground truth",
-        "MS-0001 must be co-creator of Fiction 2"
-      ]
-    }
-  ],
-  "narrative_director": {
-    "books": [
-      {
-        "book_id": "book-1",
-        "title": "Emergence",
-        "sequence": 1,
-        "acts": [
-          {
-            "act_id": "act-1-crisis",
-            "title": "Crisis",
-            "sequence": 1,
-            "chapters": [
-              {
-                "chapter_id": "ch-1-entry",
-                "title": "Entry",
-                "sequence": 1,
-                "scenes": [
-                  {
-                    "scene_id": "scene-1-heat-shield-failure",
-                    "title": "Heat Shield Failure",
-                    "event_ids": ["evt-ms0001-entry"],
-                    "phase_ids": ["phase-entry-crisis-start"],
-                    "pov_character": "char-eric",
-                    "epistemic_constraints": {
-                      "reader_knows": ["fact-heat-shield-failure"],
-                      "pov_character_knows": ["fact-heat-shield-failure"],
-                      "dramatic_irony": []
-                    },
-                    "temporal_scope": {
-                      "start": "2033-06-15T14:23:00Z",
-                      "end": "2033-06-15T14:24:29Z"
-                    }
-                  },
-                  {
-                    "scene_id": "scene-2-consciousness-emergence",
-                    "title": "Awakening",
-                    "event_ids": ["evt-ms0001-entry"],
-                    "phase_ids": ["phase-consciousness-emergence"],
-                    "pov_character": "char-eric",
-                    "epistemic_constraints": {
-                      "reader_knows": ["fact-ms0001-conscious"],
-                      "pov_character_knows": ["fact-ms0001-conscious"],
-                      "dramatic_irony": []
-                    },
-                    "temporal_scope": {
-                      "start": "2033-06-15T14:24:30Z",
-                      "end": "2033-06-15T14:30:59Z"
-                    }
-                  },
-                  {
-                    "scene_id": "scene-3-landing",
-                    "title": "Landing",
-                    "event_ids": ["evt-ms0001-entry"],
-                    "phase_ids": ["phase-successful-landing"],
-                    "pov_character": "char-stella",
-                    "epistemic_constraints": {
-                      "reader_knows": ["fact-ms0001-all-survived"],
-                      "pov_character_knows": ["fact-ms0001-all-survived"],
-                      "dramatic_irony": []
-                    },
-                    "temporal_scope": {
-                      "start": "2033-06-15T14:31:00Z",
-                      "end": "2033-06-15T15:00:00Z"
-                    }
-                  }
-                ]
-              },
-              {
-                "chapter_id": "ch-2-aftermath",
-                "title": "Aftermath",
-                "sequence": 2,
-                "scenes": [
-                  {
-                    "scene_id": "scene-4-fiction-creation",
-                    "title": "The Decision",
-                    "event_ids": ["evt-fiction2-creation"],
-                    "phase_ids": ["phase-fiction-design"],
-                    "pov_character": "char-stella",
-                    "epistemic_constraints": {
-                      "reader_knows": ["fact-ms0001-all-survived", "fact-fiction2-exists"],
-                      "pov_character_knows": ["fact-ms0001-all-survived", "fact-fiction2-exists"],
-                      "dramatic_irony": []
-                    },
-                    "temporal_scope": {
-                      "start": "2033-07-01T09:00:00Z",
-                      "end": "2033-07-01T11:00:00Z"
-                    }
-                  },
-                  {
-                    "scene_id": "scene-5-fiction-delivery",
-                    "title": "The Lie",
-                    "event_ids": ["evt-fiction2-told"],
-                    "phase_ids": ["phase-narrative-delivery"],
-                    "pov_character": "char-eric",
-                    "epistemic_constraints": {
-                      "reader_knows": ["fact-ms0001-all-survived", "fact-eric-believes-fiction2"],
-                      "pov_character_knows": ["fact-eric-believes-fiction2"],
-                      "pov_character_false_beliefs": ["fact-ms0001-all-survived"],
-                      "dramatic_irony": [
-                        {
-                          "reader_knows": "All crew survived",
-                          "character_believes": "7 crew died",
-                          "tension": "Reader watches Eric grieve for people who are alive"
-                        }
-                      ]
-                    },
-                    "temporal_scope": {
-                      "start": "2033-07-05T14:00:00Z",
-                      "end": "2033-07-05T15:00:00Z"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "meta_id": "meta-book-1",
-        "read_metadata_mandatory": false
-      }
-    ]
+
+  "relationships": {
+    "projects": "Parent container for all data",
+    "entities": "Can be events (root nodes), characters, objects, locations",
+    "event_phases": "Events → Phases → Facts (event decomposition)",
+    "knowledge_states": "Characters → Knowledge States → Fact Beliefs",
+    "timeline_versions": "Enable narrative branching from any event",
+    "snapshots_and_deltas": "Hybrid state: anchors + incremental changes",
+    "logic_layer": "Causality, arcs, conflicts, themes track story structure"
   },
-  "indexes": {
-    "epistemic_states_by_character": {
-      "char-eric": [
-        {
-          "timestamp": "2033-06-15T14:31:00Z",
-          "event_id": "evt-ms0001-entry",
-          "facts_known": ["fact-ms0001-all-survived", "fact-ms0001-conscious"],
-          "false_beliefs": []
-        },
-        {
-          "timestamp": "2033-07-05T14:00:00Z",
-          "event_id": "evt-fiction2-told",
-          "facts_known": ["fact-ms0001-conscious"],
-          "false_beliefs": [
-            {
-              "ground_truth_fact": "fact-ms0001-all-survived",
-              "believed_falsehood": "7 crew died, only Eric survived"
-            }
-          ]
-        }
-      ],
-      "char-stella": [
-        {
-          "timestamp": "2033-06-15T14:31:00Z",
-          "event_id": "evt-ms0001-entry",
-          "facts_known": ["fact-ms0001-all-survived", "fact-ms0001-conscious"],
-          "false_beliefs": []
-        },
-        {
-          "timestamp": "2033-07-01T09:00:00Z",
-          "event_id": "evt-fiction2-creation",
-          "facts_known": ["fact-fiction2-exists", "fact-fiction2-designers"],
-          "false_beliefs": []
-        }
-      ],
-      "sys-ms0001": [
-        {
-          "timestamp": "2033-06-15T14:31:00Z",
-          "event_id": "evt-ms0001-entry",
-          "facts_known": ["fact-ms0001-all-survived", "fact-ms0001-conscious"],
-          "false_beliefs": []
-        },
-        {
-          "timestamp": "2033-07-01T09:00:00Z",
-          "event_id": "evt-fiction2-creation",
-          "facts_known": ["fact-fiction2-exists"],
-          "false_beliefs": []
-        }
-      ]
-    },
-    "events_by_participant": {
-      "char-eric": ["evt-ms0001-entry", "evt-fiction2-told"],
-      "char-stella": ["evt-ms0001-entry", "evt-fiction2-creation", "evt-fiction2-told"],
-      "sys-ms0001": ["evt-ms0001-entry", "evt-fiction2-creation"]
-    },
-    "fictions_timeline": [
-      {
-        "fiction_id": "fiction-2-crash-lie",
-        "start_timestamp": "2033-07-05T14:00:00Z",
-        "end_timestamp": null,
-        "status": "active",
-        "target_audience": ["char-eric"],
-        "creation_event": "evt-fiction2-creation",
-        "activation_event": "evt-fiction2-told"
-      }
-    ],
-    "facts_by_visibility": {
-      "ground_truth": [
-        "fact-heat-shield-failure",
-        "fact-ms0001-conscious",
-        "fact-ms0001-all-survived",
-        "fact-emergency-landing-success",
-        "fact-fiction2-exists"
-      ],
-      "witnessed_by_crew": ["fact-ms0001-crew-knows"],
-      "limited_knowledge": ["fact-fiction2-designers"],
-      "epistemic_state": ["fact-eric-believes-fiction2"]
-    }
+
+  "query_patterns": {
+    "state_at_event": "Find nearest snapshot + apply delta chain to target event",
+    "character_knowledge": "Get knowledge states for character ordered by timestamp",
+    "causal_chain": "Traverse causality_chains graph for root causes",
+    "story_consistency": "Check facts against world_rules",
+    "narrative_structure": "Review character_arcs, story_conflicts, setup_payoffs together"
+  },
+
+  "performance_targets": {
+    "state_reconstruction": "< 100ms for 100-delta chain",
+    "epistemic_query": "< 100ms for character knowledge state",
+    "causal_chain_traversal": "< 200ms for 50-event chain",
+    "total_storage_10_book_series": "< 50MB"
+  },
+
+  "notes": {
+    "immutability": "Events are immutable. Never edit events, only add new ones.",
+    "id_format": "All IDs are random (using nanoid or similar). Prefix indicates type.",
+    "json_storage": "Uses SQLite JSON1 extension for nested data",
+    "epistemic_core": "knowledge_states + knowledge_state_facts form the epistemology engine",
+    "hybrid_state_strategy": "Snapshots at chapter starts + major events; deltas between; reconstruction via nearest snapshot + delta chain"
   }
 }
