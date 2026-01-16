@@ -1,0 +1,13 @@
+{
+  "name": "triplethink-gui",
+  "version": "4.1.0",
+  "description": "GUI for TripleThink event-sourced narrative database",
+  "private": true,
+  "scripts": {
+    "serve": "npx serve -p 8080 -s .",
+    "start": "npm run serve"
+  },
+  "keywords": ["narrative", "fiction", "database"],
+  "author": "TripleThink",
+  "license": "UNLICENSED"
+}
