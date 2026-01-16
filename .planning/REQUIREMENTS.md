@@ -77,13 +77,13 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 
 ### GUI - Logic Layer Visualization
 
-- [ ] **GUI-07**: story-logic.js screen exists with 6 tabs (Arcs, Conflicts, Causality, Themes, Motifs, Setup/Payoffs)
-- [ ] **GUI-08**: arc-card.js component displays character arc with progress bar and phase tracking
-- [ ] **GUI-09**: conflict-card.js component displays story conflict with protagonist/antagonist/stakes
-- [ ] **GUI-10**: causality-graph.js component renders D3 force-directed graph with depth control
-- [ ] **GUI-11**: Causality graph uses color-coded arrows (direct cause, enabling condition, motivation, psychological trigger)
-- [ ] **GUI-12**: Causality graph limits to 50 nodes max with depth slider (default: 3, max: 10)
-- [ ] **GUI-13**: setup-payoff-list.js component displays Chekhov's gun tracker with status (planted, referenced, fired, unfired warning)
+- [x] **GUI-07**: story-logic.js screen exists with 6 tabs (Arcs, Conflicts, Causality, Themes, Motifs, Setup/Payoffs)
+- [x] **GUI-08**: arc-card.js component displays character arc with progress bar and phase tracking
+- [x] **GUI-09**: conflict-card.js component displays story conflict with protagonist/antagonist/stakes
+- [x] **GUI-10**: causality-graph.js component renders D3 force-directed graph with depth control
+- [x] **GUI-11**: Causality graph uses color-coded arrows (direct cause, enabling condition, motivation, psychological trigger)
+- [x] **GUI-12**: Causality graph limits to 50 nodes max with depth slider (default: 3, max: 10)
+- [x] **GUI-13**: setup-payoff-list.js component displays Chekhov's gun tracker with status (planted, referenced, fired, unfired warning)
 
 ### GUI - Narrative Editing
 
@@ -231,13 +231,13 @@ Which phases cover which requirements. Updated by create-roadmap.
 | GUI-04 | Phase 8 | Complete |
 | GUI-05 | Phase 8 | Complete |
 | GUI-06 | Phase 8 | Complete |
-| GUI-07 | Phase 9 | Pending |
-| GUI-08 | Phase 9 | Pending |
-| GUI-09 | Phase 9 | Pending |
-| GUI-10 | Phase 9 | Pending |
-| GUI-11 | Phase 9 | Pending |
-| GUI-12 | Phase 9 | Pending |
-| GUI-13 | Phase 9 | Pending |
+| GUI-07 | Phase 9 | Complete |
+| GUI-08 | Phase 9 | Complete |
+| GUI-09 | Phase 9 | Complete |
+| GUI-10 | Phase 9 | Complete |
+| GUI-11 | Phase 9 | Complete |
+| GUI-12 | Phase 9 | Complete |
+| GUI-13 | Phase 9 | Complete |
 | GUI-14 | Phase 10 | Pending |
 | GUI-15 | Phase 10 | Pending |
 | GUI-16 | Phase 10 | Pending |
