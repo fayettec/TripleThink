@@ -329,6 +329,10 @@ const NarrativeTreeEditor = {
       throw new Error('Could not find scenes');
     }
 
+    // Track source and destination chapters
+    const sourceChapterId = draggedScene.chapterId || 'unassigned';
+    const destChapterId = targetScene.chapterId || 'unassigned';
+
     // Calculate new scene number and chapter
     const newChapterId = targetScene.chapterId;
     const newSceneNumber = targetScene.sceneNumber;
@@ -340,6 +344,12 @@ const NarrativeTreeEditor = {
     });
 
     console.log(`Updated scene ${draggedSceneId} to chapter ${newChapterId}, scene number ${newSceneNumber}`);
+
+    // Renumber affected chapters
+    await this.renumberScenes(sourceChapterId);
+    if (destChapterId !== sourceChapterId) {
+      await this.renumberScenes(destChapterId);
+    }
   },
 
   /**
@@ -348,6 +358,9 @@ const NarrativeTreeEditor = {
    * @param {string} chapterId - Target chapter ID
    */
   async moveSceneToChapter(sceneId, chapterId) {
+    // Find source chapter
+    const sourceChapterId = this.findChapterForScene(sceneId);
+
     // Find target chapter
     const chapter = this.data.chapters.find(ch => ch.id === chapterId);
     if (!chapter) {
@@ -367,6 +380,14 @@ const NarrativeTreeEditor = {
     });
 
     console.log(`Moved scene ${sceneId} to chapter ${chapterId}, scene number ${newSceneNumber}`);
+
+    // Renumber affected chapters
+    if (sourceChapterId) {
+      await this.renumberScenes(sourceChapterId);
+    }
+    if (chapterId !== sourceChapterId) {
+      await this.renumberScenes(chapterId);
+    }
   },
 
   /**
@@ -381,6 +402,55 @@ const NarrativeTreeEditor = {
 
     // Re-setup handlers after DOM update
     this.setupDragHandlers();
+  },
+
+  /**
+   * Renumber scenes in a chapter sequentially
+   * @param {string} chapterId - Chapter ID to renumber
+   */
+  async renumberScenes(chapterId) {
+    // Find the chapter
+    const chapter = this.data.chapters.find(ch => ch.id === chapterId);
+    if (!chapter || chapter.scenes.length === 0) return;
+
+    // Build updates array: {sceneId, sceneNumber, chapterId}
+    const updates = chapter.scenes.map((scene, index) => ({
+      sceneId: scene.id,
+      sceneNumber: index + 1,
+      chapterId: chapterId === 'unassigned' ? null : chapterId
+    }));
+
+    // Batch update via API
+    await api.batchUpdateScenes(updates);
+
+    console.log(`Renumbered ${updates.length} scenes in chapter ${chapterId}`);
+  },
+
+  /**
+   * Find which chapter contains a scene
+   * @param {string} sceneId - Scene ID
+   * @returns {string|null} Chapter ID or null
+   */
+  findChapterForScene(sceneId) {
+    for (const chapter of this.data.chapters) {
+      if (chapter.scenes.some(s => s.id === sceneId)) {
+        return chapter.id;
+      }
+    }
+    return null;
+  },
+
+  /**
+   * Find scene index within its chapter
+   * @param {string} sceneId - Scene ID
+   * @returns {number} Scene index (0-based)
+   */
+  findSceneIndex(sceneId) {
+    for (const chapter of this.data.chapters) {
+      const index = chapter.scenes.findIndex(s => s.id === sceneId);
+      if (index !== -1) return index + 1; // Return 1-based scene number
+    }
+    return 0;
   }
 };
 

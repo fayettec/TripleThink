@@ -124,6 +124,39 @@ module.exports = function createOrchestratorRoutes(db) {
     }
   });
 
+  // Batch update scene sequences (for renumbering)
+  router.patch('/scenes/batch', (req, res) => {
+    try {
+      const { updates } = req.body;
+
+      if (!updates || !Array.isArray(updates)) {
+        return res.status(400).json({ error: 'updates array required' });
+      }
+
+      const results = [];
+      for (const update of updates) {
+        const { sceneId, sceneNumber, chapterId } = update;
+        if (!sceneId) continue;
+
+        const updateData = {};
+        if (sceneNumber !== undefined) updateData.sceneNumber = sceneNumber;
+        if (chapterId !== undefined) updateData.chapterId = chapterId;
+
+        const updated = scenes.updateScene(db, sceneId, updateData);
+        if (updated) {
+          results.push(updated);
+        }
+      }
+
+      res.json({
+        updated: results.length,
+        scenes: results
+      });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   // ==================== TRANSITIONS ====================
 
   // Create a transition
