@@ -18,7 +18,7 @@ The journey: Foundation enhancement (EVENT_MOMENTS) → Logic Layer database (7 
 - [x] **Phase 4: Logic Layer Modules - Conflicts & Themes** - Second wave: story-conflicts.js and thematic-elements.js
 - [x] **Phase 5: Logic Layer Modules - Motifs, Setups & Rules** - Third wave: motif-instances.js, setup-payoffs.js, world-rules.js
 - [ ] **Phase 6: Logic Layer Integration** - Wire modules to api-functions.js and orchestrator, add tests
-- [ ] **Phase 7: API Layer** - REST endpoints for all logic layer functionality
+- [x] **Phase 7: API Layer** - REST endpoints for all logic layer functionality
 - [ ] **Phase 8: GUI Core Infrastructure** - Power drawer, layer switcher, state management, API client
 - [ ] **Phase 9: GUI Logic Visualization** - Story logic screen with 6 tabs
 - [ ] **Phase 10: GUI Narrative Editor** - Drag-and-drop chapter/scene reordering
@@ -144,9 +144,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 07-01: Create api/routes/logic-layer.js with causality, arcs, conflicts endpoints
-- [ ] 07-02: Add themes, motifs, setup-payoffs, world-rules endpoints
-- [ ] 07-03: Verify/add validation, projects, fictions, entities, temporal, search, export routes
+- [x] 07-01: Create api/routes/logic-layer.js with causality, arcs, conflicts endpoints
+- [x] 07-02: Add themes, motifs, setup-payoffs, world-rules endpoints
+- [x] 07-03: Verify/add validation, projects, fictions, entities, temporal, search, export routes
 
 ### Phase 8: GUI Core Infrastructure
 **Goal**: Core GUI components and state management ready for logic layer features
@@ -299,7 +299,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 4. Logic Layer Modules - Conflicts & Themes | 2/2 | Complete | 2026-01-16 |
 | 5. Logic Layer Modules - Motifs, Setups & Rules | 2/2 | Complete | 2026-01-16 |
 | 6. Logic Layer Integration | 3/3 | Complete | 2026-01-16 |
-| 7. API Layer | 0/3 | Not started | - |
+| 7. API Layer | 3/3 | Complete | 2026-01-16 |
 | 8. GUI Core Infrastructure | 0/3 | Not started | - |
 | 9. GUI Logic Visualization | 0/3 | Not started | - |
 | 10. GUI Narrative Editor | 0/3 | Not started | - |

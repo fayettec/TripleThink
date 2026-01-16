@@ -48,23 +48,23 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 
 ### API Integration
 
-- [ ] **API-01**: /api/logic route exists and is registered in server.js
-- [ ] **API-02**: /api/logic/causality endpoints support creating and querying causal chains
-- [ ] **API-03**: /api/logic/causality/chain/:eventId endpoint returns full causal chain with depth parameter
-- [ ] **API-04**: /api/logic/arcs endpoints support character arc CRUD operations
-- [ ] **API-05**: /api/logic/conflicts endpoints support story conflict CRUD operations
-- [ ] **API-06**: /api/logic/themes endpoints support thematic element CRUD operations
-- [ ] **API-07**: /api/logic/motifs endpoints support motif instance CRUD operations
-- [ ] **API-08**: /api/logic/setup-payoffs endpoints support setup/payoff CRUD operations
-- [ ] **API-09**: /api/logic/setup-payoffs/unfired endpoint returns planted but unfired setups
-- [ ] **API-10**: /api/logic/world-rules endpoints support world rule CRUD operations
-- [ ] **API-11**: /api/validation route is registered in server.js
-- [ ] **API-12**: /api/projects route is registered in server.js (or verified existing)
-- [ ] **API-13**: /api/fictions route is registered in server.js (or verified existing)
-- [ ] **API-14**: /api/entities route is registered in server.js (or verified existing)
-- [ ] **API-15**: /api/temporal route is registered in server.js (or verified existing)
-- [ ] **API-16**: /api/search route is registered in server.js (or verified existing)
-- [ ] **API-17**: /api/export route is registered in server.js (or verified existing)
+- [x] **API-01**: /api/logic route exists and is registered in server.js
+- [x] **API-02**: /api/logic/causality endpoints support creating and querying causal chains
+- [x] **API-03**: /api/logic/causality/chain/:eventId endpoint returns full causal chain with depth parameter
+- [x] **API-04**: /api/logic/arcs endpoints support character arc CRUD operations
+- [x] **API-05**: /api/logic/conflicts endpoints support story conflict CRUD operations
+- [x] **API-06**: /api/logic/themes endpoints support thematic element CRUD operations
+- [x] **API-07**: /api/logic/motifs endpoints support motif instance CRUD operations
+- [x] **API-08**: /api/logic/setup-payoffs endpoints support setup/payoff CRUD operations
+- [x] **API-09**: /api/logic/setup-payoffs/unfired endpoint returns planted but unfired setups
+- [x] **API-10**: /api/logic/world-rules endpoints support world rule CRUD operations
+- [x] **API-11**: /api/validation route is registered in server.js
+- [x] **API-12**: /api/projects route is registered in server.js (or verified existing)
+- [x] **API-13**: /api/fictions route is registered in server.js (or verified existing)
+- [x] **API-14**: /api/entities route is registered in server.js (or verified existing)
+- [x] **API-15**: /api/temporal route is registered in server.js (or verified existing)
+- [x] **API-16**: /api/search route is registered in server.js (or verified existing)
+- [x] **API-17**: /api/export route is registered in server.js (or verified existing)
 
 ### GUI - Core Components
 
@@ -208,23 +208,23 @@ Which phases cover which requirements. Updated by create-roadmap.
 | LOGIC-20 | Phase 6 | Pending |
 | LOGIC-21 | Phase 6 | Pending |
 | LOGIC-22 | Phase 6 | Pending |
-| API-01 | Phase 7 | Pending |
-| API-02 | Phase 7 | Pending |
-| API-03 | Phase 7 | Pending |
-| API-04 | Phase 7 | Pending |
-| API-05 | Phase 7 | Pending |
-| API-06 | Phase 7 | Pending |
-| API-07 | Phase 7 | Pending |
-| API-08 | Phase 7 | Pending |
-| API-09 | Phase 7 | Pending |
-| API-10 | Phase 7 | Pending |
-| API-11 | Phase 7 | Pending |
-| API-12 | Phase 7 | Pending |
-| API-13 | Phase 7 | Pending |
-| API-14 | Phase 7 | Pending |
-| API-15 | Phase 7 | Pending |
-| API-16 | Phase 7 | Pending |
-| API-17 | Phase 7 | Pending |
+| API-01 | Phase 7 | Complete |
+| API-02 | Phase 7 | Complete |
+| API-03 | Phase 7 | Complete |
+| API-04 | Phase 7 | Complete |
+| API-05 | Phase 7 | Complete |
+| API-06 | Phase 7 | Complete |
+| API-07 | Phase 7 | Complete |
+| API-08 | Phase 7 | Complete |
+| API-09 | Phase 7 | Complete |
+| API-10 | Phase 7 | Complete |
+| API-11 | Phase 7 | Complete |
+| API-12 | Phase 7 | Complete |
+| API-13 | Phase 7 | Complete |
+| API-14 | Phase 7 | Complete |
+| API-15 | Phase 7 | Complete |
+| API-16 | Phase 7 | Complete |
+| API-17 | Phase 7 | Complete |
 | GUI-01 | Phase 8 | Pending |
 | GUI-02 | Phase 8 | Pending |
 | GUI-03 | Phase 8 | Pending |
