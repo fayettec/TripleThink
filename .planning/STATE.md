@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-16)
 
 **Core value:** The orchestrator must assemble complete context packets for zero-knowledge scene generation
-**Current focus:** Phase 6 — Logic Layer Integration
+**Current focus:** Phase 7 — API Layer
 
 ## Current Position
 
 Phase: 7 of 14 (API Layer)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-16 — Phase 6 complete, verified
+Plan: 1 of 3
+Status: In progress
+Last activity: 2026-01-16 — Completed 07-01-PLAN.md (Core Logic Layer REST Endpoints)
 
-Progress: ████████░░ 37% (13/35 plans)
+Progress: ████████░░ 40% (14/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
-- Average duration: 3.1 min
-- Total execution time: 0.67 hours
+- Total plans completed: 14
+- Average duration: 3.0 min
+- Total execution time: 0.71 hours
 
 **By Phase:**
 
@@ -33,10 +33,11 @@ Progress: ████████░░ 37% (13/35 plans)
 | 04 | 2 | 4 min | 2.0 min |
 | 05 | 2 | 5 min | 2.5 min |
 | 06 | 3 | 16 min | 5.3 min |
+| 07 | 1 | 2 min | 2.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 2min, 3min, 1min, 2min, 12min
-- Trend: Variable (test plan took longer for fixes)
+- Last 5 plans: 3min, 1min, 2min, 12min, 2min
+- Trend: Stabilizing after test plan spike
 
 ## Accumulated Context
 
@@ -105,6 +106,11 @@ Recent decisions affecting current work:
 - Test actual return types not assumptions - Modules have inconsistent returns (numbers vs objects vs wrapped booleans), tests match reality
 - Separate unit and integration test files - Clear separation of CRUD tests vs cross-module queries, easier navigation
 
+**Phase 7 decisions:**
+- Enum validation at API layer - Return 400 with clear error messages listing valid values before module call, better developer experience
+- Immutable field enforcement at API layer - Block updates to type, character_id, protagonist_id fields per REST conventions
+- Helper endpoints for common workflows - POST /arcs/:id/advance and /conflicts/:id/transition reduce client complexity for sequential operations
+
 ### Pending Todos
 
 None yet.
@@ -115,6 +121,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16T20:20:51Z
-Stopped at: Completed 06-03-PLAN.md (Logic Layer Test Suite) - Phase 6 complete
+Last session: 2026-01-16T20:39:36Z
+Stopped at: Completed 07-01-PLAN.md (Core Logic Layer REST Endpoints)
 Resume file: None
