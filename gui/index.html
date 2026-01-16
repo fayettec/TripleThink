@@ -4,63 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TripleThink v4.1</title>
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/components.css">
 </head>
 <body>
-  <!-- Application Root -->
-  <div id="app">
-    <header>
-      <h1>TripleThink v4.1</h1>
-      <p>Event-sourced narrative database for fiction series</p>
-    </header>
+  <nav class="sidebar">
+    <h2>TripleThink</h2>
+    <ul>
+      <li><a href="#timeline" class="nav-link" data-route="timeline">Timeline</a></li>
+      <li><a href="#epistemic" class="nav-link" data-route="epistemic">Epistemic</a></li>
+      <li><a href="#characters" class="nav-link" data-route="characters">Characters</a></li>
+    </ul>
+  </nav>
 
-    <main>
-      <div id="content">
-        <p>Loading...</p>
-      </div>
-    </main>
+  <main>
+    <div id="app">
+      <!-- Screen content rendered here -->
+    </div>
+  </main>
 
-    <footer>
-      <p>&copy; 2026 TripleThink</p>
-    </footer>
-  </div>
-
-  <!-- Scripts - Load in dependency order -->
-  <!-- Utilities -->
-  <script src="js/utils/formatters.js"></script>
-  <script src="js/utils/validators.js"></script>
-  <script src="js/utils/toast.js"></script>
-
-  <!-- Core -->
-  <script src="js/api-client.js"></script>
-  <script src="js/state.js"></script>
-  <script src="js/router.js"></script>
-
-  <!-- Components -->
-  <script src="js/components/entity-editor.js"></script>
-  <script src="js/components/entity-list.js"></script>
-  <script src="js/components/metadata-modal.js"></script>
-  <script src="js/components/knowledge-editor.js"></script>
-  <script src="js/components/fiction-manager.js"></script>
-  <script src="js/components/validation-panel.js"></script>
-  <script src="js/components/narrative-tree.js"></script>
-  <script src="js/components/scene-editor.js"></script>
-  <script src="js/components/event-mapper.js"></script>
-  <script src="js/components/timeline-viz.js"></script>
-  <script src="js/components/epistemic-graph.js"></script>
-  <script src="js/components/quick-search.js"></script>
-
-  <!-- Screens -->
-  <script src="js/screens/dashboard.js"></script>
-  <script src="js/screens/entities.js"></script>
-  <script src="js/screens/timeline.js"></script>
-  <script src="js/screens/narrative.js"></script>
-  <script src="js/screens/epistemic.js"></script>
-  <script src="js/screens/projects.js"></script>
-
-  <!-- Application Entry Point -->
-  <script src="js/app.js"></script>
+  <!-- Load scripts in dependency order -->
+  <script src="/js/state.js"></script>
+  <script src="/js/api-client.js"></script>
+  <script src="/js/components/power-drawer.js"></script>
+  <script src="/js/components/layer-switcher.js"></script>
+  <script src="/js/screens/timeline.js"></script>
+  <script src="/js/screens/epistemic.js"></script>
+  <script src="/js/screens/characters.js"></script>
+  <script src="/js/router.js"></script>
+  <script src="/js/app.js"></script>
 </body>
 </html>
