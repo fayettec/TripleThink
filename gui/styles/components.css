@@ -1,0 +1,61 @@
+/**
+ * Component Styles
+ * Styling for reusable GUI components
+ */
+
+/* Power Drawer */
+.power-drawer {
+  position: fixed;
+  right: -400px; /* Hidden by default */
+  top: 0;
+  width: 400px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.power-drawer.open {
+  right: 0; /* Slide in */
+}
+
+.power-drawer-header {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.power-drawer-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.power-drawer-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.power-drawer-close:hover {
+  color: #000;
+}
+
+.power-drawer-content {
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
