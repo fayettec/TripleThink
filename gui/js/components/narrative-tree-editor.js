@@ -148,16 +148,26 @@ const NarrativeTreeEditor = {
           <span class="drag-handle">${!isUnassigned ? '☰' : ''}</span>
           <span class="chapter-title">${chapter.title}</span>
           <span class="scene-count">(${sceneCount} scene${sceneCount !== 1 ? 's' : ''})</span>
-          ${!isUnassigned ? `
-            <button class="btn-icon" data-action="split" data-chapter-id="${chapter.id}" title="Split Chapter">
-              ✂️
-            </button>
-          ` : ''}
-          ${!isUnassigned && !isLastChapter ? `
-            <button class="btn-icon" data-action="merge" data-chapter-id="${chapter.id}" title="Merge with Next Chapter">
-              🔗
-            </button>
-          ` : ''}
+          <div class="chapter-actions">
+            ${!isUnassigned ? `
+              <button class="btn-icon" data-action="rename" data-chapter-id="${chapter.id}" title="Rename Chapter">
+                ✏️
+              </button>
+              <button class="btn-icon" data-action="split" data-chapter-id="${chapter.id}" title="Split Chapter">
+                ✂️
+              </button>
+            ` : ''}
+            ${!isUnassigned && !isLastChapter ? `
+              <button class="btn-icon" data-action="merge" data-chapter-id="${chapter.id}" title="Merge with Next Chapter">
+                🔗
+              </button>
+            ` : ''}
+            ${!isUnassigned ? `
+              <button class="btn-icon btn-danger" data-action="delete" data-chapter-id="${chapter.id}" title="Delete Chapter">
+                🗑️
+              </button>
+            ` : ''}
+          </div>
         </div>
         <div class="chapter-scenes">
           ${chapter.scenes.map(scene => this.renderScene(scene)).join('')}
@@ -192,6 +202,14 @@ const NarrativeTreeEditor = {
         <span class="scene-number">${scene.sceneNumber || '?'}</span>
         <span class="scene-title">${scene.title || '<em>Untitled Scene</em>'}</span>
         <span class="scene-status badge ${statusClass}" style="background-color: ${statusColor}">${scene.status || 'draft'}</span>
+        <div class="scene-actions">
+          <button class="btn-icon" data-action="rename" data-scene-id="${scene.id}" title="Rename Scene">
+            ✏️
+          </button>
+          <button class="btn-icon btn-danger" data-action="delete" data-scene-id="${scene.id}" title="Delete Scene">
+            🗑️
+          </button>
+        </div>
       </div>
     `;
   },
@@ -204,18 +222,31 @@ const NarrativeTreeEditor = {
     const tree = document.getElementById('narrative-tree');
     if (!tree) return;
 
-    // Button click handlers for split and merge
+    // Button click handlers for split, merge, rename, delete
     tree.addEventListener('click', (e) => {
       const button = e.target.closest('[data-action]');
       if (!button) return;
 
       const action = button.dataset.action;
       const chapterId = button.dataset.chapterId;
+      const sceneId = button.dataset.sceneId;
 
       if (action === 'split') {
         this.showSplitDialog(chapterId);
       } else if (action === 'merge') {
         this.mergeWithNext(chapterId);
+      } else if (action === 'rename') {
+        if (chapterId) {
+          this.showRenameDialog(chapterId, 'chapter');
+        } else if (sceneId) {
+          this.showRenameDialog(sceneId, 'scene');
+        }
+      } else if (action === 'delete') {
+        if (chapterId) {
+          this.showDeleteDialog(chapterId, 'chapter');
+        } else if (sceneId) {
+          this.showDeleteDialog(sceneId, 'scene');
+        }
       }
     });
 
@@ -478,6 +509,112 @@ const NarrativeTreeEditor = {
       if (index !== -1) return index + 1; // Return 1-based scene number
     }
     return 0;
+  },
+
+  /**
+   * Show rename dialog for chapter or scene
+   * @param {string} id - Node ID
+   * @param {string} type - 'chapter' or 'scene'
+   */
+  showRenameDialog(id, type) {
+    // Find current title
+    let currentTitle = '';
+    if (type === 'chapter') {
+      const chapter = this.data.chapters.find(ch => ch.id === id);
+      currentTitle = chapter?.title || '';
+    } else {
+      for (const chapter of this.data.chapters) {
+        const scene = chapter.scenes.find(s => s.id === id);
+        if (scene) {
+          currentTitle = scene.title || '';
+          break;
+        }
+      }
+    }
+
+    // Prompt for new title
+    const newTitle = prompt(`Rename ${type}:`, currentTitle);
+    if (newTitle === null || newTitle.trim() === '') return; // Cancelled or empty
+
+    this.renameNode(id, type, newTitle.trim());
+  },
+
+  /**
+   * Rename a chapter or scene
+   * @param {string} id - Node ID
+   * @param {string} type - 'chapter' or 'scene'
+   * @param {string} newTitle - New title
+   */
+  async renameNode(id, type, newTitle) {
+    try {
+      // Call API to rename
+      await api.renameNarrativeNode(id, type, newTitle);
+
+      // Re-render tree
+      await this.refreshTree();
+
+      console.log(`${type} renamed to "${newTitle}"`);
+    } catch (err) {
+      console.error(`Rename ${type} failed:`, err);
+      alert(`Failed to rename ${type}: ${err.message}`);
+    }
+  },
+
+  /**
+   * Show delete confirmation dialog for chapter or scene
+   * @param {string} id - Node ID
+   * @param {string} type - 'chapter' or 'scene'
+   */
+  showDeleteDialog(id, type) {
+    // Find entity name for confirmation
+    let name = '';
+    let sceneCount = 0;
+
+    if (type === 'chapter') {
+      const chapter = this.data.chapters.find(ch => ch.id === id);
+      name = chapter?.title || 'this chapter';
+      sceneCount = chapter?.scenes?.length || 0;
+    } else {
+      for (const chapter of this.data.chapters) {
+        const scene = chapter.scenes.find(s => s.id === id);
+        if (scene) {
+          name = scene.title || 'this scene';
+          break;
+        }
+      }
+    }
+
+    // Confirmation message
+    let message = `Delete ${type} "${name}"?`;
+    if (type === 'chapter' && sceneCount > 0) {
+      message += ` This will also delete ${sceneCount} scene${sceneCount !== 1 ? 's' : ''}.`;
+    }
+    message += '\n\nThis action cannot be undone.';
+
+    const confirmed = confirm(message);
+    if (!confirmed) return;
+
+    this.deleteNode(id, type);
+  },
+
+  /**
+   * Delete a chapter or scene
+   * @param {string} id - Node ID
+   * @param {string} type - 'chapter' or 'scene'
+   */
+  async deleteNode(id, type) {
+    try {
+      // Call API to delete
+      await api.deleteNarrativeNode(id, type);
+
+      // Re-render tree
+      await this.refreshTree();
+
+      console.log(`${type} deleted: ${id}`);
+    } catch (err) {
+      console.error(`Delete ${type} failed:`, err);
+      alert(`Failed to delete ${type}: ${err.message}`);
+    }
   },
 
   /**

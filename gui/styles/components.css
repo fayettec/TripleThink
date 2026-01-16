@@ -594,3 +594,36 @@ main {
   padding: 2px 8px;
   border-radius: 12px;
 }
+
+/* Chapter and Scene Action Buttons */
+.chapter-actions,
+.scene-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.btn-danger {
+  color: #dc3545;
+}
+
+.btn-danger:hover {
+  color: #c82333;
+  background: #fee2e2 !important;
+}
+
+.tree-scene .btn-icon {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 6px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.tree-scene .btn-icon:hover {
+  opacity: 1;
+  background: #e5e7eb;
+  border-radius: 4px;
+}
