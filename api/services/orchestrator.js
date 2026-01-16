@@ -8,6 +8,7 @@ const relationships = require('../../db/modules/relationships');
 const dialogue = require('../../db/modules/dialogue');
 const pacing = require('../../db/modules/pacing');
 const transitions = require('../../db/modules/transitions');
+const createAPI = require('../../db/api-functions');
 
 /**
  * Assemble complete context packet for a scene
@@ -39,6 +40,7 @@ async function assembleContext(db, sceneId) {
     relationshipMatrix,
     activeConflicts,
     activeThemes,
+    characterArcs,
     forbiddenReveals,
     pacingContext,
     transitionContext
@@ -53,10 +55,13 @@ async function assembleContext(db, sceneId) {
     assembleRelationshipMatrix(db, presentEntityIds, narrativeTime),
 
     // Active conflicts from scene
-    assembleConflicts(db, scene.activeConflictIds, narrativeTime),
+    assembleConflicts(db, scene.activeConflictIds || [], narrativeTime),
 
     // Active themes from scene
-    assembleThemes(db, scene.activeThemeIds),
+    assembleThemes(db, scene.activeThemeIds || []),
+
+    // Character arcs for all present characters
+    assembleCharacterArcs(db, presentEntityIds),
 
     // Forbidden reveals - facts that must NOT be revealed yet
     assembleForbiddenReveals(db, scene.forbiddenRevealIds, scene.povEntityId, narrativeTime),
@@ -106,6 +111,12 @@ async function assembleContext(db, sceneId) {
     conflicts: activeConflicts,
 
     themes: activeThemes,
+
+    logicLayer: {
+      conflicts: activeConflicts,
+      characterArcs: characterArcs,
+      themes: activeThemes
+    },
 
     forbiddenReveals,
 
@@ -220,42 +231,99 @@ async function assembleRelationshipMatrix(db, entityIds, narrativeTime) {
 }
 
 /**
- * Assemble active conflicts context
+ * Assemble active conflicts for scene
+ * @param {Object} db - Database instance
+ * @param {Array<string>} conflictIds - Conflict IDs from scene
+ * @param {number} narrativeTime - Current narrative time (unused but kept for signature consistency)
+ * @returns {Array<Object>} Conflict details with status, stakes, participants
  */
 async function assembleConflicts(db, conflictIds, narrativeTime) {
-  // For now, return the conflict IDs with placeholder structure
-  // In full implementation, this would query a conflicts table
-  return {
-    activeIds: conflictIds,
-    count: conflictIds.length,
-    // Placeholder for conflict details
-    details: conflictIds.map(id => ({
-      id,
-      // Would be populated from conflicts table
-      type: null,
-      stakes: null,
-      participants: []
-    }))
-  };
+  if (!conflictIds || conflictIds.length === 0) return [];
+
+  const api = createAPI(db);
+  const conflicts = [];
+
+  for (const conflictId of conflictIds) {
+    const conflict = api.storyConflicts.getConflictById(conflictId);
+    if (conflict) {
+      conflicts.push({
+        id: conflict.conflict_uuid,
+        type: conflict.type,
+        status: conflict.status,
+        protagonist: conflict.protagonist_id,
+        antagonist: conflict.antagonist_source,
+        stakes: {
+          success: conflict.stakes_success,
+          failure: conflict.stakes_fail
+        }
+      });
+    }
+  }
+
+  return conflicts;
 }
 
 /**
- * Assemble active themes context
+ * Assemble active themes for scene
+ * @param {Object} db - Database instance
+ * @param {Array<string>} themeIds - Theme IDs from scene
+ * @returns {Array<Object>} Theme details with statement, question, manifestations
  */
 async function assembleThemes(db, themeIds) {
-  // For now, return the theme IDs with placeholder structure
-  // In full implementation, this would query a themes table
-  return {
-    activeIds: themeIds,
-    count: themeIds.length,
-    // Placeholder for theme details
-    details: themeIds.map(id => ({
-      id,
-      // Would be populated from themes table
-      name: null,
-      motifs: []
-    }))
-  };
+  if (!themeIds || themeIds.length === 0) return [];
+
+  const api = createAPI(db);
+  const themes = [];
+
+  for (const themeId of themeIds) {
+    const theme = api.thematicElements.getThemeById(themeId);
+    if (theme) {
+      themes.push({
+        id: theme.theme_uuid,
+        statement: theme.statement,
+        question: theme.question,
+        primarySymbol: theme.primary_symbol_id,
+        manifestations: theme.manifestations ? JSON.parse(theme.manifestations) : []
+      });
+    }
+  }
+
+  return themes;
+}
+
+/**
+ * Assemble character arcs for present characters
+ * @param {Object} db - Database instance
+ * @param {Array<string>} characterIds - Character IDs
+ * @returns {Array<Object>} Arc details with phase, lie/truth, want/need
+ */
+async function assembleCharacterArcs(db, characterIds) {
+  if (!characterIds || characterIds.length === 0) return [];
+
+  const api = createAPI(db);
+  const arcs = [];
+
+  for (const charId of characterIds) {
+    try {
+      const arc = api.characterArcs.getArcByCharacter(charId);
+      if (arc) {
+        arcs.push({
+          characterId: arc.character_id,
+          archetype: arc.archetype,
+          currentPhase: arc.current_phase,
+          lie: arc.lie_belief,
+          truth: arc.truth_belief,
+          want: arc.want_external,
+          need: arc.need_internal
+        });
+      }
+    } catch (err) {
+      // Character may not have an arc yet - that's ok
+      continue;
+    }
+  }
+
+  return arcs;
 }
 
 /**
