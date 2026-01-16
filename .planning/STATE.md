@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 9 of 14 (GUI Logic Visualization)
-Plan: 1 of 3 complete
-Status: In progress
-Last activity: 2026-01-16 — Completed 09-01-PLAN.md (Story Logic Foundation)
+Plan: 3 of 3 complete
+Status: Phase complete
+Last activity: 2026-01-16 — Completed 09-03-PLAN.md (Story Logic Completion)
 
-Progress: █████████░ 57% (20/35 plans)
+Progress: ██████████░ 60% (21/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 20
+- Total plans completed: 21
 - Average duration: 2.7 min
-- Total execution time: 0.93 hours
+- Total execution time: 0.98 hours
 
 **By Phase:**
 
@@ -35,11 +35,11 @@ Progress: █████████░ 57% (20/35 plans)
 | 06 | 3 | 16 min | 5.3 min |
 | 07 | 3 | 8 min | 2.7 min |
 | 08 | 3 | 9 min | 3.0 min |
-| 09 | 1 | 4 min | 4.0 min |
+| 09 | 3 | 10 min | 3.3 min |
 
 **Recent Trend:**
-- Last 5 plans: 4min, 2min, 3min, 2min, 4min (avg: 3.0 min)
-- Trend: Phase 9 started - UI visualization foundation, steady pace
+- Last 5 plans: 2min, 3min, 2min, 4min, 3min (avg: 2.8 min)
+- Trend: Phase 9 complete - Logic visualization finished, consistent velocity
 
 ## Accumulated Context
 
@@ -142,6 +142,10 @@ Recent decisions affecting current work:
 - Type and status badges use inline color styling - Component-controlled colors for dynamic type/status mapping without CSS explosion
 - Empty states distinguish between no-project vs no-data - Provides actionable guidance based on actual blocker (select project vs create data)
 - Card grid uses auto-fill with minmax(350px, 1fr) - Responsive layout adapts to viewport width without media queries
+- SetupPayoffList fetches both all setups and unfired setups - Parallel fetching for efficient filtering, better than client-side filtering
+- Unfired setups highlighted with orange background - Visual distinction makes unfired setups immediately noticeable for tracking narrative promises
+- Causality tab uses first event as default - Prevents empty state on first load when no event selected in state
+- Component render() methods return HTML strings - Consistent pattern across all card components for vanilla JS approach
 
 ### Pending Todos
 
@@ -153,6 +157,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16T22:05:46Z
-Stopped at: Completed 09-01-PLAN.md (Story Logic Foundation)
+Last session: 2026-01-16T22:11:30Z
+Stopped at: Completed 09-03-PLAN.md (Story Logic Completion) - Phase 9 complete
 Resume file: None
