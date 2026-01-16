@@ -147,11 +147,64 @@ module.exports = (db) => {
     return result.changes > 0;
   };
 
+  /**
+   * Add a manifestation to an existing theme
+   * @param {string} themeUuid - UUID of the theme
+   * @param {string} manifestationText - Manifestation text to add (non-empty string)
+   * @returns {number} 1 if successful, 0 if theme not found or invalid input
+   */
+  const addManifestation = (themeUuid, manifestationText) => {
+    // Validate manifestation text
+    if (!manifestationText || typeof manifestationText !== 'string' || manifestationText.trim() === '') {
+      return 0;
+    }
+
+    // Get current theme
+    const theme = getThemeById(themeUuid);
+    if (!theme) {
+      return 0;
+    }
+
+    // Append new manifestation
+    const updatedManifestations = [...theme.manifestations, manifestationText];
+
+    // Update theme with new manifestations array
+    return updateTheme(themeUuid, { manifestations: updatedManifestations });
+  };
+
+  /**
+   * Remove a manifestation from an existing theme
+   * @param {string} themeUuid - UUID of the theme
+   * @param {number} index - Index of manifestation to remove (0-based)
+   * @returns {number} 1 if successful, 0 if theme not found or invalid index
+   */
+  const removeManifestation = (themeUuid, index) => {
+    // Get current theme
+    const theme = getThemeById(themeUuid);
+    if (!theme) {
+      return 0;
+    }
+
+    // Validate index
+    if (!Number.isInteger(index) || index < 0 || index >= theme.manifestations.length) {
+      return 0;
+    }
+
+    // Remove manifestation at index
+    const updatedManifestations = [...theme.manifestations];
+    updatedManifestations.splice(index, 1);
+
+    // Update theme with modified manifestations array
+    return updateTheme(themeUuid, { manifestations: updatedManifestations });
+  };
+
   return {
     createTheme,
     getThemesByProject,
     getThemeById,
     updateTheme,
-    deleteTheme
+    deleteTheme,
+    addManifestation,
+    removeManifestation
   };
 };
