@@ -3,8 +3,6 @@
  * Toggles epistemic layers: World Truth, Character View, Reader View
  */
 
-import { state } from '../state.js';
-
 const LayerSwitcher = {
   init(containerId) {
     // Render layer switcher in specified container
@@ -66,9 +64,6 @@ const LayerSwitcher = {
     return state.get('viewMode');
   }
 };
-
-// Export for module usage
-export { LayerSwitcher };
 
 // For Node.js environments (testing)
 if (typeof module !== 'undefined' && module.exports) {

@@ -3,8 +3,6 @@
  * Slide-out panel for advanced inspection (Phase 11+)
  */
 
-import { state } from '../state.js';
-
 const PowerDrawer = {
   init() {
     // Create drawer DOM structure and append to body
@@ -58,9 +56,6 @@ const PowerDrawer = {
     }
   }
 };
-
-// Export for module usage
-export { PowerDrawer };
 
 // For Node.js environments (testing)
 if (typeof module !== 'undefined' && module.exports) {
