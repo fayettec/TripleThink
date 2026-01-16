@@ -191,12 +191,90 @@ module.exports = (db) => {
     return result.changes > 0;
   };
 
+  /**
+   * Traverse causal chain using breadth-first search
+   * @param {string} eventId - Starting event ID
+   * @param {string} direction - 'forward' (causes → effects) or 'backward' (effects → causes)
+   * @param {number} depth - How many levels deep to traverse (1-10, default 3)
+   * @param {number} maxDepth - Maximum allowed depth (default 10)
+   * @returns {object} Graph object with nodes and edges arrays
+   */
+  const traverseChain = (eventId, direction = 'forward', depth = 3, maxDepth = 10) => {
+    // Validate depth
+    if (!Number.isInteger(depth) || depth < 1 || depth > maxDepth) {
+      throw new Error(`Invalid depth: ${depth}. Must be integer between 1 and ${maxDepth}`);
+    }
+
+    if (!Number.isInteger(maxDepth) || maxDepth < 1 || maxDepth > 10) {
+      throw new Error(`Invalid maxDepth: ${maxDepth}. Must be integer between 1 and 10`);
+    }
+
+    // Validate direction
+    if (direction !== 'forward' && direction !== 'backward') {
+      throw new Error(`Invalid direction: ${direction}. Must be 'forward' or 'backward'`);
+    }
+
+    const nodes = [];
+    const edges = [];
+    const visited = new Set();
+    const queue = [{ event_id: eventId, level: 0 }];
+
+    // Add starting node
+    nodes.push({ event_id: eventId, level: 0 });
+    visited.add(eventId);
+
+    // Breadth-first search
+    while (queue.length > 0) {
+      const current = queue.shift();
+
+      // Stop if we've reached the depth limit
+      if (current.level >= depth) {
+        continue;
+      }
+
+      // Get chains based on direction
+      let chains;
+      if (direction === 'forward') {
+        // Forward: find effects of this cause
+        chains = getChainsByCause(current.event_id);
+      } else {
+        // Backward: find causes of this effect
+        chains = getChainsByEffect(current.event_id);
+      }
+
+      // Process each chain
+      for (const chain of chains) {
+        // Determine the next event based on direction
+        const nextEventId = direction === 'forward' ? chain.effect_event_id : chain.cause_event_id;
+
+        // Add edge
+        edges.push({
+          from: chain.cause_event_id,
+          to: chain.effect_event_id,
+          type: chain.type,
+          strength: chain.strength,
+          explanation: chain.explanation
+        });
+
+        // If we haven't visited this node, add it
+        if (!visited.has(nextEventId)) {
+          visited.add(nextEventId);
+          nodes.push({ event_id: nextEventId, level: current.level + 1 });
+          queue.push({ event_id: nextEventId, level: current.level + 1 });
+        }
+      }
+    }
+
+    return { nodes, edges };
+  };
+
   return {
     createChain,
     getChainsByCause,
     getChainsByEffect,
     getChainById,
     updateChain,
-    deleteChain
+    deleteChain,
+    traverseChain
   };
 };
