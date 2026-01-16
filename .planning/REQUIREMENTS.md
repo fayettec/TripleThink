@@ -31,9 +31,9 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 - [x] **LOGIC-09**: causality-chains.js supports causal chain traversal with depth limiting
 - [x] **LOGIC-10**: character-arcs.js module provides CRUD operations for character transformation tracking
 - [x] **LOGIC-11**: character-arcs.js tracks Save the Cat beat sheet phases (setup, catalyst, debate, midpoint, etc.)
-- [ ] **LOGIC-12**: story-conflicts.js module provides CRUD operations for conflict tracking
-- [ ] **LOGIC-13**: story-conflicts.js supports conflict status transitions (latent → active → escalating → climactic → resolved)
-- [ ] **LOGIC-14**: thematic-elements.js module provides CRUD operations for theme tracking
+- [x] **LOGIC-12**: story-conflicts.js module provides CRUD operations for conflict tracking
+- [x] **LOGIC-13**: story-conflicts.js supports conflict status transitions (latent → active → escalating → climactic → resolved)
+- [x] **LOGIC-14**: thematic-elements.js module provides CRUD operations for theme tracking
 - [ ] **LOGIC-15**: motif-instances.js module provides CRUD operations for motif pattern tracking
 - [ ] **LOGIC-16**: setup-payoffs.js module provides CRUD operations for setup/payoff tracking
 - [ ] **LOGIC-17**: setup-payoffs.js identifies unfired setups (planted but not yet paid off)
@@ -197,9 +197,9 @@ Which phases cover which requirements. Updated by create-roadmap.
 | LOGIC-09 | Phase 3 | Complete |
 | LOGIC-10 | Phase 3 | Complete |
 | LOGIC-11 | Phase 3 | Complete |
-| LOGIC-12 | Phase 4 | Pending |
-| LOGIC-13 | Phase 4 | Pending |
-| LOGIC-14 | Phase 4 | Pending |
+| LOGIC-12 | Phase 4 | Complete |
+| LOGIC-13 | Phase 4 | Complete |
+| LOGIC-14 | Phase 4 | Complete |
 | LOGIC-15 | Phase 5 | Pending |
 | LOGIC-16 | Phase 5 | Pending |
 | LOGIC-17 | Phase 5 | Pending |
