@@ -46,16 +46,18 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`TripleThink API running on port ${PORT}`);
-});
+// Start server only if run directly (not imported by tests)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`TripleThink API running on port ${PORT}`);
+  });
 
-// Graceful shutdown
-process.on('SIGINT', () => {
-  console.log('Shutting down...');
-  db.close();
-  process.exit(0);
-});
+  // Graceful shutdown
+  process.on('SIGINT', () => {
+    console.log('Shutting down...');
+    db.close();
+    process.exit(0);
+  });
+}
 
 module.exports = app;

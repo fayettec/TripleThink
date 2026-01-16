@@ -1,8 +1,21 @@
 {
+  "name": "triplethink-v4.1",
+  "version": "4.1.0",
+  "description": "Event-sourced narrative database for fiction series",
+  "main": "api/server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node api/server.js",
+    "migrate": "node db/run-migration.js"
+  },
   "dependencies": {
-    "better-sqlite3": "^12.6.0",
-    "cors": "^2.8.5",
-    "express": "^5.2.1",
-    "helmet": "^8.1.0"
+    "better-sqlite3": "^9.2.2",
+    "express": "^4.18.2",
+    "lru-cache": "^10.1.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.2.2"
   }
 }
