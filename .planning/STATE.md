@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-16)
 
 **Core value:** The orchestrator must assemble complete context packets for zero-knowledge scene generation
-**Current focus:** Phase 7 — API Layer
+**Current focus:** Phase 8 — GUI Core Infrastructure
 
 ## Current Position
 
 Phase: 8 of 14 (GUI Core Infrastructure)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-16 — Phase 7 complete, verified
+Plan: 1 of 3
+Status: In progress
+Last activity: 2026-01-16 — Completed 08-01-PLAN.md (GUI Foundation and API Client)
 
-Progress: █████████░ 46% (16/35 plans)
+Progress: █████████░ 49% (17/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
+- Total plans completed: 17
 - Average duration: 2.9 min
-- Total execution time: 0.76 hours
+- Total execution time: 0.82 hours
 
 **By Phase:**
 
@@ -34,10 +34,11 @@ Progress: █████████░ 46% (16/35 plans)
 | 05 | 2 | 5 min | 2.5 min |
 | 06 | 3 | 16 min | 5.3 min |
 | 07 | 3 | 8 min | 2.7 min |
+| 08 | 1 | 4 min | 3.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 12min, 2min, 3min, 3min, 2min (avg: 4.4 min)
-- Trend: API plans faster than test suite (Phase 6)
+- Last 5 plans: 2min, 3min, 3min, 2min, 4min (avg: 2.8 min)
+- Trend: Consistent velocity, GUI foundation quick
 
 ## Accumulated Context
 
@@ -113,6 +114,13 @@ Recent decisions affecting current work:
 - Stub routes for future implementation - Created minimal placeholder endpoints satisfying requirements without blocking progress
 - Route organization by logical sections - Core Data, Temporal & State, Logic Layer, Utility sections improve maintainability
 
+**Phase 8 decisions:**
+- Vanilla JavaScript without build step - Matches project constraint for simplicity, no transpilation complexity
+- Singleton API client pattern - Single instance exported for easy import, no need to pass around
+- Generic request() method with error handling - Centralizes HTTP logic, consistent error handling across all 43 endpoints
+- CSS custom properties for design tokens - Enable theme consistency, easier to maintain than hardcoded values
+- camelCase method names (convert from snake_case API) - Follow JavaScript naming conventions, clearer separation between API and client
+
 ### Pending Todos
 
 None yet.
@@ -123,6 +131,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16T20:40:58Z
-Stopped at: Completed 07-03-PLAN.md (Route Registration Verification) - Phase 7 complete
+Last session: 2026-01-16T21:03:53Z
+Stopped at: Completed 08-01-PLAN.md (GUI Foundation and API Client)
 Resume file: None
