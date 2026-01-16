@@ -41,10 +41,10 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 
 ### Logic Layer - Integration
 
-- [ ] **LOGIC-19**: All logic layer modules integrate with api-functions.js facade
-- [ ] **LOGIC-20**: Orchestrator service queries logic layer for conflicts, arcs, themes during context assembly
-- [ ] **LOGIC-21**: Logic layer modules tested with unit tests for CRUD operations
-- [ ] **LOGIC-22**: Logic layer modules tested with integration tests for cross-table queries
+- [x] **LOGIC-19**: All logic layer modules integrate with api-functions.js facade
+- [x] **LOGIC-20**: Orchestrator service queries logic layer for conflicts, arcs, themes during context assembly
+- [x] **LOGIC-21**: Logic layer modules tested with unit tests for CRUD operations
+- [x] **LOGIC-22**: Logic layer modules tested with integration tests for cross-table queries
 
 ### API Integration
 

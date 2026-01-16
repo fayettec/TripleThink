@@ -125,9 +125,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 06-01: Wire all modules to api-functions.js facade
-- [ ] 06-02: Integrate logic layer queries into orchestrator context assembly
-- [ ] 06-03: Unit and integration tests for logic layer
+- [x] 06-01: Wire all modules to api-functions.js facade
+- [x] 06-02: Integrate logic layer queries into orchestrator context assembly
+- [x] 06-03: Unit and integration tests for logic layer
 
 ### Phase 7: API Layer
 **Goal**: All logic layer functionality exposed via REST endpoints
@@ -298,7 +298,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 3. Logic Layer Modules - Causality & Arcs | 2/2 | Complete | 2026-01-16 |
 | 4. Logic Layer Modules - Conflicts & Themes | 2/2 | Complete | 2026-01-16 |
 | 5. Logic Layer Modules - Motifs, Setups & Rules | 2/2 | Complete | 2026-01-16 |
-| 6. Logic Layer Integration | 0/3 | Not started | - |
+| 6. Logic Layer Integration | 3/3 | Complete | 2026-01-16 |
 | 7. API Layer | 0/3 | Not started | - |
 | 8. GUI Core Infrastructure | 0/3 | Not started | - |
 | 9. GUI Logic Visualization | 0/3 | Not started | - |
