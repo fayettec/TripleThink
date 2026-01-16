@@ -118,7 +118,7 @@ const NarrativeTreeEditor = {
     }
 
     const chaptersHTML = this.data.chapters
-      .map(chapter => this.renderChapter(chapter))
+      .map((chapter, index) => this.renderChapter(chapter, index))
       .join('');
 
     return `
@@ -131,11 +131,13 @@ const NarrativeTreeEditor = {
   /**
    * Render a single chapter node
    * @param {object} chapter - Chapter object with scenes array
+   * @param {number} chapterIndex - Index in chapters array
    * @returns {string} HTML string
    */
-  renderChapter(chapter) {
+  renderChapter(chapter, chapterIndex) {
     const isUnassigned = chapter.id === 'unassigned';
     const sceneCount = chapter.scenes.length;
+    const isLastChapter = chapterIndex === this.data.chapters.length - 1;
 
     return `
       <div class="tree-chapter"
@@ -146,6 +148,16 @@ const NarrativeTreeEditor = {
           <span class="drag-handle">${!isUnassigned ? '☰' : ''}</span>
           <span class="chapter-title">${chapter.title}</span>
           <span class="scene-count">(${sceneCount} scene${sceneCount !== 1 ? 's' : ''})</span>
+          ${!isUnassigned ? `
+            <button class="btn-icon" data-action="split" data-chapter-id="${chapter.id}" title="Split Chapter">
+              ✂️
+            </button>
+          ` : ''}
+          ${!isUnassigned && !isLastChapter ? `
+            <button class="btn-icon" data-action="merge" data-chapter-id="${chapter.id}" title="Merge with Next Chapter">
+              🔗
+            </button>
+          ` : ''}
         </div>
         <div class="chapter-scenes">
           ${chapter.scenes.map(scene => this.renderScene(scene)).join('')}
@@ -191,6 +203,21 @@ const NarrativeTreeEditor = {
   setupDragHandlers() {
     const tree = document.getElementById('narrative-tree');
     if (!tree) return;
+
+    // Button click handlers for split and merge
+    tree.addEventListener('click', (e) => {
+      const button = e.target.closest('[data-action]');
+      if (!button) return;
+
+      const action = button.dataset.action;
+      const chapterId = button.dataset.chapterId;
+
+      if (action === 'split') {
+        this.showSplitDialog(chapterId);
+      } else if (action === 'merge') {
+        this.mergeWithNext(chapterId);
+      }
+    });
 
     // Dragstart - Store which node is being dragged
     tree.addEventListener('dragstart', (e) => {
@@ -451,6 +478,80 @@ const NarrativeTreeEditor = {
       if (index !== -1) return index + 1; // Return 1-based scene number
     }
     return 0;
+  },
+
+  /**
+   * Show split chapter dialog
+   * @param {string} chapterId - Chapter ID to split
+   */
+  showSplitDialog(chapterId) {
+    const chapter = this.data.chapters.find(ch => ch.id === chapterId);
+    if (!chapter || chapter.scenes.length < 2) {
+      alert('Chapter must have at least 2 scenes to split');
+      return;
+    }
+
+    // Simple prompt for split index
+    const splitIndex = prompt(`Split chapter "${chapter.title}" at scene number (2-${chapter.scenes.length}):`);
+    const index = parseInt(splitIndex, 10);
+
+    if (isNaN(index) || index < 2 || index > chapter.scenes.length) {
+      alert('Invalid split index');
+      return;
+    }
+
+    this.splitChapter(chapterId, index);
+  },
+
+  /**
+   * Split a chapter at the specified scene index
+   * @param {string} chapterId - Chapter ID
+   * @param {number} splitIndex - Scene number to split at (1-based)
+   */
+  async splitChapter(chapterId, splitIndex) {
+    try {
+      // Call API to split chapter
+      await api.splitChapter(chapterId, splitIndex);
+
+      // Re-render tree
+      await this.refreshTree();
+
+      console.log(`Chapter split at scene ${splitIndex}`);
+    } catch (err) {
+      console.error('Split chapter failed:', err);
+      alert(`Failed to split chapter: ${err.message}`);
+    }
+  },
+
+  /**
+   * Merge chapter with the next chapter
+   * @param {string} chapterId - Chapter ID
+   */
+  async mergeWithNext(chapterId) {
+    const chapterIndex = this.data.chapters.findIndex(ch => ch.id === chapterId);
+    if (chapterIndex === -1 || chapterIndex === this.data.chapters.length - 1) {
+      alert('Cannot merge last chapter');
+      return;
+    }
+
+    const currentChapter = this.data.chapters[chapterIndex];
+    const nextChapter = this.data.chapters[chapterIndex + 1];
+
+    const confirmed = confirm(`Merge "${currentChapter.title}" with "${nextChapter.title}"? This will combine all scenes into ${currentChapter.title}.`);
+    if (!confirmed) return;
+
+    try {
+      // Call API to merge chapters
+      await api.mergeChapters(chapterId, nextChapter.id);
+
+      // Re-render tree
+      await this.refreshTree();
+
+      console.log(`Chapters merged: ${chapterId} + ${nextChapter.id}`);
+    } catch (err) {
+      console.error('Merge chapters failed:', err);
+      alert(`Failed to merge chapters: ${err.message}`);
+    }
   }
 };
 

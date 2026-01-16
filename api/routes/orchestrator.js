@@ -157,6 +157,62 @@ module.exports = function createOrchestratorRoutes(db) {
     }
   });
 
+  // Split chapter at scene index
+  router.post('/chapters/:chapterId/split', (req, res) => {
+    try {
+      const { chapterId } = req.params;
+      const { splitIndex } = req.body;
+
+      // Validate splitIndex
+      if (!splitIndex || splitIndex < 2) {
+        return res.status(400).json({ error: 'splitIndex must be >= 2' });
+      }
+
+      // Get all scenes for this chapter (from any fiction - we'll need the fiction ID)
+      // We need to get scenes by chapterId, but the scenes module uses fictionId as primary filter
+      // For now, we'll get all scenes and filter by chapterId
+      const allScenes = db.prepare(`
+        SELECT * FROM scenes WHERE chapterId = ? ORDER BY sceneNumber ASC
+      `).all(chapterId);
+
+      if (allScenes.length < 2) {
+        return res.status(400).json({ error: 'Chapter must have at least 2 scenes' });
+      }
+
+      if (splitIndex > allScenes.length) {
+        return res.status(400).json({ error: `splitIndex ${splitIndex} exceeds scene count ${allScenes.length}` });
+      }
+
+      // Create new chapter ID
+      const newChapterId = `ch-${Date.now()}`;
+
+      // Update scenes: scenes[splitIndex-1:] move to new chapter
+      const scenesToMove = allScenes.slice(splitIndex - 1);
+      for (let i = 0; i < scenesToMove.length; i++) {
+        const scene = scenesToMove[i];
+        scenes.updateScene(db, scene.id, {
+          chapterId: newChapterId,
+          sceneNumber: i + 1
+        });
+      }
+
+      // Renumber remaining scenes in original chapter
+      const remainingScenes = allScenes.slice(0, splitIndex - 1);
+      for (let i = 0; i < remainingScenes.length; i++) {
+        scenes.updateScene(db, remainingScenes[i].id, { sceneNumber: i + 1 });
+      }
+
+      res.json({
+        originalChapter: chapterId,
+        newChapter: newChapterId,
+        scenesMoved: scenesToMove.length,
+        scenesRemaining: remainingScenes.length
+      });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   // ==================== TRANSITIONS ====================
 
   // Create a transition
