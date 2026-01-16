@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 6 of 14 (Logic Layer Integration)
-Plan: 1 of 3 (Database Facade Creation)
+Plan: 2 of 3 (Orchestrator Logic Layer Integration)
 Status: In progress
-Last activity: 2026-01-16 — Completed 06-01-PLAN.md
+Last activity: 2026-01-16 — Completed 06-02-PLAN.md
 
-Progress: ███████░░░ 31% (11/35 plans)
+Progress: ███████░░░ 34% (12/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
-- Average duration: 1.9 min
-- Total execution time: 0.35 hours
+- Total plans completed: 12
+- Average duration: 2.0 min
+- Total execution time: 0.39 hours
 
 **By Phase:**
 
@@ -32,11 +32,11 @@ Progress: ███████░░░ 31% (11/35 plans)
 | 03 | 2 | 4 min | 2.0 min |
 | 04 | 2 | 4 min | 2.0 min |
 | 05 | 2 | 5 min | 2.5 min |
-| 06 | 1 | 1 min | 1.2 min |
+| 06 | 2 | 4 min | 1.8 min |
 
 **Recent Trend:**
-- Last 5 plans: 2min, 2min, 2min, 3min, 1min
-- Trend: Slightly faster (2.0min average)
+- Last 5 plans: 2min, 2min, 3min, 1min, 2min
+- Trend: Stable (2.0min average)
 
 ## Accumulated Context
 
@@ -96,6 +96,10 @@ Recent decisions affecting current work:
 **Phase 6 decisions:**
 - Factory function pattern for facade - createAPI(db) matches module pattern, enables independent instances per database
 - CamelCase namespace exports - causalityChains, characterArcs, etc. match JavaScript conventions and prevent namespace collision
+- Orchestrator creates API instance per helper function - Maintains functional purity, no need to thread API instance through signatures
+- Empty array defaults for scene.activeConflictIds/activeThemeIds - Phase 7 will add these columns, graceful handling prevents errors now
+- logicLayer section added to context packet alongside top-level paths - Maintains backward compatibility while providing organized namespace
+- Character arcs queried by presentEntityIds - Arcs are character-specific, naturally indexed by character_id (no separate activeArcIds needed)
 
 ### Pending Todos
 
@@ -107,6 +111,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16T20:06:42Z
-Stopped at: Completed 06-01-PLAN.md (Database Facade Creation)
+Last session: 2026-01-16T20:09:13Z
+Stopped at: Completed 06-02-PLAN.md (Orchestrator Logic Layer Integration)
 Resume file: None
