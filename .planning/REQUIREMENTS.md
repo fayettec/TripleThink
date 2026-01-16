@@ -181,13 +181,105 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (Will be populated by /gsd:create-roadmap) | | |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Pending |
+| FOUND-05 | Phase 1 | Pending |
+| LOGIC-01 | Phase 2 | Pending |
+| LOGIC-02 | Phase 2 | Pending |
+| LOGIC-03 | Phase 2 | Pending |
+| LOGIC-04 | Phase 2 | Pending |
+| LOGIC-05 | Phase 2 | Pending |
+| LOGIC-06 | Phase 2 | Pending |
+| LOGIC-07 | Phase 2 | Pending |
+| LOGIC-08 | Phase 3 | Pending |
+| LOGIC-09 | Phase 3 | Pending |
+| LOGIC-10 | Phase 3 | Pending |
+| LOGIC-11 | Phase 3 | Pending |
+| LOGIC-12 | Phase 4 | Pending |
+| LOGIC-13 | Phase 4 | Pending |
+| LOGIC-14 | Phase 4 | Pending |
+| LOGIC-15 | Phase 5 | Pending |
+| LOGIC-16 | Phase 5 | Pending |
+| LOGIC-17 | Phase 5 | Pending |
+| LOGIC-18 | Phase 5 | Pending |
+| LOGIC-19 | Phase 6 | Pending |
+| LOGIC-20 | Phase 6 | Pending |
+| LOGIC-21 | Phase 6 | Pending |
+| LOGIC-22 | Phase 6 | Pending |
+| API-01 | Phase 7 | Pending |
+| API-02 | Phase 7 | Pending |
+| API-03 | Phase 7 | Pending |
+| API-04 | Phase 7 | Pending |
+| API-05 | Phase 7 | Pending |
+| API-06 | Phase 7 | Pending |
+| API-07 | Phase 7 | Pending |
+| API-08 | Phase 7 | Pending |
+| API-09 | Phase 7 | Pending |
+| API-10 | Phase 7 | Pending |
+| API-11 | Phase 7 | Pending |
+| API-12 | Phase 7 | Pending |
+| API-13 | Phase 7 | Pending |
+| API-14 | Phase 7 | Pending |
+| API-15 | Phase 7 | Pending |
+| API-16 | Phase 7 | Pending |
+| API-17 | Phase 7 | Pending |
+| GUI-01 | Phase 8 | Pending |
+| GUI-02 | Phase 8 | Pending |
+| GUI-03 | Phase 8 | Pending |
+| GUI-04 | Phase 8 | Pending |
+| GUI-05 | Phase 8 | Pending |
+| GUI-06 | Phase 8 | Pending |
+| GUI-07 | Phase 9 | Pending |
+| GUI-08 | Phase 9 | Pending |
+| GUI-09 | Phase 9 | Pending |
+| GUI-10 | Phase 9 | Pending |
+| GUI-11 | Phase 9 | Pending |
+| GUI-12 | Phase 9 | Pending |
+| GUI-13 | Phase 9 | Pending |
+| GUI-14 | Phase 10 | Pending |
+| GUI-15 | Phase 10 | Pending |
+| GUI-16 | Phase 10 | Pending |
+| GUI-17 | Phase 10 | Pending |
+| GUI-18 | Phase 10 | Pending |
+| GUI-19 | Phase 10 | Pending |
+| GUI-20 | Phase 11 | Pending |
+| GUI-21 | Phase 11 | Pending |
+| GUI-22 | Phase 11 | Pending |
+| GUI-23 | Phase 11 | Pending |
+| GUI-24 | Phase 11 | Pending |
+| GUI-25 | Phase 11 | Pending |
+| GUI-26 | Phase 11 | Pending |
+| GUI-27 | Phase 11 | Pending |
+| GUI-28 | Phase 11 | Pending |
+| GUI-29 | Phase 11 | Pending |
+| GUI-30 | Phase 11 | Pending |
+| GUI-31 | Phase 12 | Pending |
+| GUI-32 | Phase 12 | Pending |
+| GUI-33 | Phase 12 | Pending |
+| GUI-34 | Phase 12 | Pending |
+| GUI-35 | Phase 12 | Pending |
+| GUI-36 | Phase 12 | Pending |
+| VAL-01 | Phase 13 | Pending |
+| VAL-02 | Phase 13 | Pending |
+| VAL-03 | Phase 13 | Pending |
+| VAL-04 | Phase 13 | Pending |
+| VAL-05 | Phase 13 | Pending |
+| VAL-06 | Phase 13 | Pending |
+| VAL-07 | Phase 13 | Pending |
+| VAL-08 | Phase 13 | Pending |
+| DOC-01 | Phase 14 | Pending |
+| DOC-02 | Phase 14 | Pending |
+| DOC-03 | Phase 14 | Pending |
+| DOC-04 | Phase 14 | Pending |
+| DOC-05 | Phase 14 | Pending |
 
 **Coverage:**
 - v1 requirements: 83 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 83 ⚠️
+- Mapped to phases: 83
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-01-16*
-*Last updated: 2026-01-16 after initial definition*
+*Last updated: 2026-01-16 after roadmap creation (100% coverage)*
