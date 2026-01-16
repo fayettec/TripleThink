@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Router.register('epistemic', EpistemicScreen);
   Router.register('characters', CharactersScreen);
   Router.register('story-logic', StoryLogicScreen);
+  Router.register('narrative', NarrativeScreen);
 
   // Start router
   Router.init();
