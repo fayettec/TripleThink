@@ -10,28 +10,29 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 2 of 14 (Logic Layer Schema)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-16 — Phase 1 complete, verified
+Plan: 1 of 2 (Logic Layer Migration)
+Status: In progress
+Last activity: 2026-01-16 — Completed 02-01-PLAN.md (Logic Layer Migration)
 
-Progress: ██░░░░░░░░ 6% (2/35 plans)
+Progress: ███░░░░░░░ 9% (3/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 2.5 min
-- Total execution time: 0.08 hours
+- Total plans completed: 3
+- Average duration: 2 min
+- Total execution time: 0.1 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01 | 2 | 5 min | 2.5 min |
+| 02 | 1 | 1 min | 1 min |
 
 **Recent Trend:**
-- Last 5 plans: 2min, 3min
-- Trend: Consistent velocity
+- Last 5 plans: 2min, 3min, 1min
+- Trend: Increasing efficiency
 
 ## Accumulated Context
 
@@ -51,6 +52,13 @@ Recent decisions affecting current work:
 - Server only listens when run directly (require.main === module) - Enables test imports without port conflicts
 - Added supertest for API integration testing - Established standard tool for HTTP testing across project
 
+**Phase 2 decisions:**
+- CHECK constraints for enum validation - Enforces valid values at database level for type, status, category fields
+- Deferred foreign key constraints to EVENTS table - Allows progressive schema building (causality_chains, setup_payoffs reference event_uuid)
+- Causality strength as 1-10 integer - Quantifies relationship strength for filtering and prioritization
+- Save the Cat 13-beat structure as enum - Provides specific vocabulary for character arc tracking
+- World rules with enforcement_level (strict/flexible/guideline) - Distinguishes immutable physics from social guidelines
+
 ### Pending Todos
 
 None yet.
@@ -61,6 +69,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16T15:47:27Z
-Stopped at: Completed 01-02-PLAN.md (Event Moments API)
+Last session: 2026-01-16T16:01:49Z
+Stopped at: Completed 02-01-PLAN.md (Logic Layer Migration)
 Resume file: None
