@@ -14,7 +14,7 @@ The journey: Foundation enhancement (EVENT_MOMENTS) → Logic Layer database (7 
 
 - [x] **Phase 1: Foundation Enhancement** - EVENT_MOMENTS implementation for granular beat tracking
 - [x] **Phase 2: Logic Layer Schema** - Create 7 new database tables
-- [ ] **Phase 3: Logic Layer Modules - Causality & Arcs** - First wave: causality-chains.js and character-arcs.js
+- [x] **Phase 3: Logic Layer Modules - Causality & Arcs** - First wave: causality-chains.js and character-arcs.js
 - [ ] **Phase 4: Logic Layer Modules - Conflicts & Themes** - Second wave: story-conflicts.js and thematic-elements.js
 - [ ] **Phase 5: Logic Layer Modules - Motifs, Setups & Rules** - Third wave: motif-instances.js, setup-payoffs.js, world-rules.js
 - [ ] **Phase 6: Logic Layer Integration** - Wire modules to api-functions.js and orchestrator, add tests
@@ -78,8 +78,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: causality-chains.js module with traversal
-- [ ] 03-02: character-arcs.js module with phase tracking
+- [x] 03-01: causality-chains.js module with traversal
+- [x] 03-02: character-arcs.js module with phase tracking
 
 ### Phase 4: Logic Layer Modules - Conflicts & Themes
 **Goal**: Story conflicts and thematic elements have full CRUD operations and status tracking
@@ -295,7 +295,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 |-------|----------------|--------|-----------|
 | 1. Foundation Enhancement | 2/2 | Complete | 2026-01-16 |
 | 2. Logic Layer Schema | 2/2 | Complete | 2026-01-16 |
-| 3. Logic Layer Modules - Causality & Arcs | 0/2 | Not started | - |
+| 3. Logic Layer Modules - Causality & Arcs | 2/2 | Complete | 2026-01-16 |
 | 4. Logic Layer Modules - Conflicts & Themes | 0/2 | Not started | - |
 | 5. Logic Layer Modules - Motifs, Setups & Rules | 0/2 | Not started | - |
 | 6. Logic Layer Integration | 0/3 | Not started | - |

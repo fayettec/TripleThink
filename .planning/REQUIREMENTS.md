@@ -27,10 +27,10 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 
 ### Logic Layer - Database Modules
 
-- [ ] **LOGIC-08**: causality-chains.js module provides CRUD operations for causality tracking
-- [ ] **LOGIC-09**: causality-chains.js supports causal chain traversal with depth limiting
-- [ ] **LOGIC-10**: character-arcs.js module provides CRUD operations for character transformation tracking
-- [ ] **LOGIC-11**: character-arcs.js tracks Save the Cat beat sheet phases (setup, catalyst, debate, midpoint, etc.)
+- [x] **LOGIC-08**: causality-chains.js module provides CRUD operations for causality tracking
+- [x] **LOGIC-09**: causality-chains.js supports causal chain traversal with depth limiting
+- [x] **LOGIC-10**: character-arcs.js module provides CRUD operations for character transformation tracking
+- [x] **LOGIC-11**: character-arcs.js tracks Save the Cat beat sheet phases (setup, catalyst, debate, midpoint, etc.)
 - [ ] **LOGIC-12**: story-conflicts.js module provides CRUD operations for conflict tracking
 - [ ] **LOGIC-13**: story-conflicts.js supports conflict status transitions (latent → active → escalating → climactic → resolved)
 - [ ] **LOGIC-14**: thematic-elements.js module provides CRUD operations for theme tracking
@@ -181,11 +181,11 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
-| FOUND-02 | Phase 1 | Pending |
-| FOUND-03 | Phase 1 | Pending |
-| FOUND-04 | Phase 1 | Pending |
-| FOUND-05 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Complete |
+| FOUND-02 | Phase 1 | Complete |
+| FOUND-03 | Phase 1 | Complete |
+| FOUND-04 | Phase 1 | Complete |
+| FOUND-05 | Phase 1 | Complete |
 | LOGIC-01 | Phase 2 | Complete |
 | LOGIC-02 | Phase 2 | Complete |
 | LOGIC-03 | Phase 2 | Complete |
@@ -193,10 +193,10 @@ Which phases cover which requirements. Updated by create-roadmap.
 | LOGIC-05 | Phase 2 | Complete |
 | LOGIC-06 | Phase 2 | Complete |
 | LOGIC-07 | Phase 2 | Complete |
-| LOGIC-08 | Phase 3 | Pending |
-| LOGIC-09 | Phase 3 | Pending |
-| LOGIC-10 | Phase 3 | Pending |
-| LOGIC-11 | Phase 3 | Pending |
+| LOGIC-08 | Phase 3 | Complete |
+| LOGIC-09 | Phase 3 | Complete |
+| LOGIC-10 | Phase 3 | Complete |
+| LOGIC-11 | Phase 3 | Complete |
 | LOGIC-12 | Phase 4 | Pending |
 | LOGIC-13 | Phase 4 | Pending |
 | LOGIC-14 | Phase 4 | Pending |
