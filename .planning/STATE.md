@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 8 of 14 (GUI Core Infrastructure)
-Plan: 1 of 3
+Plan: 2 of 3
 Status: In progress
-Last activity: 2026-01-16 — Completed 08-01-PLAN.md (GUI Foundation and API Client)
+Last activity: 2026-01-16 — Completed 08-02-PLAN.md (State Management and Core Components)
 
-Progress: █████████░ 49% (17/35 plans)
+Progress: █████████░ 51% (18/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 17
-- Average duration: 2.9 min
-- Total execution time: 0.82 hours
+- Total plans completed: 18
+- Average duration: 2.8 min
+- Total execution time: 0.85 hours
 
 **By Phase:**
 
@@ -34,11 +34,11 @@ Progress: █████████░ 49% (17/35 plans)
 | 05 | 2 | 5 min | 2.5 min |
 | 06 | 3 | 16 min | 5.3 min |
 | 07 | 3 | 8 min | 2.7 min |
-| 08 | 1 | 4 min | 3.5 min |
+| 08 | 2 | 6 min | 3.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 2min, 3min, 3min, 2min, 4min (avg: 2.8 min)
-- Trend: Consistent velocity, GUI foundation quick
+- Last 5 plans: 3min, 3min, 2min, 4min, 2min (avg: 2.8 min)
+- Trend: Consistent velocity, state management quick
 
 ## Accumulated Context
 
@@ -120,6 +120,11 @@ Recent decisions affecting current work:
 - Generic request() method with error handling - Centralizes HTTP logic, consistent error handling across all 43 endpoints
 - CSS custom properties for design tokens - Enable theme consistency, easier to maintain than hardcoded values
 - camelCase method names (convert from snake_case API) - Follow JavaScript naming conventions, clearer separation between API and client
+- Pub/sub pattern for state changes - Enables reactive UI without framework overhead, standard observer pattern
+- Immutable getAll() returns copy - Prevents accidental state mutation from external code
+- subscribe() returns unsubscribe function - Standard pattern for cleanup, prevents memory leaks
+- Power drawer slides from right - Preserves screen space, familiar UX pattern (VS Code, browser DevTools)
+- Layer switcher updates viewMode state - Enables future screens to react to layer changes without tight coupling
 
 ### Pending Todos
 
@@ -131,6 +136,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16T21:03:53Z
-Stopped at: Completed 08-01-PLAN.md (GUI Foundation and API Client)
+Last session: 2026-01-16T21:07:55Z
+Stopped at: Completed 08-02-PLAN.md (State Management and Core Components)
 Resume file: None
