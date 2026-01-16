@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 4 of 14 (Logic Layer Modules - Conflicts & Themes)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-16 — Phase 3 complete, verified
+Plan: 1 of 5 complete
+Status: In progress
+Last activity: 2026-01-16 — Completed 04-01-PLAN.md
 
-Progress: █████░░░░░ 17% (6/35 plans)
+Progress: █████░░░░░ 20% (7/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
+- Total plans completed: 7
 - Average duration: 2 min
-- Total execution time: 0.21 hours
+- Total execution time: 0.24 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: █████░░░░░ 17% (6/35 plans)
 | 01 | 2 | 5 min | 2.5 min |
 | 02 | 2 | 3 min | 1.5 min |
 | 03 | 2 | 4 min | 2.0 min |
+| 04 | 1 | 2 min | 2.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 1min, 2min, 2min, 2min, 2min
-- Trend: Consistent efficiency (~2min average)
+- Last 5 plans: 2min, 2min, 2min, 2min, 2min
+- Trend: Very consistent efficiency (2min average)
 
 ## Accumulated Context
 
@@ -72,6 +73,11 @@ Recent decisions affecting current work:
 - Nullable arc fields (archetype, lie/truth, want/need) allow incremental arc definition - Authors can create placeholder arcs that get filled in during story development
 - Phase validation at both creation and update ensures data integrity - Catches invalid phases early at entry points
 
+**Phase 4 decisions:**
+- transitionConflictStatus supports non-linear transitions - Unlike character arcs, conflicts can jump between statuses (latent → climactic, active → resolved) for flexible storytelling
+- Conflict status defaults to 'latent' - Most conflicts start in background before surfacing, authors can override if conflict is immediately active
+- Protagonist_id immutable after creation - Conflicts fundamentally tied to protagonist, if protagonist changes it's a different conflict
+
 ### Pending Todos
 
 None yet.
@@ -82,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16T16:23:00Z
-Stopped at: Phase 3 execution complete and verified
+Last session: 2026-01-16T16:51:50Z
+Stopped at: Completed 04-01-PLAN.md (Story Conflicts Module)
 Resume file: None
