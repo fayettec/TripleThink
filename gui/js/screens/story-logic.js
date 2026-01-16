@@ -70,16 +70,16 @@ const StoryLogicScreen = {
         await this.renderConflictsTab(container, projectId);
         break;
       case 'causality':
-        container.innerHTML = '<div class="placeholder"><p>Causality graph visualization will be implemented in Plan 02.</p></div>';
+        await this.renderCausalityTab(container, projectId);
         break;
       case 'themes':
-        container.innerHTML = '<div class="placeholder"><p>Thematic elements will be implemented in Plan 03.</p></div>';
+        await this.renderThemesTab(container, projectId);
         break;
       case 'motifs':
-        container.innerHTML = '<div class="placeholder"><p>Motif instances will be implemented in Plan 03.</p></div>';
+        await this.renderMotifsTab(container, projectId);
         break;
       case 'setup-payoffs':
-        container.innerHTML = '<div class="placeholder"><p>Setup/Payoff tracking will be implemented in Plan 03.</p></div>';
+        await this.renderSetupPayoffsTab(container, projectId);
         break;
       default:
         container.innerHTML = '<div class="placeholder"><p>Unknown tab</p></div>';
@@ -133,6 +133,103 @@ const StoryLogicScreen = {
     } catch (err) {
       console.error('Error loading story conflicts:', err);
       container.innerHTML = `<div class="error"><p>Error loading story conflicts: ${err.message}</p></div>`;
+    }
+  },
+
+  async renderCausalityTab(container, projectId) {
+    try {
+      container.innerHTML = '<div class="loading">Loading causality graph...</div>';
+
+      if (!projectId) {
+        container.innerHTML = '<div class="empty-state"><p>No project selected. Create or select a project to view causality relationships.</p></div>';
+        return;
+      }
+
+      // Create causality graph container
+      container.innerHTML = '<div id="causality-graph-container"></div>';
+
+      // Get first event to use as starting point
+      // In a full implementation, this would have an event picker
+      // For now, we'll use a placeholder approach
+      const events = await api.request('/api/events');
+
+      if (!events || events.length === 0) {
+        container.innerHTML = '<div class="empty-state"><p>No events yet. Create events to see their causal relationships.</p></div>';
+        return;
+      }
+
+      // Use first event as default
+      const selectedEventId = state.get('selectedEventId') || events[0].event_uuid;
+      const depth = state.get('causalityDepth') || 3;
+
+      // Render causality graph
+      await CausalityGraph.render('causality-graph-container', selectedEventId, depth);
+    } catch (err) {
+      console.error('Error loading causality graph:', err);
+      container.innerHTML = `<div class="error"><p>Error loading causality graph: ${err.message}</p></div>`;
+    }
+  },
+
+  async renderThemesTab(container, projectId) {
+    try {
+      container.innerHTML = '<div class="loading">Loading themes...</div>';
+
+      if (!projectId) {
+        container.innerHTML = '<div class="empty-state"><p>No project selected. Create or select a project to view themes.</p></div>';
+        return;
+      }
+
+      const themes = await api.getThematicElementsByProject(projectId);
+
+      if (!themes || themes.length === 0) {
+        container.innerHTML = '<div class="empty-state"><p>No themes defined yet. Add thematic elements to see them here.</p></div>';
+        return;
+      }
+
+      // Render theme cards
+      const cardsHtml = themes.map(theme => ThemeCard.render(theme)).join('');
+      container.innerHTML = `<div class="card-grid">${cardsHtml}</div>`;
+    } catch (err) {
+      console.error('Error loading themes:', err);
+      container.innerHTML = `<div class="error"><p>Error loading themes: ${err.message}</p></div>`;
+    }
+  },
+
+  async renderMotifsTab(container, projectId) {
+    try {
+      container.innerHTML = '<div class="loading">Loading motifs...</div>';
+
+      if (!projectId) {
+        container.innerHTML = '<div class="empty-state"><p>No project selected. Create or select a project to view motifs.</p></div>';
+        return;
+      }
+
+      const motifs = await api.getMotifInstancesByProject(projectId);
+
+      if (!motifs || motifs.length === 0) {
+        container.innerHTML = '<div class="empty-state"><p>No motifs recorded yet. Add motif instances to see them here.</p></div>';
+        return;
+      }
+
+      // Render motif cards
+      const cardsHtml = motifs.map(motif => MotifCard.render(motif)).join('');
+      container.innerHTML = `<div class="card-grid">${cardsHtml}</div>`;
+    } catch (err) {
+      console.error('Error loading motifs:', err);
+      container.innerHTML = `<div class="error"><p>Error loading motifs: ${err.message}</p></div>`;
+    }
+  },
+
+  async renderSetupPayoffsTab(container, projectId) {
+    try {
+      // Clear container and create target div for SetupPayoffList
+      container.innerHTML = '<div id="setup-payoff-container"></div>';
+
+      // Let SetupPayoffList handle its own loading and empty states
+      await SetupPayoffList.render('setup-payoff-container');
+    } catch (err) {
+      console.error('Error loading setup/payoffs:', err);
+      container.innerHTML = `<div class="error"><p>Error loading setup/payoffs: ${err.message}</p></div>`;
     }
   }
 };
