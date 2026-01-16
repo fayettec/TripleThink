@@ -249,3 +249,72 @@ module.exports = (db) => {
     advancePhase
   };
 };
+
+// Self-test when run directly
+if (require.main === module) {
+  const Database = require('better-sqlite3');
+  const testDb = new Database(':memory:');
+
+  // Create table
+  testDb.exec(`
+    CREATE TABLE character_arcs (
+      arc_uuid TEXT PRIMARY KEY,
+      project_id TEXT NOT NULL,
+      character_id TEXT NOT NULL,
+      archetype TEXT,
+      lie_belief TEXT,
+      truth_belief TEXT,
+      want_external TEXT,
+      need_internal TEXT,
+      current_phase TEXT CHECK(current_phase IN (
+        'setup', 'catalyst', 'debate', 'break_into_two', 'b_story',
+        'fun_and_games', 'midpoint', 'bad_guys_close_in', 'all_is_lost',
+        'dark_night_of_soul', 'break_into_three', 'finale', 'final_image'
+      )),
+      created_at INTEGER NOT NULL
+    )
+  `);
+
+  const characterArcs = require('./character-arcs')(testDb);
+
+  // Test 1: Create arc
+  const arc = characterArcs.createArc(
+    'proj-001',
+    'char-alice',
+    'hero',
+    'She believes she is powerless',
+    'She has power within',
+    'Wants to find her parents',
+    'Needs to believe in herself',
+    'setup'
+  );
+  console.assert(arc.character_id === 'char-alice', 'Arc character should be char-alice');
+  console.assert(arc.current_phase === 'setup', 'Arc phase should be setup');
+
+  // Test 2: Retrieve by project
+  const byProject = characterArcs.getArcsByProject('proj-001');
+  console.assert(byProject.length === 1, 'Should find 1 arc by project');
+
+  // Test 3: Retrieve by character
+  const byChar = characterArcs.getArcByCharacter('char-alice');
+  console.assert(byChar !== null, 'Should find arc for char-alice');
+  console.assert(byChar.archetype === 'hero', 'Archetype should be hero');
+
+  // Test 4: Advance phase
+  const advanced = characterArcs.advancePhase(arc.arc_uuid);
+  console.assert(advanced.current_phase === 'catalyst', 'Phase should advance to catalyst');
+
+  // Test 5: Advance again
+  const advanced2 = characterArcs.advancePhase(arc.arc_uuid);
+  console.assert(advanced2.current_phase === 'debate', 'Phase should advance to debate');
+
+  // Test 6: Update arc fields
+  const updated = characterArcs.updateArc(arc.arc_uuid, {
+    want_external: 'Wants to save the kingdom',
+    archetype: 'reluctant_hero'
+  });
+  console.assert(updated.want_external === 'Wants to save the kingdom', 'Want should be updated');
+  console.assert(updated.archetype === 'reluctant_hero', 'Archetype should be updated');
+
+  console.log('✓ All character-arcs module tests passed');
+}
