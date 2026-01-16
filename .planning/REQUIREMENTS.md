@@ -34,10 +34,10 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 - [x] **LOGIC-12**: story-conflicts.js module provides CRUD operations for conflict tracking
 - [x] **LOGIC-13**: story-conflicts.js supports conflict status transitions (latent → active → escalating → climactic → resolved)
 - [x] **LOGIC-14**: thematic-elements.js module provides CRUD operations for theme tracking
-- [ ] **LOGIC-15**: motif-instances.js module provides CRUD operations for motif pattern tracking
-- [ ] **LOGIC-16**: setup-payoffs.js module provides CRUD operations for setup/payoff tracking
-- [ ] **LOGIC-17**: setup-payoffs.js identifies unfired setups (planted but not yet paid off)
-- [ ] **LOGIC-18**: world-rules.js module provides CRUD operations for universe consistency rules
+- [x] **LOGIC-15**: motif-instances.js module provides CRUD operations for motif pattern tracking
+- [x] **LOGIC-16**: setup-payoffs.js module provides CRUD operations for setup/payoff tracking
+- [x] **LOGIC-17**: setup-payoffs.js identifies unfired setups (planted but not yet paid off)
+- [x] **LOGIC-18**: world-rules.js module provides CRUD operations for universe consistency rules
 
 ### Logic Layer - Integration
 
@@ -200,10 +200,10 @@ Which phases cover which requirements. Updated by create-roadmap.
 | LOGIC-12 | Phase 4 | Complete |
 | LOGIC-13 | Phase 4 | Complete |
 | LOGIC-14 | Phase 4 | Complete |
-| LOGIC-15 | Phase 5 | Pending |
-| LOGIC-16 | Phase 5 | Pending |
-| LOGIC-17 | Phase 5 | Pending |
-| LOGIC-18 | Phase 5 | Pending |
+| LOGIC-15 | Phase 5 | Complete |
+| LOGIC-16 | Phase 5 | Complete |
+| LOGIC-17 | Phase 5 | Complete |
+| LOGIC-18 | Phase 5 | Complete |
 | LOGIC-19 | Phase 6 | Pending |
 | LOGIC-20 | Phase 6 | Pending |
 | LOGIC-21 | Phase 6 | Pending |

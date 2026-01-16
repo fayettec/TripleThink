@@ -16,7 +16,7 @@ The journey: Foundation enhancement (EVENT_MOMENTS) → Logic Layer database (7 
 - [x] **Phase 2: Logic Layer Schema** - Create 7 new database tables
 - [x] **Phase 3: Logic Layer Modules - Causality & Arcs** - First wave: causality-chains.js and character-arcs.js
 - [x] **Phase 4: Logic Layer Modules - Conflicts & Themes** - Second wave: story-conflicts.js and thematic-elements.js
-- [ ] **Phase 5: Logic Layer Modules - Motifs, Setups & Rules** - Third wave: motif-instances.js, setup-payoffs.js, world-rules.js
+- [x] **Phase 5: Logic Layer Modules - Motifs, Setups & Rules** - Third wave: motif-instances.js, setup-payoffs.js, world-rules.js
 - [ ] **Phase 6: Logic Layer Integration** - Wire modules to api-functions.js and orchestrator, add tests
 - [ ] **Phase 7: API Layer** - REST endpoints for all logic layer functionality
 - [ ] **Phase 8: GUI Core Infrastructure** - Power drawer, layer switcher, state management, API client
@@ -109,8 +109,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: motif-instances.js and setup-payoffs.js modules
-- [ ] 05-02: world-rules.js module and unfired setups query
+- [x] 05-01: motif-instances.js and setup-payoffs.js modules
+- [x] 05-02: world-rules.js module and unfired setups query
 
 ### Phase 6: Logic Layer Integration
 **Goal**: Logic layer wired to api-functions.js and orchestrator with comprehensive tests
@@ -297,7 +297,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 2. Logic Layer Schema | 2/2 | Complete | 2026-01-16 |
 | 3. Logic Layer Modules - Causality & Arcs | 2/2 | Complete | 2026-01-16 |
 | 4. Logic Layer Modules - Conflicts & Themes | 2/2 | Complete | 2026-01-16 |
-| 5. Logic Layer Modules - Motifs, Setups & Rules | 0/2 | Not started | - |
+| 5. Logic Layer Modules - Motifs, Setups & Rules | 2/2 | Complete | 2026-01-16 |
 | 6. Logic Layer Integration | 0/3 | Not started | - |
 | 7. API Layer | 0/3 | Not started | - |
 | 8. GUI Core Infrastructure | 0/3 | Not started | - |
