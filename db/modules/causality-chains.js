@@ -278,3 +278,98 @@ module.exports = (db) => {
     traverseChain
   };
 };
+
+// Self-test when run directly
+if (require.main === module) {
+  const Database = require('better-sqlite3');
+  const testDb = new Database(':memory:');
+
+  // Create table
+  testDb.exec(`
+    CREATE TABLE causality_chains (
+      chain_uuid TEXT PRIMARY KEY,
+      project_id TEXT NOT NULL,
+      cause_event_id TEXT NOT NULL,
+      effect_event_id TEXT NOT NULL,
+      type TEXT NOT NULL CHECK(type IN ('direct_cause', 'enabling_condition', 'motivation', 'psychological_trigger')),
+      strength INTEGER NOT NULL CHECK(strength >= 1 AND strength <= 10),
+      explanation TEXT NOT NULL,
+      created_at INTEGER NOT NULL
+    )
+  `);
+
+  const module = require('./causality-chains')(testDb);
+
+  // Test 1: Create chain
+  const chain = module.createChain('proj-001', 'evt-001', 'evt-002', 'direct_cause', 8, 'Event 001 directly caused event 002');
+  console.assert(chain.type === 'direct_cause', 'Chain type should be direct_cause');
+  console.assert(chain.strength === 8, 'Chain strength should be 8');
+  console.assert(chain.cause_event_id === 'evt-001', 'Cause event should be evt-001');
+  console.assert(chain.effect_event_id === 'evt-002', 'Effect event should be evt-002');
+
+  // Test 2: Retrieve by cause
+  const byCause = module.getChainsByCause('evt-001');
+  console.assert(byCause.length === 1, 'Should find 1 chain by cause');
+  console.assert(byCause[0].chain_uuid === chain.chain_uuid, 'Chain UUID should match');
+
+  // Test 3: Retrieve by effect
+  const byEffect = module.getChainsByEffect('evt-002');
+  console.assert(byEffect.length === 1, 'Should find 1 chain by effect');
+  console.assert(byEffect[0].chain_uuid === chain.chain_uuid, 'Chain UUID should match');
+
+  // Test 4: Get by ID
+  const byId = module.getChainById(chain.chain_uuid);
+  console.assert(byId !== null, 'Should find chain by ID');
+  console.assert(byId.type === 'direct_cause', 'Retrieved chain should have correct type');
+
+  // Test 5: Update chain
+  const updated = module.updateChain(chain.chain_uuid, { strength: 10, explanation: 'Updated explanation' });
+  console.assert(updated.strength === 10, 'Chain strength should be updated to 10');
+  console.assert(updated.explanation === 'Updated explanation', 'Explanation should be updated');
+
+  // Test 6: Create chain for traversal test
+  module.createChain('proj-001', 'evt-002', 'evt-003', 'enabling_condition', 7, 'Event 002 enabled event 003');
+
+  // Test 7: Traverse forward
+  const graphForward = module.traverseChain('evt-001', 'forward', 2);
+  console.assert(graphForward.nodes.length >= 1, 'Forward graph should have at least starting node');
+  console.assert(graphForward.edges.length >= 1, 'Forward graph should have at least one edge');
+  console.assert(graphForward.nodes[0].event_id === 'evt-001', 'Starting node should be evt-001');
+
+  // Test 8: Traverse backward
+  const graphBackward = module.traverseChain('evt-002', 'backward', 2);
+  console.assert(graphBackward.nodes.length >= 1, 'Backward graph should have at least starting node');
+  console.assert(graphBackward.edges.length >= 1, 'Backward graph should have at least one edge');
+
+  // Test 9: Delete chain
+  const deleted = module.deleteChain(chain.chain_uuid);
+  console.assert(deleted === true, 'Chain should be deleted');
+  const afterDelete = module.getChainById(chain.chain_uuid);
+  console.assert(afterDelete === null, 'Chain should not exist after deletion');
+
+  // Test 10: Validate type enum
+  try {
+    module.createChain('proj-001', 'evt-004', 'evt-005', 'invalid_type', 5, 'Test');
+    console.assert(false, 'Should throw error for invalid type');
+  } catch (e) {
+    console.assert(e.message.includes('Invalid type'), 'Should throw type validation error');
+  }
+
+  // Test 11: Validate strength range
+  try {
+    module.createChain('proj-001', 'evt-004', 'evt-005', 'direct_cause', 11, 'Test');
+    console.assert(false, 'Should throw error for invalid strength');
+  } catch (e) {
+    console.assert(e.message.includes('Invalid strength'), 'Should throw strength validation error');
+  }
+
+  // Test 12: Validate depth range
+  try {
+    module.traverseChain('evt-001', 'forward', 11);
+    console.assert(false, 'Should throw error for invalid depth');
+  } catch (e) {
+    console.assert(e.message.includes('Invalid depth'), 'Should throw depth validation error');
+  }
+
+  console.log('\u2713 All causality-chains module tests passed');
+}
