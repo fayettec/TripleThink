@@ -83,6 +83,10 @@ Recent decisions affecting current work:
 - Helper functions (addManifestation/removeManifestation) reuse CRUD operations - DRY principle, internally call getThemeById and updateTheme
 
 **Phase 5 decisions:**
+- getUnfiredSetups specialized query for Chekhov's gun tracking - Filters for status IN ('planted', 'referenced') to identify narrative promises needing payoff
+- fireSetup helper function for atomic updates - Marks setup as fired while setting payoff_event_id and fired_chapter in single operation
+- getMotifInstancesByType specialized query - Prevents N+1 query patterns for type-filtered pattern analysis in GUI
+- Setup status defaults to 'planted' - Most setups start as planted (gun on mantelpiece), authors can override if immediately referenced or fired
 - rule_category is immutable - A rule's category is fundamental (physics rule can't become magic rule), to change requires delete+create
 - Default enforcement_level is 'strict' - Defaulting to strictest enforcement is safest, prevents accidental rule violations
 - Three-tier enforcement model: strict (immutable physics), flexible (social norms with exceptions), guideline (soft suggestions) - Different rule types need different rigidity levels
