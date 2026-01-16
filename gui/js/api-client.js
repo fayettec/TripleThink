@@ -571,6 +571,105 @@ class APIClient {
       method: 'DELETE'
     });
   }
+
+  // ============================================================
+  // NARRATIVE STRUCTURE ENDPOINTS
+  // ============================================================
+
+  /**
+   * Get all scenes for a fiction
+   * @param {string} fictionId - Fiction UUID
+   * @returns {Promise<object>} Object with scenes array
+   */
+  async getScenesByFiction(fictionId) {
+    return this.request(`/api/orchestrator/fictions/${fictionId}/scenes`);
+  }
+
+  /**
+   * Update scene sequence number and chapter assignment
+   * @param {string} sceneId - Scene UUID
+   * @param {object} data - {sceneNumber, chapterId}
+   * @returns {Promise<object>} Updated scene
+   */
+  async updateSceneSequence(sceneId, data) {
+    return this.request(`/api/orchestrator/scenes/${sceneId}`, {
+      method: 'PATCH',
+      body: data
+    });
+  }
+
+  /**
+   * Batch update scene sequences (for renumbering)
+   * @param {array} updates - Array of {sceneId, sceneNumber, chapterId}
+   * @returns {Promise<object>} Batch result
+   */
+  async batchUpdateScenes(updates) {
+    // TODO: Implement batch endpoint in orchestrator.js (Plan 02)
+    return this.request('/api/orchestrator/scenes/batch', {
+      method: 'PATCH',
+      body: { updates }
+    });
+  }
+
+  /**
+   * Split chapter at scene index
+   * @param {string} chapterId - Chapter ID
+   * @param {number} splitIndex - Scene index to split at
+   * @returns {Promise<object>} New chapter and updated scenes
+   */
+  async splitChapter(chapterId, splitIndex) {
+    // TODO: Implement chapter split endpoint in orchestrator.js (Plan 02)
+    return this.request(`/api/orchestrator/chapters/${chapterId}/split`, {
+      method: 'POST',
+      body: { splitIndex }
+    });
+  }
+
+  /**
+   * Merge two chapters
+   * @param {string} chapter1Id - First chapter ID
+   * @param {string} chapter2Id - Second chapter ID
+   * @returns {Promise<object>} Merged chapter and updated scenes
+   */
+  async mergeChapters(chapter1Id, chapter2Id) {
+    // TODO: Implement chapter merge endpoint in orchestrator.js (Plan 02)
+    return this.request(`/api/orchestrator/chapters/merge`, {
+      method: 'POST',
+      body: { chapter1Id, chapter2Id }
+    });
+  }
+
+  /**
+   * Rename chapter or scene
+   * @param {string} id - Chapter or scene ID
+   * @param {string} type - 'chapter' or 'scene'
+   * @param {string} newTitle - New title
+   * @returns {Promise<object>} Updated entity
+   */
+  async renameNarrativeNode(id, type, newTitle) {
+    const endpoint = type === 'chapter'
+      ? `/api/orchestrator/chapters/${id}`
+      : `/api/orchestrator/scenes/${id}`;
+    return this.request(endpoint, {
+      method: 'PATCH',
+      body: { title: newTitle }
+    });
+  }
+
+  /**
+   * Delete chapter or scene
+   * @param {string} id - Chapter or scene ID
+   * @param {string} type - 'chapter' or 'scene'
+   * @returns {Promise<void>}
+   */
+  async deleteNarrativeNode(id, type) {
+    const endpoint = type === 'chapter'
+      ? `/api/orchestrator/chapters/${id}`
+      : `/api/orchestrator/scenes/${id}`;
+    return this.request(endpoint, {
+      method: 'DELETE'
+    });
+  }
 }
 
 // Export singleton instance
