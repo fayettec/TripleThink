@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 4 of 14 (Logic Layer Modules - Conflicts & Themes)
-Plan: 1 of 5 complete
+Plan: 2 of 5 complete
 Status: In progress
-Last activity: 2026-01-16 — Completed 04-01-PLAN.md
+Last activity: 2026-01-16 — Completed 04-02-PLAN.md
 
-Progress: █████░░░░░ 20% (7/35 plans)
+Progress: █████░░░░░ 23% (8/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: 2 min
-- Total execution time: 0.24 hours
+- Total execution time: 0.27 hours
 
 **By Phase:**
 
@@ -30,7 +30,7 @@ Progress: █████░░░░░ 20% (7/35 plans)
 | 01 | 2 | 5 min | 2.5 min |
 | 02 | 2 | 3 min | 1.5 min |
 | 03 | 2 | 4 min | 2.0 min |
-| 04 | 1 | 2 min | 2.0 min |
+| 04 | 2 | 4 min | 2.0 min |
 
 **Recent Trend:**
 - Last 5 plans: 2min, 2min, 2min, 2min, 2min
@@ -77,6 +77,9 @@ Recent decisions affecting current work:
 - transitionConflictStatus supports non-linear transitions - Unlike character arcs, conflicts can jump between statuses (latent → climactic, active → resolved) for flexible storytelling
 - Conflict status defaults to 'latent' - Most conflicts start in background before surfacing, authors can override if conflict is immediately active
 - Protagonist_id immutable after creation - Conflicts fundamentally tied to protagonist, if protagonist changes it's a different conflict
+- Manifestations stored as JSON TEXT in database - SQLite has no native JSON type, TEXT with JSON.stringify/parse provides flexible array storage
+- Empty/null manifestations always return empty array - Consistent API for GUI, always receives array without null checking
+- Helper functions (addManifestation/removeManifestation) reuse CRUD operations - DRY principle, internally call getThemeById and updateTheme
 
 ### Pending Todos
 
@@ -88,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16T16:51:50Z
-Stopped at: Completed 04-01-PLAN.md (Story Conflicts Module)
+Last session: 2026-01-16T16:32:31Z
+Stopped at: Completed 04-02-PLAN.md (Thematic Elements Module)
 Resume file: None
