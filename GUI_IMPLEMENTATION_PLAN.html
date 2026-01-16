@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TripleThink v4.1 GUI Implementation Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #8B5CF6;
+      --color-primary-light: #C4B5FD;
+      --color-primary-dark: #6D28D9;
+      --color-accent: #6366F1;
+      --color-success: #10B981;
+      --color-warning: #F59E0B;
+      --color-danger: #EF4444;
+      --color-bg: #FAFAFA;
+      --color-card: #FFFFFF;
+      --color-text: #1F2937;
+      --color-text-muted: #6B7280;
+      --color-border: #E5E7EB;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(139,92,246,0.1);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #F5F3FF 0%, #FAFAFA 50%, #F0FDFA 100%);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+      color: white;
+      margin-bottom: 2rem;
+      border-radius: 0 0 2rem 2rem;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .header .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .header .meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .header .meta-item {
+      background: rgba(255,255,255,0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.875rem;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--color-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+    }
+
+    .card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .card-header.purple {
+      background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+      border-bottom: 2px solid var(--color-primary-light);
+    }
+
+    .card-header.blue {
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+      border-bottom: 2px solid #93C5FD;
+    }
+
+    .card-header.green {
+      background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+      border-bottom: 2px solid #6EE7B7;
+    }
+
+    .card-header.orange {
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+      border-bottom: 2px solid #FCD34D;
+    }
+
+    .card-header h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .card-header .icon {
+      font-size: 1.5rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    /* Sections */
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-primary-light);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    th {
+      background: #F9FAFB;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:hover {
+      background: #F9FAFB;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-new {
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+    }
+
+    .badge-enhance {
+      background: #DBEAFE;
+      color: #1E40AF;
+    }
+
+    .badge-keep {
+      background: #D1FAE5;
+      color: #065F46;
+    }
+
+    /* Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Journey Cards */
+    .journey-card {
+      background: linear-gradient(135deg, #FAFAFA 0%, #F5F3FF 100%);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      border-left: 4px solid var(--color-primary);
+    }
+
+    .journey-card h4 {
+      color: var(--color-primary-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .journey-card ol {
+      margin-left: 1.25rem;
+      color: var(--color-text-muted);
+    }
+
+    .journey-card li {
+      margin-bottom: 0.5rem;
+    }
+
+    .journey-card .result {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: var(--color-success);
+      color: white;
+      border-radius: 0.5rem;
+      font-weight: 500;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-accent) 100%);
+      border-radius: 3px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0.25rem;
+      width: 1rem;
+      height: 1rem;
+      background: var(--color-primary);
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .timeline-item h4 {
+      color: var(--color-primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Code blocks */
+    code {
+      background: #F3F4F6;
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.875em;
+      color: var(--color-primary-dark);
+    }
+
+    pre {
+      background: #1F2937;
+      color: #F3F4F6;
+      padding: 1.25rem;
+      border-radius: var(--radius);
+      overflow-x: auto;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    pre code {
+      background: transparent;
+      padding: 0;
+      color: inherit;
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist li {
+      padding: 0.5rem 0;
+      padding-left: 2rem;
+      position: relative;
+    }
+
+    .checklist li::before {
+      content: '☐';
+      position: absolute;
+      left: 0;
+      color: var(--color-text-muted);
+    }
+
+    /* Progress bar */
+    .progress-container {
+      background: #E5E7EB;
+      border-radius: 1rem;
+      height: 0.5rem;
+      overflow: hidden;
+      margin: 0.5rem 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+      border-radius: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      .header {
+        padding: 2rem 1rem;
+      }
+      .header h1 {
+        font-size: 1.75rem;
+      }
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>TripleThink v4.1</h1>
+    <p class="subtitle">GUI Implementation Plan</p>
+    <div class="meta">
+      <span class="meta-item">Version 1.1</span>
+      <span class="meta-item">6 Week Timeline</span>
+      <span class="meta-item">~2,100 New Lines</span>
+      <span class="meta-item">70% Code Reuse</span>
+      <span class="meta-item">⭐ Reader Knowledge</span>
+      <span class="meta-item">⭐ Narrative Editing</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Executive Summary -->
+    <div class="card">
+      <div class="card-header purple">
+        <span class="icon">📋</span>
+        <h2>Executive Summary</h2>
+      </div>
+      <div class="card-body">
+        <p>This plan details GUI enhancements for TripleThink v4.1, transforming the visualization dashboard into a comprehensive narrative management interface exposing the new <strong>Logic Layer</strong>, enhanced <strong>epistemic features</strong>, and <strong>hybrid state system</strong>.</p>
+
+        <div class="grid-3" style="margin-top: 1.5rem;">
+          <div style="text-align: center; padding: 1rem;">
+            <div style="font-size: 2rem; color: var(--color-primary);">70%</div>
+            <div style="color: var(--color-text-muted); font-size: 0.875rem;">Code Reused</div>
+          </div>
+          <div style="text-align: center; padding: 1rem;">
+            <div style="font-size: 2rem; color: var(--color-primary);">~2,100</div>
+            <div style="color: var(--color-text-muted); font-size: 0.875rem;">New Lines</div>
+          </div>
+          <div style="text-align: center; padding: 1rem;">
+            <div style="font-size: 2rem; color: var(--color-primary);">12</div>
+            <div style="color: var(--color-text-muted); font-size: 0.875rem;">New Components</div>
+          </div>
+        </div>
+        <div style="margin-top: 1.5rem; padding: 1rem; background: linear-gradient(135deg, #F0FDF4 0%, #D1FAE5 100%); border-radius: 0.75rem; border-left: 4px solid #10B981;">
+          <p style="font-weight: 600; color: #065F46; margin-bottom: 0.5rem;">✨ New in v1.1:</p>
+          <ul style="margin-left: 1.25rem; color: #047857;">
+            <li><strong>Reader Knowledge Tracking</strong> - Layer 3: Track what reader knows when, manage dramatic irony</li>
+            <li><strong>Narrative Editing</strong> - Drag-and-drop reorganization, split/merge chapters, auto-renumbering</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Design Philosophy -->
+    <h2 class="section-title">Design Philosophy</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header green">
+          <span class="icon">✅</span>
+          <h2>What GUI IS For</h2>
+        </div>
+        <div class="card-body">
+          <ul style="margin-left: 1.25rem;">
+            <li>Visualization & navigation of story structure</li>
+            <li>Light editing (quick fixes, 1-2 fields)</li>
+            <li>Consistency checking and validation</li>
+            <li>Project overview and health monitoring</li>
+            <li>Timeline exploration with epistemic awareness</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header orange">
+          <span class="icon">❌</span>
+          <h2>What GUI is NOT For</h2>
+        </div>
+        <div class="card-body">
+          <ul style="margin-left: 1.25rem;">
+            <li>Primary creation tool (use Claude Code)</li>
+            <li>Prose writing</li>
+            <li>Complex data entry</li>
+            <li>Real-time collaboration</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);">
+      <div class="card-body" style="text-align: center; padding: 2rem;">
+        <p style="font-size: 1.25rem; font-style: italic; color: var(--color-primary-dark);">
+          "Show me the story I'm building, let me fix what's broken, hide the database."
+        </p>
+      </div>
+    </div>
+
+    <!-- Two-Tier Interface -->
+    <h2 class="section-title">Two-Tier Interface Architecture</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header blue">
+          <span class="icon">🎯</span>
+          <h2>Simple Surface (Default)</h2>
+        </div>
+        <div class="card-body">
+          <ul style="margin-left: 1.25rem;">
+            <li>Event names, timestamps, summaries</li>
+            <li>Character names, roles, status</li>
+            <li>Scene structure (book/chapter/scene)</li>
+            <li>Basic relationships</li>
+            <li>Conflict cards</li>
+            <li>Setup/payoff status</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header purple">
+          <span class="icon">🔧</span>
+          <h2>Power Drawer (On Demand)</h2>
+        </div>
+        <div class="card-body">
+          <ul style="margin-left: 1.25rem;">
+            <li>Full epistemic state details</li>
+            <li>State deltas and snapshots</li>
+            <li>Dialogue profiles</li>
+            <li>Causality chains with depth control</li>
+            <li>Metadata (author notes, AI guidance)</li>
+            <li>Timeline branching</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Components to Build -->
+    <h2 class="section-title">Components to Build</h2>
+
+    <div class="card">
+      <div class="card-header purple">
+        <span class="icon">🆕</span>
+        <h2>New Components (~1,500 lines)</h2>
+      </div>
+      <div class="card-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Lines</th>
+              <th>Purpose</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>story-logic.js</code></td>
+              <td>300</td>
+              <td>Logic layer hub with 6 tabs</td>
+              <td><span class="badge badge-new">New</span></td>
+            </tr>
+            <tr>
+              <td><code>power-drawer.js</code></td>
+              <td>200</td>
+              <td>Slide-out advanced panel</td>
+              <td><span class="badge badge-new">New</span></td>
+            </tr>
+            <tr>
+              <td><code>causality-graph.js</code></td>
+              <td>300</td>
+              <td>D3 force-directed visualization</td>
+              <td><span class="badge badge-new">New</span></td>
+            </tr>
+            <tr>
+              <td><code>arc-card.js</code></td>
+              <td>100</td>
+              <td>Character arc display</td>
+              <td><span class="badge badge-new">New</span></td>
+            </tr>
+            <tr>
+              <td><code>conflict-card.js</code></td>
+              <td>100</td>
+              <td>Story conflict display</td>
+              <td><span class="badge badge-new">New</span></td>
+            </tr>
+            <tr>
+              <td><code>setup-payoff-list.js</code></td>
+              <td>150</td>
+              <td>Chekhov's gun tracker</td>
+              <td><span class="badge badge-new">New</span></td>
+            </tr>
+            <tr>
+              <td><code>layer-switcher.js</code></td>
+              <td>100</td>
+              <td>3-layer reality toggle</td>
+              <td><span class="badge badge-new">New</span></td>
+            </tr>
+            <tr>
+              <td><code>relationship-map.js</code></td>
+              <td>200</td>
+              <td>Vis.js relationship viz</td>
+              <td><span class="badge badge-new">New</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header blue">
+        <span class="icon">✨</span>
+        <h2>Components to Enhance</h2>
+      </div>
+      <div class="card-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Enhancement</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>dashboard.js</code></td>
+              <td>Add v4.1 stats, logic layer health indicators</td>
+              <td><span class="badge badge-enhance">Enhance</span></td>
+            </tr>
+            <tr>
+              <td><code>timeline.js</code></td>
+              <td>Add causality arrows, epistemic toggle, layer switcher</td>
+              <td><span class="badge badge-enhance">Enhance</span></td>
+            </tr>
+            <tr>
+              <td><code>epistemic.js</code></td>
+              <td>Add character comparison, false belief highlighting</td>
+              <td><span class="badge badge-enhance">Enhance</span></td>
+            </tr>
+            <tr>
+              <td><code>characters.js</code></td>
+              <td>Rename from entities.js, add arc card</td>
+              <td><span class="badge badge-enhance">Enhance</span></td>
+            </tr>
+            <tr>
+              <td><code>api-client.js</code></td>
+              <td>Add logic layer API methods</td>
+              <td><span class="badge badge-enhance">Enhance</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- User Journeys -->
+    <h2 class="section-title">Key User Journeys</h2>
+
+    <div class="grid-2">
+      <div class="journey-card">
+        <h4>Journey A: Understanding Character Knowledge</h4>
+        <ol>
+          <li>Find event "AI Reveals Intent" on Timeline</li>
+          <li>Click event for details panel</li>
+          <li>See "Facts Created: AI is malicious"</li>
+          <li>Click "Who Knows This?"</li>
+          <li>View: Captain: No, Engineer: Yes</li>
+        </ol>
+        <div class="result">Result: Quick epistemic check without leaving timeline</div>
+      </div>
+
+      <div class="journey-card">
+        <h4>Journey B: Tracking Character Arc</h4>
+        <ol>
+          <li>Navigate to Characters, select "Captain"</li>
+          <li>See Arc Card with progress bar</li>
+          <li>View transformation: Lie → Truth</li>
+          <li>Progress shows "Midpoint phase"</li>
+          <li>Click Power Drawer for details</li>
+        </ol>
+        <div class="result">Result: Arc status visible at a glance</div>
+      </div>
+
+      <div class="journey-card">
+        <h4>Journey C: Finding Unfired Setups</h4>
+        <ol>
+          <li>Navigate to Story Logic</li>
+          <li>Click "Setups & Payoffs" tab</li>
+          <li>See warning: setup unfired for 7 chapters</li>
+          <li>Click for original plant event</li>
+          <li>Plan payoff in climax</li>
+        </ol>
+        <div class="result">Result: Prevents abandoned plot threads</div>
+      </div>
+
+      <div class="journey-card">
+        <h4>Journey D: Validating Consistency</h4>
+        <ol>
+          <li>Validation screen → "Run All Checks"</li>
+          <li>View: 2 errors, 5 warnings</li>
+          <li>Click error → Jump to relevant view</li>
+          <li>Power Drawer confirms issue</li>
+          <li>Fix and re-validate</li>
+        </ol>
+        <div class="result">Result: Catches errors before publication</div>
+      </div>
+    </div>
+
+    <!-- Implementation Roadmap -->
+    <h2 class="section-title">6-Week Implementation Roadmap</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>Week 1: Foundation</h4>
+        <p>Fix remaining bugs, build core infrastructure</p>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: 20%;"></div>
+        </div>
+        <ul class="checklist">
+          <li>Verify/fix 11 bugs from GUI-FIXES-PLAN.md</li>
+          <li>Enhance state.js with v4.1 fields</li>
+          <li>Extend api-client.js with logic layer endpoints</li>
+          <li>Create power-drawer.js component</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <h4>Week 2: Logic Layer UI</h4>
+        <p>Build Story Logic screen and supporting components</p>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: 40%;"></div>
+        </div>
+        <ul class="checklist">
+          <li>Create story-logic.js with 6 tabs</li>
+          <li>Build arc-card.js and conflict-card.js</li>
+          <li>Build causality-graph.js (D3)</li>
+          <li>Build setup-payoff-list.js</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <h4>Week 3: Narrative Structure Editing ⭐</h4>
+        <p>Build drag-and-drop editor with auto-renumbering</p>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: 50%;"></div>
+        </div>
+        <ul class="checklist">
+          <li>Build narrative-tree-editor.js with drag-and-drop</li>
+          <li>Implement auto-renumbering logic</li>
+          <li>Add split/merge chapter operations</li>
+          <li>Add rename/delete with confirmations</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <h4>Week 4: Reader Knowledge Tracking ⭐</h4>
+        <p>Implement Layer 3 (Reader Knowledge)</p>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: 67%;"></div>
+        </div>
+        <ul class="checklist">
+          <li>Build reader-knowledge-tracker.js</li>
+          <li>Build dramatic-irony-panel.js</li>
+          <li>Enhance scene-editor.js with "Facts Revealed"</li>
+          <li>Add Reader View mode to layer-switcher.js</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <h4>Week 5: Epistemic Enhancements</h4>
+        <p>Enhance epistemic visualization and add layer switching</p>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: 83%;"></div>
+        </div>
+        <ul class="checklist">
+          <li>Add character comparison to epistemic.js</li>
+          <li>Add reader knowledge comparison mode</li>
+          <li>Enhance timeline.js with epistemic toggle</li>
+          <li>Build power-drawer.js component</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <h4>Week 6: Advanced Features & Polish</h4>
+        <p>Final components, integration, testing</p>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: 100%;"></div>
+        </div>
+        <ul class="checklist">
+          <li>Build relationship-map.js visualization</li>
+          <li>Integrate power drawer across screens</li>
+          <li>Improve validation with category tabs</li>
+          <li>Create documentation (Component + Narrative Editing guides)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Visual Design -->
+    <h2 class="section-title">Visual Design Patterns</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header green">
+          <span class="icon">🎨</span>
+          <h2>Epistemic Colors</h2>
+        </div>
+        <div class="card-body">
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 2rem; height: 2rem; background: #10B981; border-radius: 0.5rem;"></div>
+              <span><strong>Green</strong> - True belief (matches ground truth)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 2rem; height: 2rem; background: #F59E0B; border-radius: 0.5rem;"></div>
+              <span><strong>Orange</strong> - False belief (with correction)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 2rem; height: 2rem; background: #6B7280; border-radius: 0.5rem;"></div>
+              <span><strong>Gray</strong> - Unknown to character</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 2rem; height: 2rem; background: #3B82F6; border-radius: 0.5rem;"></div>
+              <span><strong>Blue</strong> - Confidence level badge</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header orange">
+          <span class="icon">🔗</span>
+          <h2>Causality Arrows</h2>
+        </div>
+        <div class="card-body">
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 2rem; height: 3px; background: #EF4444;"></div>
+              <span><strong>Solid Red</strong> - Direct cause (strength 9)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 2rem; height: 3px; background: #3B82F6; border-style: dashed;"></div>
+              <span><strong>Dashed Blue</strong> - Enabling condition (6)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 2rem; height: 3px; background: #10B981; border-style: dotted;"></div>
+              <span><strong>Dotted Green</strong> - Motivation (7)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 2rem; height: 3px; background: #8B5CF6;"></div>
+              <span><strong>Purple</strong> - Psychological trigger</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arc Progress -->
+    <div class="card">
+      <div class="card-header purple">
+        <span class="icon">📈</span>
+        <h2>Character Arc Progress Bar</h2>
+      </div>
+      <div class="card-body">
+        <pre style="background: #F9FAFB; color: var(--color-text); padding: 1rem;">
+Setup  Catalyst  Debate  B2  Fun&Games  Midpoint  Bad Guys  All Lost  Dark  B3  Finale
+  ■       ■        ■     ■       ■         ■         □         □       □    □     □
+                                           ^ Current Phase
+        </pre>
+      </div>
+    </div>
+
+    <!-- Performance & Success -->
+    <h2 class="section-title">Success Criteria</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header green">
+          <span class="icon">⚡</span>
+          <h2>Performance Targets</h2>
+        </div>
+        <div class="card-body">
+          <table>
+            <tr><td>Page load</td><td><strong>&lt; 1 second</strong></td></tr>
+            <tr><td>API calls</td><td><strong>&lt; 200ms</strong></td></tr>
+            <tr><td>D3 render</td><td><strong>&lt; 500ms</strong></td></tr>
+            <tr><td>State reconstruction</td><td><strong>&lt; 100ms</strong></td></tr>
+            <tr><td>Timeline navigation</td><td><strong>&lt; 100ms</strong></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header blue">
+          <span class="icon">🎯</span>
+          <h2>UX Targets</h2>
+        </div>
+        <div class="card-body">
+          <table>
+            <tr><td>"What happened when?"</td><td><strong>&lt; 10 sec</strong></td></tr>
+            <tr><td>"What does X know?"</td><td><strong>&lt; 15 sec</strong></td></tr>
+            <tr><td>Find consistency errors</td><td><strong>&lt; 30 sec</strong></td></tr>
+            <tr><td>Light edits</td><td><strong>&lt; 5 clicks</strong></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk Assessment -->
+    <div class="card" style="border-left: 4px solid var(--color-success);">
+      <div class="card-header green">
+        <span class="icon">✅</span>
+        <h2>Risk Assessment: LOW</h2>
+      </div>
+      <div class="card-body">
+        <p><strong>Mitigating Factors:</strong></p>
+        <ul style="margin-left: 1.25rem; margin-top: 0.5rem;">
+          <li>Leveraging existing working code (70% reuse)</li>
+          <li>No framework migration required</li>
+          <li>Incremental enhancement approach</li>
+          <li>Clear user stories guide implementation</li>
+          <li>v4.1 API already production-ready</li>
+          <li>Design patterns proven (D3, Vis.js already integrated)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>TripleThink v4.1 GUI Implementation Plan</p>
+      <p style="margin-top: 0.5rem;">Generated 2026-01-16 | Ready for Implementation</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -2,10 +2,15 @@
 FROM node:20-slim
 
 # Install git and other basic tools usually missing from slim images
+# Added build-essential and python3 for native module compilation (better-sqlite3)
+# Added jq for ralph-loop plugin support
 RUN apt-get update && apt-get install -y \
     git \
     curl \
     unzip \
+    build-essential \
+    python3 \
+    jq \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Claude Code globally
