@@ -8,7 +8,7 @@ const Router = {
   currentRoute: null,
 
   register(path, screen) {
-    // path: string like 'timeline', 'epistemic', 'characters'
+    // path: string like 'timeline', 'epistemic', 'characters', 'story-logic'
     // screen: object with render() method
     this.routes.set(path, screen);
   },

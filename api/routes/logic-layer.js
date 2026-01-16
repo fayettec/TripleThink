@@ -172,6 +172,17 @@ module.exports = (db) => {
     }
   });
 
+  // GET /api/logic/arcs/project/:projectId - Get all arcs for a project
+  router.get('/arcs/project/:projectId', (req, res, next) => {
+    try {
+      const { projectId } = req.params;
+      const arcs = api.characterArcs.getArcsByProject(projectId);
+      res.json(arcs || []);
+    } catch (err) {
+      next(err);
+    }
+  });
+
   // GET /api/logic/arcs/character/:characterId - Get arc by character ID
   router.get('/arcs/character/:characterId', (req, res, next) => {
     try {

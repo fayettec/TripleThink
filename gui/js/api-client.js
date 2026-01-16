@@ -140,6 +140,15 @@ class APIClient {
   }
 
   /**
+   * Get all character arcs for a project
+   * @param {string} projectId - Project ID
+   * @returns {Promise<array>} Array of character arcs
+   */
+  async getCharacterArcsByProject(projectId) {
+    return this.request(`/api/logic/arcs/project/${projectId}`);
+  }
+
+  /**
    * Get character arc by character ID
    * @param {string} characterId - Character entity ID
    * @returns {Promise<object>} Character arc

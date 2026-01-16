@@ -172,3 +172,284 @@ main {
   color: #fff;
   border-color: #007bff;
 }
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.tab-btn {
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  color: #374151;
+  background: #f9fafb;
+}
+
+.tab-btn.active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+  background: transparent;
+}
+
+/* Card Layout */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.card-header h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #111827;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.badge-archetype {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-type {
+  margin-right: 0.5rem;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Arc Card Specific */
+.character-name {
+  color: #1f2937;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.arc-phase {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.phase-label {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #3b82f6;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-align: right;
+}
+
+.arc-transformation {
+  background: #f9fafb;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.transformation-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.transformation-row:last-child {
+  margin-bottom: 0;
+}
+
+.transformation-arrow {
+  text-align: center;
+  color: #3b82f6;
+  font-size: 1.2rem;
+  margin: 0.25rem 0;
+}
+
+.arc-goals {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.goal-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #374151;
+  min-width: 120px;
+}
+
+.value {
+  color: #6b7280;
+  flex: 1;
+}
+
+.value em {
+  color: #9ca3af;
+}
+
+/* Conflict Card Specific */
+.conflict-participants {
+  background: #f9fafb;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.participant-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.vs-divider {
+  text-align: center;
+  font-weight: bold;
+  color: #ef4444;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.conflict-stakes {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 0.75rem;
+}
+
+.conflict-stakes h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.stakes-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.stakes-row:last-child {
+  margin-bottom: 0;
+}
+
+.stakes-row.success {
+  background: #d1fae5;
+}
+
+.stakes-row.fail {
+  background: #fee2e2;
+}
+
+.stakes-row .icon {
+  font-size: 1.1rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.stakes-row.success .icon {
+  color: #059669;
+}
+
+.stakes-row.fail .icon {
+  color: #dc2626;
+}
+
+.stakes-row .label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  min-width: auto;
+}
+
+.stakes-row .value {
+  font-size: 0.9rem;
+}
+
+/* Empty States */
+.empty-state,
+.loading,
+.error,
+.placeholder {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: #6b7280;
+}
+
+.error {
+  color: #dc2626;
+  background: #fee2e2;
+  border-radius: 6px;
+}
+
+.placeholder {
+  background: #f9fafb;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  font-style: italic;
+}

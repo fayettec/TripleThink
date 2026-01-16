@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Router.register('timeline', TimelineScreen);
   Router.register('epistemic', EpistemicScreen);
   Router.register('characters', CharactersScreen);
+  Router.register('story-logic', StoryLogicScreen);
 
   // Start router
   Router.init();
