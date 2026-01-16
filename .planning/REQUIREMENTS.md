@@ -9,11 +9,11 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 
 ### Foundation Layer
 
-- [ ] **FOUND-01**: EVENT_MOMENTS table exists with columns for moment_uuid, event_uuid, sequence_index, beat_description, timestamp_offset
-- [ ] **FOUND-02**: EVENT_MOMENTS database module (event-moments.js) provides CRUD operations
-- [ ] **FOUND-03**: EVENT_MOMENTS integrates with existing events system for granular beat tracking
-- [ ] **FOUND-04**: EVENT_MOMENTS API endpoints allow creation and retrieval of event beats
-- [ ] **FOUND-05**: EVENT_MOMENTS tested with integration tests verifying beat sequencing
+- [x] **FOUND-01**: EVENT_MOMENTS table exists with columns for moment_uuid, event_uuid, sequence_index, beat_description, timestamp_offset
+- [x] **FOUND-02**: EVENT_MOMENTS database module (event-moments.js) provides CRUD operations
+- [x] **FOUND-03**: EVENT_MOMENTS integrates with existing events system for granular beat tracking
+- [x] **FOUND-04**: EVENT_MOMENTS API endpoints allow creation and retrieval of event beats
+- [x] **FOUND-05**: EVENT_MOMENTS tested with integration tests verifying beat sequencing
 
 ### Logic Layer - Database Schema
 

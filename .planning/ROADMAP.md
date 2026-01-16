@@ -12,7 +12,7 @@ The journey: Foundation enhancement (EVENT_MOMENTS) → Logic Layer database (7 
 - Integer phases (1-14): Planned milestone work
 - Decimal phases (e.g., 2.1): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Foundation Enhancement** - EVENT_MOMENTS implementation for granular beat tracking
+- [x] **Phase 1: Foundation Enhancement** - EVENT_MOMENTS implementation for granular beat tracking
 - [ ] **Phase 2: Logic Layer Schema** - Create 7 new database tables
 - [ ] **Phase 3: Logic Layer Modules - Causality & Arcs** - First wave: causality-chains.js and character-arcs.js
 - [ ] **Phase 4: Logic Layer Modules - Conflicts & Themes** - Second wave: story-conflicts.js and thematic-elements.js
@@ -43,8 +43,8 @@ The journey: Foundation enhancement (EVENT_MOMENTS) → Logic Layer database (7 
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: Database schema and module
-- [ ] 01-02: API endpoints and integration tests
+- [x] 01-01: Database schema and module
+- [x] 01-02: API endpoints and integration tests
 
 ### Phase 2: Logic Layer Schema
 **Goal**: All 7 logic layer tables exist with proper schema and indexes
@@ -293,7 +293,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation Enhancement | 0/2 | Not started | - |
+| 1. Foundation Enhancement | 2/2 | Complete | 2026-01-16 |
 | 2. Logic Layer Schema | 0/2 | Not started | - |
 | 3. Logic Layer Modules - Causality & Arcs | 0/2 | Not started | - |
 | 4. Logic Layer Modules - Conflicts & Themes | 0/2 | Not started | - |
