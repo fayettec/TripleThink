@@ -68,12 +68,12 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 
 ### GUI - Core Components
 
-- [ ] **GUI-01**: power-drawer.js component provides slide-out panel for advanced inspection
-- [ ] **GUI-02**: Power drawer integrates with timeline, epistemic, and character screens
-- [ ] **GUI-03**: layer-switcher.js component toggles between World Truth, Character View, Reader View
-- [ ] **GUI-04**: Layer switcher updates state.js viewMode and re-renders affected components
-- [ ] **GUI-05**: api-client.js extended with all logic layer endpoint calls
-- [ ] **GUI-06**: state.js enhanced with v4.1 fields (currentProjectId, currentTimestamp, selectedCharacter, viewMode, powerDrawerOpen, causalityDepth, activeTab)
+- [x] **GUI-01**: power-drawer.js component provides slide-out panel for advanced inspection
+- [x] **GUI-02**: Power drawer integrates with timeline, epistemic, and character screens
+- [x] **GUI-03**: layer-switcher.js component toggles between World Truth, Character View, Reader View
+- [x] **GUI-04**: Layer switcher updates state.js viewMode and re-renders affected components
+- [x] **GUI-05**: api-client.js extended with all logic layer endpoint calls
+- [x] **GUI-06**: state.js enhanced with v4.1 fields (currentProjectId, currentTimestamp, selectedCharacter, viewMode, powerDrawerOpen, causalityDepth, activeTab)
 
 ### GUI - Logic Layer Visualization
 
@@ -225,12 +225,12 @@ Which phases cover which requirements. Updated by create-roadmap.
 | API-15 | Phase 7 | Complete |
 | API-16 | Phase 7 | Complete |
 | API-17 | Phase 7 | Complete |
-| GUI-01 | Phase 8 | Pending |
-| GUI-02 | Phase 8 | Pending |
-| GUI-03 | Phase 8 | Pending |
-| GUI-04 | Phase 8 | Pending |
-| GUI-05 | Phase 8 | Pending |
-| GUI-06 | Phase 8 | Pending |
+| GUI-01 | Phase 8 | Complete |
+| GUI-02 | Phase 8 | Complete |
+| GUI-03 | Phase 8 | Complete |
+| GUI-04 | Phase 8 | Complete |
+| GUI-05 | Phase 8 | Complete |
+| GUI-06 | Phase 8 | Complete |
 | GUI-07 | Phase 9 | Pending |
 | GUI-08 | Phase 9 | Pending |
 | GUI-09 | Phase 9 | Pending |
