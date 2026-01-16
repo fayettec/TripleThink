@@ -192,12 +192,39 @@ module.exports = (db) => {
     return result.changes > 0;
   };
 
+  /**
+   * Transition a conflict to a new status
+   * @param {string} conflict_uuid - UUID of the conflict to transition
+   * @param {string} new_status - New status to transition to
+   * @returns {number} Number of rows updated (1 if successful, 0 if conflict not found)
+   *
+   * Status progression reference:
+   * - latent: Conflict exists but hasn't surfaced yet
+   * - active: Conflict is now in play, characters aware
+   * - escalating: Stakes rising, tension increasing
+   * - climactic: Peak of conflict, decisive moment
+   * - resolved: Conflict concluded (win/loss/compromise)
+   *
+   * Note: Unlike character arc phases, conflicts can move non-sequentially
+   * (e.g., latent → climactic for sudden revelations, or escalating → resolved for quick resolutions).
+   * This function allows any valid status transition to support non-linear storytelling.
+   */
+  const transitionConflictStatus = (conflict_uuid, new_status) => {
+    // Validate new_status
+    if (!CONFLICT_STATUSES.includes(new_status)) {
+      throw new Error(`Invalid status '${new_status}'. Must be one of: ${CONFLICT_STATUSES.join(', ')}`);
+    }
+
+    return updateConflict(conflict_uuid, { status: new_status });
+  };
+
   return {
     createConflict,
     getConflictsByProject,
     getConflictsByProtagonist,
     getConflictById,
     updateConflict,
-    deleteConflict
+    deleteConflict,
+    transitionConflictStatus
   };
 };
