@@ -214,12 +214,38 @@ module.exports = (db) => {
     return result.changes > 0;
   };
 
+  /**
+   * Advance character arc to next Save the Cat phase
+   * @param {string} arcUuid - UUID of the arc to advance
+   * @returns {object|null} The updated arc object or null if not found
+   */
+  const advancePhase = (arcUuid) => {
+    // Get current arc
+    const arc = getArcById(arcUuid);
+    if (!arc) return null;
+
+    // Find current phase index
+    const currentIndex = PHASE_ORDER.indexOf(arc.current_phase);
+
+    // If already at final phase, return unchanged
+    if (currentIndex === PHASE_ORDER.length - 1) {
+      return arc;
+    }
+
+    // Advance to next phase
+    const nextPhase = PHASE_ORDER[currentIndex + 1];
+
+    // Update arc with new phase
+    return updateArc(arcUuid, { current_phase: nextPhase });
+  };
+
   return {
     createArc,
     getArcsByProject,
     getArcByCharacter,
     getArcById,
     updateArc,
-    deleteArc
+    deleteArc,
+    advancePhase
   };
 };
