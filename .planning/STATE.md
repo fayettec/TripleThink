@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 10 of 14 (GUI Narrative Editor)
-Plan: 1 of 3 (Narrative Tree Foundation)
+Plan: 2 of 3 (Narrative Tree Operations)
 Status: In progress
-Last activity: 2026-01-16 — Completed 10-01-PLAN.md
+Last activity: 2026-01-16 — Completed 10-02-PLAN.md
 
-Progress: ███████████░ 66% (23/35 plans)
+Progress: ███████████░ 69% (24/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 23
+- Total plans completed: 24
 - Average duration: 2.7 min
-- Total execution time: 1.03 hours
+- Total execution time: 1.1 hours
 
 **By Phase:**
 
@@ -36,11 +36,11 @@ Progress: ███████████░ 66% (23/35 plans)
 | 07 | 3 | 8 min | 2.7 min |
 | 08 | 3 | 9 min | 3.0 min |
 | 09 | 3 | 10 min | 3.3 min |
-| 10 | 1 | 3 min | 3.0 min |
+| 10 | 2 | 7 min | 3.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 3min, 2min, 4min, 3min, 3min (avg: 3.0 min)
-- Trend: Phase 10 started - Narrative editor foundation, maintaining velocity
+- Last 5 plans: 2min, 4min, 3min, 3min, 4min (avg: 3.2 min)
+- Trend: Phase 10 progressing - Tree operations complete, velocity consistent
 
 ## Accumulated Context
 
@@ -153,7 +153,10 @@ Recent decisions affecting current work:
 - Separate setupDragHandlers() after render - Event listeners can't be attached to HTML strings, only DOM elements
 - Chapter grouping by scene.chapterId with 'unassigned' handling - Logical grouping for scenes without chapters, unassigned chapter not draggable
 - Status badges inline color styling - Matches existing pattern from Phase 9 card components
-- TODO stubs for batch/split/merge operations - Plan 02 will implement backend endpoints if needed, API client provides interface for consistency
+- Event delegation for split/merge buttons - Cleaner than inline onclick handlers, easier testing, more maintainable
+- Batch update endpoint for renumbering - Single API call instead of N individual calls reduces latency for renumbering operations
+- Direct SQL queries in split/merge endpoints - scenes module filters by fictionId, chapters need chapterId-based queries
+- Split creates timestamped chapter ID (ch-{timestamp}) - Simple unique ID generation without adding UUID library dependency
 
 ### Pending Todos
 
@@ -165,6 +168,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16T22:43:19Z
-Stopped at: Completed 10-01-PLAN.md (Narrative Tree Foundation)
+Last session: 2026-01-16T22:49:08Z
+Stopped at: Completed 10-02-PLAN.md (Narrative Tree Operations)
 Resume file: None
