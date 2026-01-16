@@ -17,13 +17,13 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 
 ### Logic Layer - Database Schema
 
-- [ ] **LOGIC-01**: CAUSALITY_CHAINS table exists with cause_event_id, effect_event_id, type, strength (1-10), explanation
-- [ ] **LOGIC-02**: CHARACTER_ARCS table exists with character_id, archetype, lie_belief, truth_belief, want_external, need_internal, current_phase
-- [ ] **LOGIC-03**: STORY_CONFLICTS table exists with type, protagonist_id, antagonist_source, stakes_success, stakes_fail, status
-- [ ] **LOGIC-04**: THEMATIC_ELEMENTS table exists with project_id, statement, primary_symbol_id, question, manifestations
-- [ ] **LOGIC-05**: MOTIF_INSTANCES table exists with motif_type, linked_entity_id, description, significance
-- [ ] **LOGIC-06**: SETUP_PAYOFFS table exists with setup_event_id, payoff_event_id, description, status, planted_chapter, fired_chapter
-- [ ] **LOGIC-07**: WORLD_RULES table exists with rule_category, statement, exceptions, enforcement_level
+- [x] **LOGIC-01**: CAUSALITY_CHAINS table exists with cause_event_id, effect_event_id, type, strength (1-10), explanation
+- [x] **LOGIC-02**: CHARACTER_ARCS table exists with character_id, archetype, lie_belief, truth_belief, want_external, need_internal, current_phase
+- [x] **LOGIC-03**: STORY_CONFLICTS table exists with type, protagonist_id, antagonist_source, stakes_success, stakes_fail, status
+- [x] **LOGIC-04**: THEMATIC_ELEMENTS table exists with project_id, statement, primary_symbol_id, question, manifestations
+- [x] **LOGIC-05**: MOTIF_INSTANCES table exists with motif_type, linked_entity_id, description, significance
+- [x] **LOGIC-06**: SETUP_PAYOFFS table exists with setup_event_id, payoff_event_id, description, status, planted_chapter, fired_chapter
+- [x] **LOGIC-07**: WORLD_RULES table exists with rule_category, statement, exceptions, enforcement_level
 
 ### Logic Layer - Database Modules
 
@@ -186,13 +186,13 @@ Which phases cover which requirements. Updated by create-roadmap.
 | FOUND-03 | Phase 1 | Pending |
 | FOUND-04 | Phase 1 | Pending |
 | FOUND-05 | Phase 1 | Pending |
-| LOGIC-01 | Phase 2 | Pending |
-| LOGIC-02 | Phase 2 | Pending |
-| LOGIC-03 | Phase 2 | Pending |
-| LOGIC-04 | Phase 2 | Pending |
-| LOGIC-05 | Phase 2 | Pending |
-| LOGIC-06 | Phase 2 | Pending |
-| LOGIC-07 | Phase 2 | Pending |
+| LOGIC-01 | Phase 2 | Complete |
+| LOGIC-02 | Phase 2 | Complete |
+| LOGIC-03 | Phase 2 | Complete |
+| LOGIC-04 | Phase 2 | Complete |
+| LOGIC-05 | Phase 2 | Complete |
+| LOGIC-06 | Phase 2 | Complete |
+| LOGIC-07 | Phase 2 | Complete |
 | LOGIC-08 | Phase 3 | Pending |
 | LOGIC-09 | Phase 3 | Pending |
 | LOGIC-10 | Phase 3 | Pending |
