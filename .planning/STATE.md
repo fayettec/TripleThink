@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 3 of 14 (Logic Layer Modules - Causality & Arcs)
-Plan: 2 of 5 (Character Arcs Module)
+Plan: 1 of 2 complete
 Status: In progress
-Last activity: 2026-01-16 — Completed 03-02-PLAN.md
+Last activity: 2026-01-16 — Completed 03-01-PLAN.md
 
 Progress: █████░░░░░ 14% (5/35 plans)
 
@@ -63,6 +63,11 @@ Recent decisions affecting current work:
 - Transaction-based testing with ROLLBACK - Validates schema without polluting database with test data
 
 **Phase 3 decisions:**
+- Breadth-first search for traverseChain - BFS prevents infinite loops in cyclic causal graphs, level tracking enables depth-based filtering
+- Default depth 3, max depth 10 for traversal - Balances insight vs performance, aligns with GUI requirement (50 nodes max)
+- Graph structure with nodes and edges arrays - Standard graph representation compatible with D3.js and vis.js visualization libraries
+- Validation throws errors before database interaction - Early failure with clear messages reduces database load from invalid inputs
+- Dynamic UPDATE with allowed fields whitelist - Prevents modification of immutable fields (chain_uuid, project_id, event IDs)
 - advancePhase helper simplifies sequential progression while updateArc allows non-linear changes - GUI convenience without restricting authorial flexibility
 - Nullable arc fields (archetype, lie/truth, want/need) allow incremental arc definition - Authors can create placeholder arcs that get filled in during story development
 - Phase validation at both creation and update ensures data integrity - Catches invalid phases early at entry points
@@ -77,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16T16:18:55Z
-Stopped at: Completed 03-02-PLAN.md (Character Arcs Module)
+Last session: 2026-01-16T16:18:56Z
+Stopped at: Completed 03-01-PLAN.md (Causality Chains Module)
 Resume file: None
