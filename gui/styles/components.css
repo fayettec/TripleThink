@@ -454,6 +454,43 @@ main {
   font-style: italic;
 }
 
+/* Narrative Screen */
+.narrative-info {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f0f9ff;
+  border-left: 4px solid #3b82f6;
+  border-radius: 4px;
+}
+
+.help-text {
+  margin: 0;
+  color: #1e40af;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.tree-container {
+  margin-top: 1rem;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-message {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.empty-hint {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
 /* Narrative Tree Editor */
 .narrative-tree-editor {
   width: 100%;
