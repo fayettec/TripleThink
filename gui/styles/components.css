@@ -453,3 +453,144 @@ main {
   border-radius: 8px;
   font-style: italic;
 }
+
+/* Narrative Tree Editor */
+.narrative-tree-editor {
+  width: 100%;
+}
+
+.tree-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.tree-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #111827;
+}
+
+.chapter-count {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.tree-chapter {
+  margin-bottom: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+  transition: box-shadow 0.2s ease;
+}
+
+.tree-chapter:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chapter-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 8px;
+}
+
+.chapter-header .drag-handle {
+  color: #9ca3af;
+  cursor: grab;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.chapter-title {
+  font-weight: 600;
+  color: #111827;
+  flex: 1;
+}
+
+.scene-count {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.chapter-header .btn-icon {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  margin-left: 4px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.chapter-header .btn-icon:hover {
+  opacity: 1;
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.chapter-scenes {
+  padding-left: 24px;
+}
+
+.tree-scene {
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 4px;
+  background: #f9fafb;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s ease;
+}
+
+.tree-scene:hover {
+  background: #f3f4f6;
+}
+
+.tree-scene .drag-handle {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.tree-scene.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
+.tree-scene.drop-target {
+  border: 2px dashed #3b82f6;
+  background: #dbeafe;
+}
+
+.tree-chapter.drop-target {
+  border: 2px dashed #3b82f6;
+  background: #eff6ff;
+}
+
+.scene-number {
+  font-weight: bold;
+  color: #6b7280;
+  min-width: 24px;
+  font-size: 0.85rem;
+}
+
+.scene-title {
+  flex: 1;
+  color: #374151;
+}
+
+.scene-status.badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+}

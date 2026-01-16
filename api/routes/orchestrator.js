@@ -213,6 +213,46 @@ module.exports = function createOrchestratorRoutes(db) {
     }
   });
 
+  // Merge two chapters
+  router.post('/chapters/merge', (req, res) => {
+    try {
+      const { chapter1Id, chapter2Id } = req.body;
+
+      if (!chapter1Id || !chapter2Id) {
+        return res.status(400).json({ error: 'Both chapter1Id and chapter2Id required' });
+      }
+
+      // Get scenes for both chapters
+      const chapter1Scenes = db.prepare(`
+        SELECT * FROM scenes WHERE chapterId = ? ORDER BY sceneNumber ASC
+      `).all(chapter1Id);
+
+      const chapter2Scenes = db.prepare(`
+        SELECT * FROM scenes WHERE chapterId = ? ORDER BY sceneNumber ASC
+      `).all(chapter2Id);
+
+      // Move all chapter2 scenes to chapter1
+      for (let i = 0; i < chapter2Scenes.length; i++) {
+        const scene = chapter2Scenes[i];
+        scenes.updateScene(db, scene.id, { chapterId: chapter1Id });
+      }
+
+      // Renumber all scenes in merged chapter
+      const allScenes = [...chapter1Scenes, ...chapter2Scenes];
+      for (let i = 0; i < allScenes.length; i++) {
+        scenes.updateScene(db, allScenes[i].id, { sceneNumber: i + 1 });
+      }
+
+      res.json({
+        mergedChapter: chapter1Id,
+        deletedChapter: chapter2Id,
+        totalScenes: allScenes.length
+      });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   // ==================== TRANSITIONS ====================
 
   // Create a transition
