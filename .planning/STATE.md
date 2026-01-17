@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-01-16)
 
 **Core value:** The orchestrator must assemble complete context packets for zero-knowledge scene generation
-**Current focus:** Phase 11 — GUI Epistemic & Reader Knowledge
+**Current focus:** Phase 12 — GUI Advanced Features
 
 ## Current Position
 
-Phase: 11 of 14 (GUI Epistemic & Reader Knowledge)
-Plan: 4 of 4 (Reader Knowledge UI Integration)
+Phase: 12 of 14 (GUI Advanced Features)
+Plan: 2 of 2 (Validation UI & Timeline Indicators)
 Status: Phase complete
-Last activity: 2026-01-17 — Completed 11-04-PLAN.md
+Last activity: 2026-01-17 — Completed 12-02-PLAN.md
 
-Progress: ████████████░ 86% (30/35 plans)
+Progress: █████████████ 89% (31/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 30
+- Total plans completed: 31
 - Average duration: 2.7 min
 - Total execution time: 1.4 hours
 
@@ -38,10 +38,11 @@ Progress: ████████████░ 86% (30/35 plans)
 | 09 | 3 | 10 min | 3.3 min |
 | 10 | 4 | 13 min | 3.3 min |
 | 11 | 4 | 12 min | 3.0 min |
+| 12 | 1 | 3 min | 3.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 3min, 4min, 3min, 4min, 1min (avg: 3.0 min)
-- Trend: Phase 11 complete - Full reader knowledge tracking integrated with clickable scene editor, excellent velocity
+- Last 5 plans: 4min, 3min, 4min, 1min, 3min (avg: 3.0 min)
+- Trend: Phase 12 started - Validation UI and timeline indicators added, maintaining excellent velocity
 
 ## Accumulated Context
 
@@ -180,6 +181,12 @@ Recent decisions affecting current work:
 - Script load order for Phase 11 - reader-knowledge-tracker → dramatic-irony-panel → scene-editor before narrative-tree-editor ensures dependencies available when needed
 - Event delegation for scene clicks - Check for button clicks first (early return), then scene cards prevents conflicts between button actions and scene editor opening
 
+**Phase 12 decisions:**
+- 8 validation categories match Phase 13 structure - Organizing 100+ rules by category (Epistemic, Causality, Arcs, Conflicts, Setup/Payoffs, World Rules, Narrative, Performance) makes them manageable
+- Snapshot anchors every 10 events - Heuristic (sequence_index % 10 === 0) shows anchor points where full state snapshots exist, gold badge with ⚓ icon for visual distinction
+- Delta symbols show chain distance - Gray ΔN badges (0-9) show distance from last snapshot for state reconstruction understanding
+- SQL placeholder with disabled button - Reserves UI space for future power-user feature without promising delivery timeline, "Coming Soon" sets expectations
+
 ### Pending Todos
 
 None yet.
@@ -190,6 +197,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-17T14:22:15Z
-Stopped at: Completed 11-04-PLAN.md (Reader Knowledge UI Integration) - Phase 11 complete
+Last session: 2026-01-17T14:47:22Z
+Stopped at: Completed 12-02-PLAN.md (Validation UI & Timeline Indicators) - Phase 12 complete
 Resume file: None
