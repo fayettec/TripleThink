@@ -192,12 +192,13 @@ const NarrativeTreeEditor = {
     const statusColor = statusColors[scene.status] || statusColors['draft'];
 
     return `
-      <div class="tree-scene"
+      <div class="tree-scene scene-clickable"
            draggable="true"
            data-scene-id="${scene.id}"
            data-chapter-id="${scene.chapterId || 'unassigned'}"
            data-scene-number="${scene.sceneNumber || 0}"
-           data-node-type="scene">
+           data-node-type="scene"
+           style="cursor: pointer;">
         <span class="drag-handle">☰</span>
         <span class="scene-number">${scene.sceneNumber || '?'}</span>
         <span class="scene-title">${scene.title || '<em>Untitled Scene</em>'}</span>
@@ -225,27 +226,37 @@ const NarrativeTreeEditor = {
     // Button click handlers for split, merge, rename, delete
     tree.addEventListener('click', (e) => {
       const button = e.target.closest('[data-action]');
-      if (!button) return;
+      if (button) {
+        const action = button.dataset.action;
+        const chapterId = button.dataset.chapterId;
+        const sceneId = button.dataset.sceneId;
 
-      const action = button.dataset.action;
-      const chapterId = button.dataset.chapterId;
-      const sceneId = button.dataset.sceneId;
-
-      if (action === 'split') {
-        this.showSplitDialog(chapterId);
-      } else if (action === 'merge') {
-        this.mergeWithNext(chapterId);
-      } else if (action === 'rename') {
-        if (chapterId) {
-          this.showRenameDialog(chapterId, 'chapter');
-        } else if (sceneId) {
-          this.showRenameDialog(sceneId, 'scene');
+        if (action === 'split') {
+          this.showSplitDialog(chapterId);
+        } else if (action === 'merge') {
+          this.mergeWithNext(chapterId);
+        } else if (action === 'rename') {
+          if (chapterId) {
+            this.showRenameDialog(chapterId, 'chapter');
+          } else if (sceneId) {
+            this.showRenameDialog(sceneId, 'scene');
+          }
+        } else if (action === 'delete') {
+          if (chapterId) {
+            this.showDeleteDialog(chapterId, 'chapter');
+          } else if (sceneId) {
+            this.showDeleteDialog(sceneId, 'scene');
+          }
         }
-      } else if (action === 'delete') {
-        if (chapterId) {
-          this.showDeleteDialog(chapterId, 'chapter');
-        } else if (sceneId) {
-          this.showDeleteDialog(sceneId, 'scene');
+        return; // Handled button click, don't process as scene click
+      }
+
+      // Scene card click handler - open SceneEditor
+      const sceneCard = e.target.closest('.scene-clickable');
+      if (sceneCard) {
+        const sceneId = sceneCard.dataset.sceneId;
+        if (sceneId && typeof SceneEditor !== 'undefined') {
+          SceneEditor.init(sceneId);
         }
       }
     });
