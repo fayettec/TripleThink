@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 11 of 14 (GUI Epistemic & Reader Knowledge)
-Plan: 3 of 3 (Reader Knowledge Events UI)
+Plan: 4 of 4 (Reader Knowledge UI Integration)
 Status: Phase complete
-Last activity: 2026-01-17 — Completed 11-03-PLAN.md
+Last activity: 2026-01-17 — Completed 11-04-PLAN.md
 
-Progress: ████████████░ 83% (29/35 plans)
+Progress: ████████████░ 86% (30/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 29
-- Average duration: 2.8 min
+- Total plans completed: 30
+- Average duration: 2.7 min
 - Total execution time: 1.4 hours
 
 **By Phase:**
@@ -37,11 +37,11 @@ Progress: ████████████░ 83% (29/35 plans)
 | 08 | 3 | 9 min | 3.0 min |
 | 09 | 3 | 10 min | 3.3 min |
 | 10 | 4 | 13 min | 3.3 min |
-| 11 | 3 | 11 min | 3.7 min |
+| 11 | 4 | 12 min | 3.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 3min, 3min, 4min, 3min, 4min (avg: 3.4 min)
-- Trend: Phase 11 complete - Timeline and characters screens enhanced with epistemic toggles and knowledge modals, velocity consistent
+- Last 5 plans: 3min, 4min, 3min, 4min, 1min (avg: 3.0 min)
+- Trend: Phase 11 complete - Full reader knowledge tracking integrated with clickable scene editor, excellent velocity
 
 ## Accumulated Context
 
@@ -177,6 +177,8 @@ Recent decisions affecting current work:
 - Toggle-based overlays for epistemic/causality - Opt-in checkboxes reduce visual clutter, epistemic knowledge badges and causality arrows only shown when enabled
 - Knowledge badges with click-to-expand - Display entity name and fact count, expand on click to show detailed fact list instead of always-expanded to save space
 - False belief highlighting in orange - Visual distinction in knowledge modal for dramatic irony, truth indicator shows actual value alongside false belief
+- Script load order for Phase 11 - reader-knowledge-tracker → dramatic-irony-panel → scene-editor before narrative-tree-editor ensures dependencies available when needed
+- Event delegation for scene clicks - Check for button clicks first (early return), then scene cards prevents conflicts between button actions and scene editor opening
 
 ### Pending Todos
 
@@ -188,6 +190,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-17T14:05:26Z
-Stopped at: Completed 11-03-PLAN.md (Reader Knowledge Events UI) - Phase 11 complete
+Last session: 2026-01-17T14:22:15Z
+Stopped at: Completed 11-04-PLAN.md (Reader Knowledge UI Integration) - Phase 11 complete
 Resume file: None
