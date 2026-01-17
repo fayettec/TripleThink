@@ -87,12 +87,12 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 
 ### GUI - Narrative Editing
 
-- [ ] **GUI-14**: narrative-tree-editor.js component supports drag-and-drop chapter/scene reordering
-- [ ] **GUI-15**: Narrative tree editor auto-renumbers chapters/scenes after reorder
-- [ ] **GUI-16**: Narrative tree editor supports split chapter operation
-- [ ] **GUI-17**: Narrative tree editor supports merge chapter operation
-- [ ] **GUI-18**: Narrative tree editor supports rename/delete with confirmations
-- [ ] **GUI-19**: narrative.js screen integrates narrative-tree-editor.js replacing old tree view
+- [x] **GUI-14**: narrative-tree-editor.js component supports drag-and-drop chapter/scene reordering
+- [x] **GUI-15**: Narrative tree editor auto-renumbers chapters/scenes after reorder
+- [x] **GUI-16**: Narrative tree editor supports split chapter operation
+- [x] **GUI-17**: Narrative tree editor supports merge chapter operation
+- [x] **GUI-18**: Narrative tree editor supports rename/delete with confirmations
+- [x] **GUI-19**: narrative.js screen integrates narrative-tree-editor.js replacing old tree view
 
 ### GUI - Reader Knowledge Tracking
 
@@ -238,12 +238,12 @@ Which phases cover which requirements. Updated by create-roadmap.
 | GUI-11 | Phase 9 | Complete |
 | GUI-12 | Phase 9 | Complete |
 | GUI-13 | Phase 9 | Complete |
-| GUI-14 | Phase 10 | Pending |
-| GUI-15 | Phase 10 | Pending |
-| GUI-16 | Phase 10 | Pending |
-| GUI-17 | Phase 10 | Pending |
-| GUI-18 | Phase 10 | Pending |
-| GUI-19 | Phase 10 | Pending |
+| GUI-14 | Phase 10 | Complete |
+| GUI-15 | Phase 10 | Complete |
+| GUI-16 | Phase 10 | Complete |
+| GUI-17 | Phase 10 | Complete |
+| GUI-18 | Phase 10 | Complete |
+| GUI-19 | Phase 10 | Complete |
 | GUI-20 | Phase 11 | Pending |
 | GUI-21 | Phase 11 | Pending |
 | GUI-22 | Phase 11 | Pending |

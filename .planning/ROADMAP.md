@@ -21,7 +21,7 @@ The journey: Foundation enhancement (EVENT_MOMENTS) → Logic Layer database (7 
 - [x] **Phase 7: API Layer** - REST endpoints for all logic layer functionality
 - [ ] **Phase 8: GUI Core Infrastructure** - Power drawer, layer switcher, state management, API client
 - [x] **Phase 9: GUI Logic Visualization** - Story logic screen with 6 tabs
-- [ ] **Phase 10: GUI Narrative Editor** - Drag-and-drop chapter/scene reordering
+- [x] **Phase 10: GUI Narrative Editor** - Drag-and-drop chapter/scene reordering
 - [ ] **Phase 11: GUI Epistemic & Reader Knowledge** - Layer switching, dramatic irony tracking
 - [ ] **Phase 12: GUI Advanced Features & Polish** - Relationship maps, dashboard enhancements
 - [ ] **Phase 13: Validation & Testing** - Comprehensive validation system with 100+ rules
@@ -202,9 +202,10 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 10-01: narrative-tree-editor.js component with drag-and-drop
-- [ ] 10-02: Auto-renumbering, split, and merge operations
-- [ ] 10-03: Integrate into narrative.js screen
+- [x] 10-01: narrative-tree-editor.js component with drag-and-drop
+- [x] 10-02: Auto-renumbering, split, and merge operations
+- [x] 10-03: Integrate into narrative.js screen
+- [x] 10-04: Gap closure - chapter rename/delete endpoints
 
 ### Phase 11: GUI Epistemic & Reader Knowledge
 **Goal**: Layer switching with reader knowledge tracking and dramatic irony detection
@@ -302,7 +303,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 7. API Layer | 3/3 | Complete | 2026-01-16 |
 | 8. GUI Core Infrastructure | 3/3 | Complete | 2026-01-16 |
 | 9. GUI Logic Visualization | 3/3 | Complete | 2026-01-16 |
-| 10. GUI Narrative Editor | 0/3 | Not started | - |
+| 10. GUI Narrative Editor | 4/4 | Complete | 2026-01-17 |
 | 11. GUI Epistemic & Reader Knowledge | 0/3 | Not started | - |
 | 12. GUI Advanced Features & Polish | 0/2 | Not started | - |
 | 13. Validation & Testing | 0/3 | Not started | - |
