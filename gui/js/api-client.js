@@ -727,6 +727,44 @@ class APIClient {
     if (fictionId) params.append('fictionId', fictionId);
     return this.request(`/api/epistemic/knowers/${factType}/${factKey}?${params}`);
   }
+
+  // ============================================================
+  // RELATIONSHIP ENDPOINTS
+  // ============================================================
+
+  /**
+   * Get all relationships for a fiction
+   * @param {string} fictionId - Fiction UUID
+   * @returns {Promise<array>} Array of relationships
+   */
+  async getRelationships(fictionId) {
+    return this.request(`/api/relationships?fiction_id=${fictionId}`);
+  }
+
+  /**
+   * Get relationships for a specific entity
+   * @param {string} entityId - Entity ID
+   * @param {string} fictionId - Fiction UUID
+   * @param {number} timestamp - Optional narrative timestamp
+   * @returns {Promise<array>} Array of relationships
+   */
+  async getRelationshipsFor(entityId, fictionId, timestamp = null) {
+    const timestampParam = timestamp ? `&timestamp=${timestamp}` : '';
+    return this.request(`/api/relationships/entity/${entityId}?fiction_id=${fictionId}${timestampParam}`);
+  }
+
+  /**
+   * Get relationship between two entities
+   * @param {string} entityAId - First entity ID
+   * @param {string} entityBId - Second entity ID
+   * @param {string} fictionId - Fiction UUID
+   * @param {number} timestamp - Optional narrative timestamp
+   * @returns {Promise<object>} Relationship data
+   */
+  async getRelationshipBetween(entityAId, entityBId, fictionId, timestamp = null) {
+    const timestampParam = timestamp ? `&timestamp=${timestamp}` : '';
+    return this.request(`/api/relationships/between?entity_a=${entityAId}&entity_b=${entityBId}&fiction_id=${fictionId}${timestampParam}`);
+  }
 }
 
 // Export singleton instance
