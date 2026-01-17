@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-16)
 
 **Core value:** The orchestrator must assemble complete context packets for zero-knowledge scene generation
-**Current focus:** Phase 10 — GUI Narrative Editor
+**Current focus:** Phase 11 — GUI Epistemic & Reader Knowledge
 
 ## Current Position
 
-Phase: 10 of 14 (GUI Narrative Editor)
-Plan: 4 of 4 (Chapter Rename/Delete Gap Closure)
-Status: Phase verified and complete
-Last activity: 2026-01-17 — Completed 10-04-PLAN.md, verified phase goal (6/6 must-haves)
+Phase: 11 of 14 (GUI Epistemic & Reader Knowledge)
+Plan: 1 of 1 (Reader Knowledge Tracker)
+Status: In progress
+Last activity: 2026-01-17 — Completed 11-01-PLAN.md
 
-Progress: ███████████░ 74% (26/35 plans)
+Progress: ███████████░ 77% (27/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 26
+- Total plans completed: 27
 - Average duration: 2.7 min
-- Total execution time: 1.2 hours
+- Total execution time: 1.3 hours
 
 **By Phase:**
 
@@ -37,10 +37,11 @@ Progress: ███████████░ 74% (26/35 plans)
 | 08 | 3 | 9 min | 3.0 min |
 | 09 | 3 | 10 min | 3.3 min |
 | 10 | 4 | 13 min | 3.3 min |
+| 11 | 1 | 3 min | 3.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 3min, 3min, 4min, 3min, 3min (avg: 3.2 min)
-- Trend: Phase 10 complete with gap closure - Narrative editor verification gaps closed, velocity consistent
+- Last 5 plans: 4min, 3min, 3min, 3min, 3min (avg: 3.2 min)
+- Trend: Phase 11 started - Epistemic UI components with reader knowledge, consistent velocity
 
 ## Accumulated Context
 
@@ -163,6 +164,11 @@ Recent decisions affecting current work:
 - Chapter rename returns limitation message - Chapters are ID-based logical groupings, not database entities with titles; endpoint explains limitation rather than failing
 - Chapter delete removes all scenes - Following split/merge pattern, deletion cascades to all scenes with that chapter_id
 
+**Phase 11 decisions:**
+- Reader as epistemic entity - Use existing epistemic endpoints with reader-{fictionId} entity ID pattern instead of creating new dedicated reader-knowledge endpoints
+- Leverage cumulative knowledge queries - Single timestamp query returns all facts entity knows by that point, epistemic module handles cumulative logic
+- Aggregate irony panel for all present characters - Scene editor checks dramatic irony for all characters in present_entity_ids array via parallel queries
+
 ### Pending Todos
 
 None yet.
@@ -173,6 +179,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-17T00:49:52Z
-Stopped at: Completed 10-04-PLAN.md (Chapter Rename/Delete Gap Closure) - Phase 10 complete
+Last session: 2026-01-17T14:03:40Z
+Stopped at: Completed 11-01-PLAN.md (Reader Knowledge Tracker) - 3 components created
 Resume file: None
