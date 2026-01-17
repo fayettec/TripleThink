@@ -269,11 +269,11 @@ Which phases cover which requirements. Updated by create-roadmap.
 | VAL-06 | Phase 13 | Complete |
 | VAL-07 | Phase 13 | Complete |
 | VAL-08 | Phase 13 | Complete |
-| DOC-01 | Phase 14 | Pending |
-| DOC-02 | Phase 14 | Pending |
-| DOC-03 | Phase 14 | Pending |
-| DOC-04 | Phase 14 | Pending |
-| DOC-05 | Phase 14 | Pending |
+| DOC-01 | Phase 14 | Complete |
+| DOC-02 | Phase 14 | Complete |
+| DOC-03 | Phase 14 | Complete |
+| DOC-04 | Phase 14 | Complete |
+| DOC-05 | Phase 14 | Complete |
 
 **Coverage:**
 - v1 requirements: 83 total
