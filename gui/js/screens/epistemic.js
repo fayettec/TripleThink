@@ -477,7 +477,15 @@ const EpistemicScreen = {
         .on('start', (event, d) => this.dragStarted(event, d))
         .on('drag', (event, d) => this.dragged(event, d))
         .on('end', (event, d) => this.dragEnded(event, d)))
-      .on('click', (event, d) => this.showNodeDetails(d));
+      .on('click', (event, d) => this.showNodeDetails(d))
+      .on('mouseover', (event, d) => {
+        if (d.isFalseBelief) {
+          this.showTooltip(event, d);
+        }
+      })
+      .on('mouseout', () => {
+        this.hideTooltip();
+      });
 
     // Add labels
     const labels = g.append('g')
@@ -514,19 +522,139 @@ const EpistemicScreen = {
     }
   },
 
-  showNodeDetails(node) {
-    // TODO: Show node details in power drawer
+  async showNodeDetails(node) {
     console.log('Node clicked:', node);
 
-    // For now, just show an alert with node details
-    const details = `
-Fact: ${node.label}
-Value: ${node.value}
-Category: ${node.category}
-False Belief: ${node.isFalseBelief ? 'Yes' : 'No'}
-    `.trim();
+    // If it's a false belief, show detailed panel
+    if (node.isFalseBelief) {
+      await this.showFalseBelief DetailPanel(node);
+      return;
+    }
 
-    alert(details);
+    // For regular nodes, show basic details
+    const graphContainer = document.getElementById('epistemic-graph-container');
+    if (!graphContainer) return;
+
+    // Remove any existing detail panel
+    const existingPanel = graphContainer.querySelector('.node-detail-panel');
+    if (existingPanel) existingPanel.remove();
+
+    // Create detail panel
+    const panel = document.createElement('div');
+    panel.className = 'node-detail-panel';
+    panel.innerHTML = `
+      <div class="detail-header">
+        <h4>Knowledge Fact</h4>
+        <button class="close-btn" onclick="this.parentElement.parentElement.remove()">&times;</button>
+      </div>
+      <div class="detail-body">
+        <div class="detail-row">
+          <span class="detail-label">Fact:</span>
+          <span class="detail-value">${node.label}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Value:</span>
+          <span class="detail-value">${node.value || 'N/A'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Category:</span>
+          <span class="detail-value">${this.getCategoryLabel(node.category)}</span>
+        </div>
+      </div>
+    `;
+
+    graphContainer.appendChild(panel);
+  },
+
+  async showFalseBeliefDetailPanel(node) {
+    const graphContainer = document.getElementById('epistemic-graph-container');
+    if (!graphContainer) return;
+
+    // Remove any existing detail panel
+    const existingPanel = graphContainer.querySelector('.false-belief-detail');
+    if (existingPanel) existingPanel.remove();
+
+    // Fetch world truth to compare
+    const timestamp = state.get('currentTimestamp') || Date.now();
+    let worldTruth = null;
+
+    try {
+      // TODO: Implement world truth endpoint
+      // For now, simulate world truth
+      worldTruth = `Truth: ${node.value} (actual)`;
+    } catch (err) {
+      console.error('Error fetching world truth:', err);
+    }
+
+    // Create false belief detail panel
+    const panel = document.createElement('div');
+    panel.className = 'false-belief-detail';
+    panel.innerHTML = `
+      <h4>False Belief Detected</h4>
+      <div class="belief-row">
+        <span class="belief-label">Character believes:</span>
+        <span class="belief-value">${node.value || 'Unknown'}</span>
+      </div>
+      <div class="belief-row">
+        <span class="belief-label">Actual truth:</span>
+        <span class="belief-value">${worldTruth || 'Loading...'}</span>
+      </div>
+      <div class="belief-row">
+        <span class="belief-label">Fact ID:</span>
+        <span class="belief-value">${node.id}</span>
+      </div>
+      <div class="belief-row">
+        <span class="belief-label">Impact:</span>
+        <span class="belief-value">This false belief may affect character decisions and create dramatic tension.</span>
+      </div>
+      <button class="btn btn-sm" onclick="this.parentElement.remove()" style="margin-top: 0.75rem;">Close</button>
+    `;
+
+    graphContainer.appendChild(panel);
+  },
+
+  getCategoryLabel(category) {
+    const labels = {
+      'both': 'Known by both characters',
+      'primary-only': 'Known only by primary character',
+      'secondary-only': 'Known only by secondary character',
+      'false-belief': 'False belief',
+      'primary': 'Known by character'
+    };
+    return labels[category] || category;
+  },
+
+  showTooltip(event, node) {
+    // Remove any existing tooltip
+    this.hideTooltip();
+
+    if (!node.isFalseBelief) return;
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'false-belief-tooltip';
+    tooltip.id = 'epistemic-tooltip';
+
+    const characterName = this.currentPrimaryCharacter || 'Character';
+    tooltip.innerHTML = `
+      <strong>False Belief</strong><br>
+      ${characterName} believes: ${node.value || 'Unknown'}<br>
+      <em>Click for details</em>
+    `;
+
+    // Position tooltip near cursor
+    tooltip.style.position = 'fixed';
+    tooltip.style.left = `${event.pageX + 10}px`;
+    tooltip.style.top = `${event.pageY + 10}px`;
+    tooltip.style.zIndex = '10000';
+
+    document.body.appendChild(tooltip);
+  },
+
+  hideTooltip() {
+    const tooltip = document.getElementById('epistemic-tooltip');
+    if (tooltip) {
+      tooltip.remove();
+    }
   },
 
   showEmptyState(type) {
