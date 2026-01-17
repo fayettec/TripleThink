@@ -19,9 +19,9 @@ Progress: ████████████░ 83% (29/35 plans)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 28
+- Total plans completed: 29
 - Average duration: 2.8 min
-- Total execution time: 1.3 hours
+- Total execution time: 1.4 hours
 
 **By Phase:**
 
@@ -37,11 +37,11 @@ Progress: ████████████░ 83% (29/35 plans)
 | 08 | 3 | 9 min | 3.0 min |
 | 09 | 3 | 10 min | 3.3 min |
 | 10 | 4 | 13 min | 3.3 min |
-| 11 | 2 | 7 min | 3.5 min |
+| 11 | 3 | 11 min | 3.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 3min, 3min, 3min, 3min, 4min (avg: 3.2 min)
-- Trend: Phase 11 complete - Epistemic UI with comparison and false belief visualization, velocity consistent
+- Last 5 plans: 3min, 3min, 4min, 3min, 4min (avg: 3.4 min)
+- Trend: Phase 11 complete - Timeline and characters screens enhanced with epistemic toggles and knowledge modals, velocity consistent
 
 ## Accumulated Context
 
@@ -173,6 +173,10 @@ Recent decisions affecting current work:
 - Empty state dictionary pattern - Centralized icon/message/hint mapping for multiple scenarios improves consistency across no-project/no-characters/no-data states
 - Leverage cumulative knowledge queries - Single timestamp query returns all facts entity knows by that point, epistemic module handles cumulative logic
 - Aggregate irony panel for all present characters - Scene editor checks dramatic irony for all characters in present_entity_ids array via parallel queries
+- Scenes as timeline events - Use narrative_scenes table with narrative_time for chronological timeline display, scene entities serve as event representation
+- Toggle-based overlays for epistemic/causality - Opt-in checkboxes reduce visual clutter, epistemic knowledge badges and causality arrows only shown when enabled
+- Knowledge badges with click-to-expand - Display entity name and fact count, expand on click to show detailed fact list instead of always-expanded to save space
+- False belief highlighting in orange - Visual distinction in knowledge modal for dramatic irony, truth indicator shows actual value alongside false belief
 
 ### Pending Todos
 
@@ -184,6 +188,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-17T01:05:09Z
-Stopped at: Completed 11-02-PLAN.md (Epistemic Character Comparison) - Phase 11 complete
+Last session: 2026-01-17T14:05:26Z
+Stopped at: Completed 11-03-PLAN.md (Reader Knowledge Events UI) - Phase 11 complete
 Resume file: None
