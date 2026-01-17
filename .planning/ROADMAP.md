@@ -227,9 +227,10 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 11-01: reader-knowledge-tracker.js and dramatic-irony-panel.js components
-- [ ] 11-02: Enhance scene-editor.js with reader knowledge section and warnings
-- [ ] 11-03: Enhance epistemic.js, timeline.js, characters.js with v4.1 features
+- [x] 11-01: reader-knowledge-tracker.js and dramatic-irony-panel.js components
+- [x] 11-02: Enhance scene-editor.js with reader knowledge section and warnings
+- [x] 11-03: Enhance epistemic.js, timeline.js, characters.js with v4.1 features
+- [x] 11-04: Gap closure - wire components to HTML and scene editor
 
 ### Phase 12: GUI Advanced Features & Polish
 **Goal**: Relationship maps, dashboard enhancements, SQL query placeholder
@@ -304,7 +305,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 8. GUI Core Infrastructure | 3/3 | Complete | 2026-01-16 |
 | 9. GUI Logic Visualization | 3/3 | Complete | 2026-01-16 |
 | 10. GUI Narrative Editor | 4/4 | Complete | 2026-01-17 |
-| 11. GUI Epistemic & Reader Knowledge | 0/3 | Not started | - |
+| 11. GUI Epistemic & Reader Knowledge | 4/4 | Complete | 2026-01-17 |
 | 12. GUI Advanced Features & Polish | 0/2 | Not started | - |
 | 13. Validation & Testing | 0/3 | Not started | - |
 | 14. Documentation | 0/2 | Not started | - |
