@@ -664,3 +664,188 @@ main {
   background: #e5e7eb;
   border-radius: 4px;
 }
+
+/* Epistemic Screen */
+.epistemic-controls {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.character-selectors {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.selector-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.selector-group label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.character-select {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.character-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Comparison Diff Panel */
+.comparison-diff {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.diff-section {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.diff-badge {
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.diff-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.diff-badge.active {
+  border-color: currentColor;
+}
+
+.badge-both {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.badge-both.active {
+  background: #10b981;
+  color: white;
+}
+
+.badge-primary-only {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-primary-only.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.badge-secondary-only {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.badge-secondary-only.active {
+  background: #8b5cf6;
+  color: white;
+}
+
+.badge-false-beliefs {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.badge-false-beliefs.active {
+  background: #ff9800;
+  color: white;
+}
+
+.diff-hint {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Epistemic Graph */
+.epistemic-graph .node {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.epistemic-graph .node:hover {
+  stroke-width: 4px;
+}
+
+.epistemic-graph .node.false-belief {
+  filter: drop-shadow(0 0 6px rgba(255, 152, 0, 0.5));
+}
+
+.false-belief-tooltip {
+  position: absolute;
+  background: #ff9800;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.false-belief-detail {
+  border-left: 4px solid #ff9800;
+  padding: 16px;
+  background: #fff3e0;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.false-belief-detail h4 {
+  margin: 0 0 0.75rem 0;
+  color: #e65100;
+  font-size: 1rem;
+}
+
+.false-belief-detail .belief-row {
+  margin-bottom: 0.5rem;
+}
+
+.false-belief-detail .belief-row:last-child {
+  margin-bottom: 0;
+}
+
+.false-belief-detail .belief-label {
+  font-weight: 600;
+  color: #374151;
+  margin-right: 0.5rem;
+}
+
+.false-belief-detail .belief-value {
+  color: #6b7280;
+}
