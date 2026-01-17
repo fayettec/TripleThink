@@ -16,11 +16,11 @@ const Router = {
   init() {
     // Set up hash change listener
     window.addEventListener('hashchange', () => {
-      this.navigate(window.location.hash.slice(1) || 'timeline');
+      this.navigate(window.location.hash.slice(1) || 'dashboard');
     });
 
     // Navigate to initial route
-    const initialRoute = window.location.hash.slice(1) || 'timeline';
+    const initialRoute = window.location.hash.slice(1) || 'dashboard';
     this.navigate(initialRoute);
   },
 

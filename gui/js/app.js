@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   PowerDrawer.init();
 
   // Register routes
+  Router.register('dashboard', DashboardScreen);
   Router.register('timeline', TimelineScreen);
   Router.register('epistemic', EpistemicScreen);
   Router.register('characters', CharactersScreen);
