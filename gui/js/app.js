@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Router.register('characters', CharactersScreen);
   Router.register('story-logic', StoryLogicScreen);
   Router.register('narrative', NarrativeScreen);
+  Router.register('validation', ValidationScreen);
 
   // Start router
   Router.init();
