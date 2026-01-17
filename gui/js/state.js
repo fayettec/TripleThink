@@ -16,6 +16,7 @@ class State {
       powerDrawerOpen: false,
       causalityDepth: 3,
       activeTab: null,
+      characterTab: 'list', // 'list' | 'relationships'
 
       // Future: add more fields as needed by Phases 9-12
     };

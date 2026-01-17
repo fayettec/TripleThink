@@ -17,13 +17,90 @@ const CharactersScreen = {
             <span>🔍</span>
           </button>
         </header>
+        <div class="tab-navigation">
+          <button class="tab-btn active" data-tab="list">Characters</button>
+          <button class="tab-btn" data-tab="relationships">Relationships</button>
+        </div>
         <div class="screen-content">
           <div id="characters-content"></div>
         </div>
       </div>
     `;
 
-    await this.loadCharacters();
+    // Initialize active tab from state or default to 'list'
+    const activeTab = state.get('characterTab') || 'list';
+    state.update({ characterTab: activeTab });
+
+    // Set up tab click handlers
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tab = e.target.dataset.tab;
+
+        // Update active button styling
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+
+        // Update state and render new content
+        state.update({ characterTab: tab });
+        this.renderTabContent(tab);
+      });
+    });
+
+    // Render initial tab content
+    this.renderTabContent(activeTab);
+  },
+
+  async renderTabContent(tab) {
+    const container = document.getElementById('characters-content');
+
+    if (!container) {
+      console.error('Characters content container not found');
+      return;
+    }
+
+    const projectId = state.get('currentProjectId');
+
+    switch (tab) {
+      case 'list':
+        await this.loadCharacters();
+        break;
+      case 'relationships':
+        await this.renderRelationshipsTab(container, projectId);
+        break;
+      default:
+        container.innerHTML = '<div class="placeholder"><p>Unknown tab</p></div>';
+    }
+  },
+
+  async renderRelationshipsTab(container, projectId) {
+    if (!projectId) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🔗</div>
+          <div class="empty-message">No project selected</div>
+          <div class="empty-hint">Select a project to view relationships</div>
+        </div>
+      `;
+      return;
+    }
+
+    try {
+      // Create container for relationship map component
+      container.innerHTML = '<div id="relationship-map-container"></div>';
+
+      // Render relationship map component (projectId serves as fictionId)
+      await RelationshipMap.render('relationship-map-container', projectId);
+
+    } catch (error) {
+      console.error('Error rendering relationship map:', error);
+      container.innerHTML = `
+        <div class="error">
+          <div class="empty-icon">⚠️</div>
+          <div class="empty-message">Error loading relationship map</div>
+          <div class="empty-hint">${error.message}</div>
+        </div>
+      `;
+    }
   },
 
   async loadCharacters() {
