@@ -281,6 +281,44 @@ function getRelationshipDelta(db, entityAId, entityBId, fromTimestamp, toTimesta
 }
 
 /**
+ * Get all relationships in a fiction at a specific time
+ */
+function getAllRelationships(db, fictionId, timestamp = null) {
+  let sql = `
+    SELECT * FROM relationship_dynamics
+    WHERE fiction_id = ?
+  `;
+  const params = [fictionId];
+
+  if (timestamp) {
+    sql += ' AND valid_from <= ?';
+    params.push(timestamp);
+    sql += ' ORDER BY valid_from DESC';
+  } else {
+    sql += ' ORDER BY created_at DESC';
+  }
+
+  const rows = db.prepare(sql).all(...params);
+
+  if (!timestamp) {
+    // No timestamp filter - return all relationships
+    return rows.map(mapRowToRelationship);
+  }
+
+  // With timestamp - get latest state for each relationship pair
+  const relationshipMap = new Map();
+
+  for (const row of rows) {
+    const pairKey = `${row.entity_a_id}:${row.entity_b_id}:${row.relationship_type}`;
+    if (!relationshipMap.has(pairKey)) {
+      relationshipMap.set(pairKey, mapRowToRelationship(row));
+    }
+  }
+
+  return Array.from(relationshipMap.values());
+}
+
+/**
  * Map database row to relationship object
  */
 function mapRowToRelationship(row) {
@@ -311,5 +349,6 @@ module.exports = {
   getRelationshipHistory,
   findBySentiment,
   findConflicts,
-  getRelationshipDelta
+  getRelationshipDelta,
+  getAllRelationships
 };
