@@ -1348,3 +1348,77 @@ main {
   color: #6b7280;
 }
 
+/* SQL Placeholder */
+.sql-placeholder {
+  margin-top: 40px;
+  padding: 40px;
+  text-align: center;
+  background-color: #f9fafb;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+}
+
+.sql-placeholder .placeholder-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.sql-placeholder h3 {
+  margin: 0 0 8px 0;
+  color: #111827;
+}
+
+.sql-placeholder p {
+  margin: 4px 0;
+  color: #6b7280;
+}
+
+.sql-placeholder .placeholder-hint {
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.sql-placeholder button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Validation Results */
+.validation-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.validation-card {
+  border-left: 4px solid #e5e7eb;
+}
+
+.validation-card .card-header h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* State Reconstruction Indicators */
+.snapshot-anchor {
+  display: inline-block;
+  padding: 2px 6px;
+  background-color: #f39c12;
+  color: white;
+  border-radius: 4px;
+  font-size: 0.8em;
+  margin-left: 8px;
+  font-weight: 600;
+}
+
+.delta-symbol {
+  display: inline-block;
+  padding: 2px 6px;
+  background-color: #d1d5db;
+  color: #6b7280;
+  border-radius: 4px;
+  font-size: 0.8em;
+  margin-left: 8px;
+  font-weight: 600;
+}
+
