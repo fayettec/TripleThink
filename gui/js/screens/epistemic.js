@@ -137,6 +137,12 @@ const EpistemicScreen = {
         { entity_id: 'char-3', name: 'Charlie' }
       ];
 
+      // Handle empty characters case
+      if (mockCharacters.length === 0) {
+        this.showEmptyState('no-characters');
+        return;
+      }
+
       mockCharacters.forEach(char => {
         const option1 = document.createElement('option');
         option1.value = char.entity_id;
@@ -157,6 +163,7 @@ const EpistemicScreen = {
       }
     } catch (err) {
       console.error('Error loading characters:', err);
+      this.showEmptyState('no-characters');
     }
   },
 
@@ -231,7 +238,15 @@ const EpistemicScreen = {
         this.renderComparisonDiff(divergence, primaryFalseBeliefs);
       } else {
         const diffPanel = document.getElementById('comparison-diff-panel');
-        if (diffPanel) diffPanel.style.display = 'none';
+        if (diffPanel) {
+          // Show hint when only one character selected
+          diffPanel.innerHTML = `
+            <div class="comparison-hint info-banner">
+              💡 Select a second character to compare knowledge and see shared/unique facts.
+            </div>
+          `;
+          diffPanel.style.display = 'block';
+        }
       }
 
       // Render D3 graph
@@ -390,9 +405,42 @@ const EpistemicScreen = {
     // Filter graph based on viewMode
     const viewMode = state.get('viewMode');
 
-    // TODO: Implement view mode filtering when reader knowledge tracking is available
-    // For now, just log the mode change
-    console.log('View mode changed to:', viewMode);
+    if (!this.graphData) return;
+
+    const svg = d3.select('#epistemic-graph-container svg');
+    if (svg.empty()) return;
+
+    // Filter based on viewMode
+    // world-truth: Show all nodes
+    // character-view: Show only selected character's knowledge (already the default for single character)
+    // reader-view: Show only reader-known facts (requires reader knowledge tracking from Plan 11-01)
+
+    if (viewMode === 'world-truth') {
+      // Show all nodes
+      svg.selectAll('circle').style('display', 'block');
+      svg.selectAll('text').style('display', 'block');
+    } else if (viewMode === 'character-view') {
+      // Show only selected character knowledge (default behavior)
+      // If comparing, show both characters
+      svg.selectAll('circle').style('display', 'block');
+      svg.selectAll('text').style('display', 'block');
+    } else if (viewMode === 'reader-view') {
+      // Filter to reader-known facts
+      // TODO: Integrate with ReaderKnowledgeTracker from Plan 11-01 when available
+      console.log('Reader view filtering not yet implemented - requires Plan 11-01 completion');
+
+      // For now, show hint to user
+      const graphContainer = document.getElementById('epistemic-graph-container');
+      if (graphContainer) {
+        const existingHint = graphContainer.querySelector('.view-mode-hint');
+        if (!existingHint) {
+          const hint = document.createElement('div');
+          hint.className = 'view-mode-hint info-banner';
+          hint.textContent = 'Reader view filtering requires Plan 11-01 (Reader Knowledge Tracker) to be implemented first.';
+          graphContainer.insertBefore(hint, graphContainer.firstChild);
+        }
+      }
+    }
   },
 
   renderKnowledgeGraph(container, graphData) {
@@ -661,15 +709,38 @@ const EpistemicScreen = {
     const container = document.getElementById('epistemic-graph-container');
     if (!container) return;
 
-    if (type === 'no-character') {
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon">👥</div>
-          <div class="empty-message">No character selected</div>
-          <div class="empty-hint">Select a character to view their knowledge state</div>
-        </div>
-      `;
-    }
+    const emptyStates = {
+      'no-character': {
+        icon: '👥',
+        message: 'No character selected',
+        hint: 'Select a character to view their knowledge state'
+      },
+      'no-characters': {
+        icon: '👥',
+        message: 'No characters in this project',
+        hint: 'Create characters to track knowledge states'
+      },
+      'no-data': {
+        icon: '📖',
+        message: 'No knowledge data yet',
+        hint: 'Knowledge states are tracked per event. Create events and assign character knowledge.'
+      },
+      'comparison-hint': {
+        icon: '🔄',
+        message: 'Comparison mode',
+        hint: 'Select a second character to compare knowledge'
+      }
+    };
+
+    const state = emptyStates[type] || emptyStates['no-data'];
+
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">${state.icon}</div>
+        <div class="empty-message">${state.message}</div>
+        <div class="empty-hint">${state.hint}</div>
+      </div>
+    `;
   },
 
   // D3 drag handlers

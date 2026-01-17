@@ -793,6 +793,10 @@ main {
   font-style: italic;
 }
 
+.comparison-hint {
+  margin-bottom: 1rem;
+}
+
 /* Epistemic Graph */
 .epistemic-graph .node {
   cursor: pointer;
