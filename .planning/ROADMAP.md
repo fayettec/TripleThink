@@ -301,10 +301,11 @@ Plans:
   4. Users can click Characters → Relationships tab → see network graph visualization
   5. Network graph shows color-coded edges (trust=green, conflict=red, respect=blue, power=purple)
 **Research:** No (component implementation complete, only wiring needed)
-**Plans:** 1 plan
+**Plans:** 2 plans
 
 Plans:
-- [ ] 15-01: Load component and integrate into Characters screen
+- [x] 15-01: Load component and integrate into Characters screen
+- [x] 15-02: Fix API endpoint mismatch
 
 ## Progress
 
@@ -327,4 +328,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 12. GUI Advanced Features & Polish | 3/3 | Complete | 2026-01-17 |
 | 13. Validation & Testing | 3/3 | Complete | 2026-01-17 |
 | 14. Documentation | 2/2 | Complete | 2026-01-17 |
-| 15. Wire Relationship Map Component | 0/1 | Pending | - |
+| 15. Wire Relationship Map Component | 2/2 | Complete | 2026-01-17 |

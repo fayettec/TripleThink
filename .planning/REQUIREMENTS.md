@@ -255,8 +255,8 @@ Which phases cover which requirements. Updated by create-roadmap.
 | GUI-28 | Phase 11 | Complete |
 | GUI-29 | Phase 11 | Complete |
 | GUI-30 | Phase 11 | Complete |
-| GUI-31 | Phase 12 | Pending |
-| GUI-32 | Phase 12 | Pending |
+| GUI-31 | Phase 15 | Complete |
+| GUI-32 | Phase 15 | Complete |
 | GUI-33 | Phase 12 | Pending |
 | GUI-34 | Phase 12 | Pending |
 | GUI-35 | Phase 12 | Pending |
