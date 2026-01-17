@@ -286,13 +286,30 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 14-01: COMPONENT_GUIDE.md and NARRATIVE_EDITING_GUIDE.md
-- [ ] 14-02: API documentation and USAGE_MANUAL.md updates
+- [x] 14-01: COMPONENT_GUIDE.md and NARRATIVE_EDITING_GUIDE.md
+- [x] 14-02: API documentation and USAGE_MANUAL.md updates
+
+### Phase 15: Wire Relationship Map Component
+**Goal:** Make RelationshipMap component accessible to users via Characters screen
+**Depends on:** Phase 14
+**Requirements:** GUI-31, GUI-32
+**Gap Closure:** Closes gaps from v4.1 milestone audit
+**Success Criteria** (what must be TRUE):
+  1. relationship-map.js component loaded via script tag in gui/index.html
+  2. Characters screen has "Relationships" tab alongside "Character List" tab
+  3. Relationships tab calls RelationshipMap.render() with current fiction ID
+  4. Users can click Characters → Relationships tab → see network graph visualization
+  5. Network graph shows color-coded edges (trust=green, conflict=red, respect=blue, power=purple)
+**Research:** No (component implementation complete, only wiring needed)
+**Plans:** 1 plan
+
+Plans:
+- [ ] 15-01: Load component and integrate into Characters screen
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -310,3 +327,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 12. GUI Advanced Features & Polish | 3/3 | Complete | 2026-01-17 |
 | 13. Validation & Testing | 3/3 | Complete | 2026-01-17 |
 | 14. Documentation | 2/2 | Complete | 2026-01-17 |
+| 15. Wire Relationship Map Component | 0/1 | Pending | - |
