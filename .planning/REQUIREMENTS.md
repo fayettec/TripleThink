@@ -113,12 +113,12 @@ Requirements for v4.1 production release. Each maps to roadmap phases.
 
 ### GUI - Advanced Features
 
-- [ ] **GUI-31**: relationship-map.js component renders character relationship visualization using Vis.js
-- [ ] **GUI-32**: Relationship map shows trust, fear, respect, power balance with color-coded edges
-- [ ] **GUI-33**: timeline-viz.js enhanced with state reconstruction indicators (snapshot anchors, delta symbols)
-- [ ] **GUI-34**: dashboard.js enhanced with v4.1 stats (logic layer health: unfired setups, incomplete arcs, unresolved conflicts)
-- [ ] **GUI-35**: SQL query window placeholder exists in GUI (non-functional, labeled "Coming Soon")
-- [ ] **GUI-36**: validation.js screen organizes validation results by category tabs
+- [x] **GUI-31**: relationship-map.js component renders character relationship visualization using Vis.js
+- [x] **GUI-32**: Relationship map shows trust, fear, respect, power balance with color-coded edges
+- [x] **GUI-33**: timeline-viz.js enhanced with state reconstruction indicators (snapshot anchors, delta symbols)
+- [x] **GUI-34**: dashboard.js enhanced with v4.1 stats (logic layer health: unfired setups, incomplete arcs, unresolved conflicts)
+- [x] **GUI-35**: SQL query window placeholder exists in GUI (non-functional, labeled "Coming Soon")
+- [x] **GUI-36**: validation.js screen organizes validation results by category tabs
 
 ### Validation & Testing
 

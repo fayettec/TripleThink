@@ -23,7 +23,7 @@ The journey: Foundation enhancement (EVENT_MOMENTS) → Logic Layer database (7 
 - [x] **Phase 9: GUI Logic Visualization** - Story logic screen with 6 tabs
 - [x] **Phase 10: GUI Narrative Editor** - Drag-and-drop chapter/scene reordering
 - [ ] **Phase 11: GUI Epistemic & Reader Knowledge** - Layer switching, dramatic irony tracking
-- [ ] **Phase 12: GUI Advanced Features & Polish** - Relationship maps, dashboard enhancements
+- [x] **Phase 12: GUI Advanced Features & Polish** - Relationship maps, dashboard enhancements
 - [ ] **Phase 13: Validation & Testing** - Comprehensive validation system with 100+ rules
 - [ ] **Phase 14: Documentation** - User guides, API docs, component reference
 
@@ -247,8 +247,9 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 12-01: relationship-map.js Vis.js visualization and dashboard enhancements
-- [ ] 12-02: Timeline-viz indicators, validation screen tabs, SQL query placeholder
+- [x] 12-01: relationship-map.js Vis.js visualization and dashboard enhancements
+- [x] 12-02: Timeline-viz indicators, validation screen tabs, SQL query placeholder
+- [x] 12-03: Gap closure - wire relationship map to characters screen
 
 ### Phase 13: Validation & Testing
 **Goal**: Comprehensive validation system with 100+ rules operational
@@ -306,6 +307,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 9. GUI Logic Visualization | 3/3 | Complete | 2026-01-16 |
 | 10. GUI Narrative Editor | 4/4 | Complete | 2026-01-17 |
 | 11. GUI Epistemic & Reader Knowledge | 4/4 | Complete | 2026-01-17 |
-| 12. GUI Advanced Features & Polish | 0/2 | Not started | - |
+| 12. GUI Advanced Features & Polish | 3/3 | Complete | 2026-01-17 |
 | 13. Validation & Testing | 0/3 | Not started | - |
 | 14. Documentation | 0/2 | Not started | - |
