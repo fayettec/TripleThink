@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 12 of 14 (GUI Advanced Features)
-Plan: 2 of 2 (Validation UI & Timeline Indicators)
-Status: Phase complete
-Last activity: 2026-01-17 — Completed 12-02-PLAN.md
+Plan: 1 of 2 (Relationship Map & Dashboard)
+Status: In progress
+Last activity: 2026-01-17 — Completed 12-01-PLAN.md
 
-Progress: █████████████ 89% (31/35 plans)
+Progress: █████████████ 91% (32/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 31
+- Total plans completed: 32
 - Average duration: 2.7 min
-- Total execution time: 1.4 hours
+- Total execution time: 1.5 hours
 
 **By Phase:**
 
@@ -38,11 +38,11 @@ Progress: █████████████ 89% (31/35 plans)
 | 09 | 3 | 10 min | 3.3 min |
 | 10 | 4 | 13 min | 3.3 min |
 | 11 | 4 | 12 min | 3.0 min |
-| 12 | 1 | 3 min | 3.0 min |
+| 12 | 2 | 7 min | 3.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 4min, 3min, 4min, 1min, 3min (avg: 3.0 min)
-- Trend: Phase 12 started - Validation UI and timeline indicators added, maintaining excellent velocity
+- Last 5 plans: 3min, 4min, 1min, 3min, 4min (avg: 3.0 min)
+- Trend: Phase 12 in progress - Dashboard and relationship visualization added, maintaining excellent velocity
 
 ## Accumulated Context
 
@@ -182,6 +182,10 @@ Recent decisions affecting current work:
 - Event delegation for scene clicks - Check for button clicks first (early return), then scene cards prevents conflicts between button actions and scene editor opening
 
 **Phase 12 decisions:**
+- Vis.js for relationship graphs instead of D3 - Built-in network layouts optimized for relationship graphs reduce code complexity compared to D3 force simulation
+- Dashboard as default route - Story health overview (unfired setups, incomplete arcs, unresolved conflicts) is better entry point than timeline
+- Edge color priority for relationships: trust > conflict > respect > power - Clear visual hierarchy prevents confusion when relationships have multiple characteristics
+- Widget click navigation pre-selects Story Logic tabs - Dashboard updates state.activeTab before navigation for seamless drill-down UX
 - 8 validation categories match Phase 13 structure - Organizing 100+ rules by category (Epistemic, Causality, Arcs, Conflicts, Setup/Payoffs, World Rules, Narrative, Performance) makes them manageable
 - Snapshot anchors every 10 events - Heuristic (sequence_index % 10 === 0) shows anchor points where full state snapshots exist, gold badge with ⚓ icon for visual distinction
 - Delta symbols show chain distance - Gray ΔN badges (0-9) show distance from last snapshot for state reconstruction understanding
@@ -197,6 +201,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-17T14:47:22Z
-Stopped at: Completed 12-02-PLAN.md (Validation UI & Timeline Indicators) - Phase 12 complete
+Last session: 2026-01-17T14:48:31Z
+Stopped at: Completed 12-01-PLAN.md (Relationship Map & Dashboard)
 Resume file: None
