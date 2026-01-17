@@ -1325,3 +1325,26 @@ main {
   background: #e5e7eb;
 }
 
+
+/* Empty State Inline (for modals) */
+.empty-state-inline {
+  padding: 2rem 1rem;
+  text-align: center;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 2px dashed #d1d5db;
+}
+
+.empty-state-inline .empty-message {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.empty-state-inline .empty-hint {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+

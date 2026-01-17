@@ -151,7 +151,12 @@ const CharactersScreen = {
                   `).join('')}
                 </ul>
               </div>
-            ` : '<p class="empty-hint">No facts known yet</p>'}
+            ` : `
+              <div class="empty-state-inline">
+                <p class="empty-message">No knowledge tracked yet</p>
+                <p class="empty-hint">Track knowledge via scene editor</p>
+              </div>
+            `}
 
             ${beliefs.length > 0 ? `
               <div class="knowledge-section false-beliefs">
