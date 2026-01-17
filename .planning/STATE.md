@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 11 of 14 (GUI Epistemic & Reader Knowledge)
-Plan: 1 of 1 (Reader Knowledge Tracker)
-Status: In progress
-Last activity: 2026-01-17 — Completed 11-01-PLAN.md
+Plan: 3 of 3 (Reader Knowledge Events UI)
+Status: Phase complete
+Last activity: 2026-01-17 — Completed 11-03-PLAN.md
 
-Progress: ███████████░ 77% (27/35 plans)
+Progress: ████████████░ 83% (29/35 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 27
-- Average duration: 2.7 min
+- Total plans completed: 28
+- Average duration: 2.8 min
 - Total execution time: 1.3 hours
 
 **By Phase:**
@@ -37,11 +37,11 @@ Progress: ███████████░ 77% (27/35 plans)
 | 08 | 3 | 9 min | 3.0 min |
 | 09 | 3 | 10 min | 3.3 min |
 | 10 | 4 | 13 min | 3.3 min |
-| 11 | 1 | 3 min | 3.0 min |
+| 11 | 2 | 7 min | 3.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 4min, 3min, 3min, 3min, 3min (avg: 3.2 min)
-- Trend: Phase 11 started - Epistemic UI components with reader knowledge, consistent velocity
+- Last 5 plans: 3min, 3min, 3min, 3min, 4min (avg: 3.2 min)
+- Trend: Phase 11 complete - Epistemic UI with comparison and false belief visualization, velocity consistent
 
 ## Accumulated Context
 
@@ -166,6 +166,11 @@ Recent decisions affecting current work:
 
 **Phase 11 decisions:**
 - Reader as epistemic entity - Use existing epistemic endpoints with reader-{fictionId} entity ID pattern instead of creating new dedicated reader-knowledge endpoints
+- D3 force-directed layout for epistemic graph - Reused pattern from Phase 9 causality graph, natural visual clustering for knowledge states
+- Color-coded nodes by knowledge category - Green (shared), blue (primary-only), purple (secondary-only), orange (false beliefs) enable instant visual distinction
+- Comparison diff badges with click filtering - Interactive filtering via badge clicks provides user control over graph visibility, active badge highlighting shows current filter
+- Three-level false belief visualization - Orange border on nodes + hover tooltip + click detail panel provides progressive disclosure of false belief information
+- Empty state dictionary pattern - Centralized icon/message/hint mapping for multiple scenarios improves consistency across no-project/no-characters/no-data states
 - Leverage cumulative knowledge queries - Single timestamp query returns all facts entity knows by that point, epistemic module handles cumulative logic
 - Aggregate irony panel for all present characters - Scene editor checks dramatic irony for all characters in present_entity_ids array via parallel queries
 
@@ -179,6 +184,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-17T14:03:40Z
-Stopped at: Completed 11-01-PLAN.md (Reader Knowledge Tracker) - 3 components created
+Last session: 2026-01-17T01:05:09Z
+Stopped at: Completed 11-02-PLAN.md (Epistemic Character Comparison) - Phase 11 complete
 Resume file: None
