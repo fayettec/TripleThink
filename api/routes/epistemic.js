@@ -162,6 +162,25 @@ module.exports = function createEpistemicRoutes(db) {
 
   // ==================== RELATIONSHIP DYNAMICS ====================
 
+  // Query all relationships in a fiction (for visualization)
+  router.get('/relationships', (req, res) => {
+    const { fiction_id, timestamp } = req.query;
+
+    if (!fiction_id) {
+      return res.status(400).json({ error: 'fiction_id query parameter required' });
+    }
+
+    const ts = timestamp ? parseInt(timestamp) : null;
+
+    try {
+      const rels = relationships.getAllRelationships(db, fiction_id, ts);
+      res.json(rels);
+    } catch (error) {
+      console.error('Error fetching relationships:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   // Record a relationship
   router.post('/relationships', (req, res) => {
     try {
