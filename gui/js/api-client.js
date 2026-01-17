@@ -738,7 +738,7 @@ class APIClient {
    * @returns {Promise<array>} Array of relationships
    */
   async getRelationships(fictionId) {
-    return this.request(`/api/relationships?fiction_id=${fictionId}`);
+    return this.request(`/api/epistemic/relationships?fiction_id=${fictionId}`);
   }
 
   /**
