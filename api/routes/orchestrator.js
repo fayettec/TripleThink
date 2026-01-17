@@ -172,7 +172,7 @@ module.exports = function createOrchestratorRoutes(db) {
       // We need to get scenes by chapterId, but the scenes module uses fictionId as primary filter
       // For now, we'll get all scenes and filter by chapterId
       const allScenes = db.prepare(`
-        SELECT * FROM scenes WHERE chapterId = ? ORDER BY sceneNumber ASC
+        SELECT * FROM narrative_scenes WHERE chapter_id = ? ORDER BY scene_number ASC
       `).all(chapterId);
 
       if (allScenes.length < 2) {
@@ -224,11 +224,11 @@ module.exports = function createOrchestratorRoutes(db) {
 
       // Get scenes for both chapters
       const chapter1Scenes = db.prepare(`
-        SELECT * FROM scenes WHERE chapterId = ? ORDER BY sceneNumber ASC
+        SELECT * FROM narrative_scenes WHERE chapter_id = ? ORDER BY scene_number ASC
       `).all(chapter1Id);
 
       const chapter2Scenes = db.prepare(`
-        SELECT * FROM scenes WHERE chapterId = ? ORDER BY sceneNumber ASC
+        SELECT * FROM narrative_scenes WHERE chapter_id = ? ORDER BY scene_number ASC
       `).all(chapter2Id);
 
       // Move all chapter2 scenes to chapter1
@@ -247,6 +247,76 @@ module.exports = function createOrchestratorRoutes(db) {
         mergedChapter: chapter1Id,
         deletedChapter: chapter2Id,
         totalScenes: allScenes.length
+      });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Rename a chapter (architectural limitation - chapters are ID-based)
+  router.patch('/chapters/:chapterId', (req, res) => {
+    try {
+      const { chapterId } = req.params;
+      const { title } = req.body;
+
+      // Validate title
+      if (!title || typeof title !== 'string' || title.trim() === '') {
+        return res.status(400).json({ error: 'title is required and must be non-empty string' });
+      }
+
+      // Get all scenes for this chapter to verify it exists
+      // Note: Using narrative_scenes (real table name), not scenes (typo in split/merge endpoints)
+      const scenesInChapter = db.prepare(`
+        SELECT id FROM narrative_scenes WHERE chapter_id = ?
+      `).all(chapterId);
+
+      if (scenesInChapter.length === 0) {
+        return res.status(404).json({ error: `Chapter ${chapterId} not found` });
+      }
+
+      // Note: Chapters in this system are logical groupings (scenes with same chapter_id)
+      // They don't have separate titles - the chapter_id IS the identifier
+      // To support chapter titles would require either:
+      // 1. A separate chapters table (heavyweight for current architecture)
+      // 2. Storing metadata in a JSON field somewhere
+      // For now, return success but note limitation
+      res.json({
+        chapterId,
+        message: 'Chapter ID is immutable. To change chapter organization, use split/merge operations.',
+        sceneCount: scenesInChapter.length,
+        requestedTitle: title
+      });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // Delete a chapter (deletes all scenes in the chapter)
+  router.delete('/chapters/:chapterId', (req, res) => {
+    try {
+      const { chapterId } = req.params;
+
+      // Get all scenes for this chapter
+      // Note: Using narrative_scenes (real table name), not scenes (typo in split/merge endpoints)
+      const scenesInChapter = db.prepare(`
+        SELECT id FROM narrative_scenes WHERE chapter_id = ?
+      `).all(chapterId);
+
+      if (scenesInChapter.length === 0) {
+        return res.status(404).json({ error: `Chapter ${chapterId} not found` });
+      }
+
+      // Delete all scenes in this chapter
+      let deletedCount = 0;
+      for (const scene of scenesInChapter) {
+        scenes.deleteScene(db, scene.id);
+        deletedCount++;
+      }
+
+      res.json({
+        chapterId,
+        deletedScenes: deletedCount,
+        message: `Chapter ${chapterId} and its ${deletedCount} scene(s) deleted`
       });
     } catch (err) {
       res.status(500).json({ error: err.message });
