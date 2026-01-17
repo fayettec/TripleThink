@@ -137,6 +137,19 @@ const TimelineScreen = {
   },
 
   async renderTimelineEvent(scene) {
+    // Determine if this is a snapshot anchor or delta
+    // Snapshot every 10 events (sequence_index % 10 === 0)
+    const isSnapshot = scene.sequence_index && scene.sequence_index % 10 === 0;
+    const deltaDistance = scene.sequence_index ? scene.sequence_index % 10 : 0;
+
+    // Build state reconstruction indicator
+    let stateIndicator = '';
+    if (isSnapshot) {
+      stateIndicator = '<span class="snapshot-anchor" title="State Snapshot - Full state capture at this point">⚓ Snapshot</span>';
+    } else {
+      stateIndicator = `<span class="delta-symbol" title="Delta Event - ${deltaDistance} change${deltaDistance !== 1 ? 's' : ''} since last snapshot">Δ${deltaDistance}</span>`;
+    }
+
     let html = `
       <div class="timeline-event" data-scene-id="${scene.id}" data-timestamp="${scene.narrative_time}">
         <div class="event-card">
@@ -144,6 +157,7 @@ const TimelineScreen = {
             <span class="event-number">#${scene.scene_number}</span>
             <h3 class="event-title">${scene.title || 'Untitled Scene'}</h3>
             <span class="event-time">T+${scene.narrative_time}</span>
+            ${stateIndicator}
           </div>
           <div class="event-body">
             <div class="event-description">${scene.summary || '<em>No summary</em>'}</div>
