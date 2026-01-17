@@ -670,6 +670,63 @@ class APIClient {
       method: 'DELETE'
     });
   }
+
+  // ============================================================
+  // EPISTEMIC ENDPOINTS
+  // ============================================================
+
+  /**
+   * Get entity's knowledge at a specific timestamp
+   * @param {string} entityId - Entity ID
+   * @param {number} timestamp - Narrative timestamp
+   * @param {object} filters - Optional filters (factType, factKey, fictionId)
+   * @returns {Promise<object>} Knowledge state with facts array
+   */
+  async getEntityKnowledge(entityId, timestamp, filters = {}) {
+    const params = new URLSearchParams({ timestamp: timestamp.toString(), ...filters });
+    return this.request(`/api/epistemic/entities/${entityId}/knowledge?${params}`);
+  }
+
+  /**
+   * Get false beliefs for dramatic irony
+   * @param {string} entityId - Entity ID
+   * @param {number} timestamp - Narrative timestamp
+   * @param {string} fictionId - Optional fiction ID filter
+   * @returns {Promise<object>} False beliefs array
+   */
+  async getFalseBeliefs(entityId, timestamp, fictionId = null) {
+    const params = new URLSearchParams({ timestamp: timestamp.toString() });
+    if (fictionId) params.append('fictionId', fictionId);
+    return this.request(`/api/epistemic/entities/${entityId}/false-beliefs?${params}`);
+  }
+
+  /**
+   * Get knowledge divergence between two entities
+   * @param {string} entityAId - First entity ID
+   * @param {string} entityBId - Second entity ID
+   * @param {number} timestamp - Narrative timestamp
+   * @param {string} fictionId - Optional fiction ID filter
+   * @returns {Promise<object>} Divergence data
+   */
+  async getKnowledgeDivergence(entityAId, entityBId, timestamp, fictionId = null) {
+    const params = new URLSearchParams({ timestamp: timestamp.toString() });
+    if (fictionId) params.append('fictionId', fictionId);
+    return this.request(`/api/epistemic/divergence/${entityAId}/${entityBId}?${params}`);
+  }
+
+  /**
+   * Get all entities who know a specific fact
+   * @param {string} factType - Fact type
+   * @param {string} factKey - Fact key
+   * @param {number} timestamp - Narrative timestamp
+   * @param {string} fictionId - Optional fiction ID filter
+   * @returns {Promise<object>} Knowers array
+   */
+  async getFactKnowers(factType, factKey, timestamp, fictionId = null) {
+    const params = new URLSearchParams({ timestamp: timestamp.toString() });
+    if (fictionId) params.append('fictionId', fictionId);
+    return this.request(`/api/epistemic/knowers/${factType}/${factKey}?${params}`);
+  }
 }
 
 // Export singleton instance
