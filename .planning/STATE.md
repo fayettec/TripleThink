@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 15 of 15 (Wire Relationship Map)
-Plan: 1 of 1
+Plan: 2 of 2
 Status: Complete
-Last activity: 2026-01-17 — Completed 15-01-PLAN.md (verification of GUI-31/GUI-32 requirements)
+Last activity: 2026-01-17 — Completed 15-02-PLAN.md (API endpoint fix for RelationshipMap data fetching)
 
-Progress: ████████████████ 100% (39/39 plans)
+Progress: ████████████████ 100% (40/40 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 39
-- Average duration: 4.4 min
+- Total plans completed: 40
+- Average duration: 4.3 min
 - Total execution time: 2.9 hours
 
 **By Phase:**
@@ -41,11 +41,11 @@ Progress: ████████████████ 100% (39/39 plans)
 | 12 | 3 | 9 min | 3.0 min |
 | 13 | 3 | 41 min | 13.7 min |
 | 14 | 2 | 13 min | 6.5 min |
-| 15 | 1 | 1 min | 1.0 min |
+| 15 | 2 | 3 min | 1.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 6min, 11min, 5min, 8min, 1min (avg: 6.2 min)
-- Trend: Phase 15 complete - Verified RelationshipMap wiring (GUI-31/GUI-32 confirmed satisfied by 12-03)
+- Last 5 plans: 11min, 5min, 8min, 1min, 2min (avg: 5.4 min)
+- Trend: Phase 15 complete - Fixed RelationshipMap API endpoint and database query (gap closure complete)
 
 ## Accumulated Context
 
@@ -196,6 +196,12 @@ Recent decisions affecting current work:
 - Tab pattern for screen sections - Characters screen uses tab-navigation with characterTab state tracking (list/relationships), matching story-logic.js pattern for UI consistency
 - currentProjectId serves as fictionId - Relationship API expects fictionId but system uses currentProjectId consistently across all screens
 
+**Phase 15 decisions:**
+- getAllRelationships() supports optional timestamp for temporal queries following existing relationship module patterns - Query all relationships at a specific narrative point vs all records
+- Query endpoint placed before POST endpoint in routes for logical route ordering - Convention: read operations before write operations
+- Relationship deduplication by pair key when timestamp filter applied to get latest state - Each entity pair has one current relationship state at any given time
+- No NARRATIVE_DELTAS join needed for getAllRelationships - Relationships table has fiction_id directly, simpler query than epistemic facts which require join
+
 **Phase 13 decisions:**
 - Benchmark iteration counts inversely proportional to complexity - 100 iterations for fast operations, 10 for slow ensures stable metrics without excessive runtime
 - In-memory SQLite for benchmark isolation - Each benchmark creates fresh :memory: database for no file I/O overhead and zero cross-test contamination
@@ -220,7 +226,12 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-17T18:33:57Z
-Stopped at: Phase 15 complete - Verified RelationshipMap component wired and accessible (GUI-31/GUI-32 satisfied)
+Last session: 2026-01-17T18:52:37Z
+Stopped at: Phase 15 complete - Fixed RelationshipMap API endpoint gap (all 40 plans executed)
 Resume file: None
 Next: All phases complete - TripleThink v4.1 ready for deployment
+
+**Gap closure successful:**
+- 15-01: Verified RelationshipMap component wired (GUI-31/GUI-32 satisfied by 12-03)
+- 15-02: Fixed API endpoint mismatch and added getAllRelationships() database function
+- End-to-end flow complete: GUI → API client → API endpoint → database module
